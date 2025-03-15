@@ -1,0 +1,24 @@
+.edit-button {
+  background-color: #BBDEFB; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+}
+
+.delete-button {
+  background-color: #FFCDD2; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+}
+
+.icon {
+  font-size: 20px; 
+  color: #0D47A1; 
+}
+
+.delete-button .icon {
+  color: #B71C1C; 
+}
