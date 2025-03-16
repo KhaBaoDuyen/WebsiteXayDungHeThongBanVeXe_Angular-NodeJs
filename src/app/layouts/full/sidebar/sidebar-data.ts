@@ -58,7 +58,34 @@ export const navItems: NavItem[] = [
     displayName: 'Tables',
     iconName: 'solar:tablet-line-duotone',
     route: '/ui-components/tables',
+  }, 
+  
+  {
+    displayName: 'Người Dùng',
+    iconName: 'solar:user-bold-duotone',
+    route: '/ui-components/admin-users',
   },
+  {
+    displayName: 'Tuyến Đường',
+    iconName: 'solar:bed-broken',
+    route: '/ui-components/',
+  },
+  {
+    displayName: 'Lịch Trình',
+    iconName: 'solar:calendar-broken',
+    route: '/ui-components/',
+  },
+  {
+    displayName: 'Đặt Vé',
+    iconName: 'solar:cart-check-broken',
+    route: '/ui-components/',
+  },
+  {
+    displayName: 'Thanh Toán',
+    iconName: 'solar:wallet-money-linear',
+    route: '/ui-components/admin-pay',
+  },
+
   {
     navCap: 'Extra',
     divider: true
