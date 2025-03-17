@@ -10,25 +10,128 @@ export const navItems: NavItem[] = [
     route: '/dashboard',
   },
   {
-    navCap: 'QUẢN LÝ',
+    navCap: 'QUẢN LÝ CHUYẾN XE',
     divider: true
   },
   {
-    displayName: 'Chuyến xe',
-    iconName: 'solar:archive-minimalistic-line-duotone',
+    displayName: 'Quản lý chuyến xe',
+    iconName: 'material-symbols:directions-bus',
     children: [
       {
         displayName: 'Danh sách',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
+        iconName: 'solar:list-check-line-duotone',
         route: '/ui-components/busGetAll',
       },
       {
         displayName: 'Thêm mới',
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
+        iconName: 'solar:document-line-duotone',
         route: '/ui-components/busAdd',
       },
     ]
   },
+  {
+    displayName: 'Quản lý xe',
+    iconName: 'mdi:bus',
+    children: [
+      {
+        displayName: 'Danh sách xe',
+        iconName: 'mdi:clipboard-list-outline',
+        route: '/ui-components/busGetAll',
+      },
+      {
+        displayName: 'Thêm xe mới',
+        iconName: 'mdi:file-document-edit-outline',
+        route: '/ui-components/busAdd',
+      },
+    ]
+  },
+{
+  displayName: 'Quản lý loại xe',
+  iconName: 'mdi:bus-multiple',
+  children: [
+    {
+      displayName: 'Danh sách loại xe',
+      iconName: 'solar:list-check-line-duotone',
+      route: '/ui-components/busTypeGetAll',
+    },
+    {
+      displayName: 'Thêm loại xe',
+      iconName: 'solar:document-line-duotone',
+      route: '/ui-components/busTypeAdd',
+    },
+  ]
+},
+  {
+    navCap: 'QUẢN LÝ  TÀI KHOẢN',
+    divider: true
+  },
+  {
+    displayName: 'Quản lý tài xế',
+    iconName: 'mdi:account-tie',
+    children: [
+      {
+        displayName: 'Danh sách',
+        iconName: 'solar:list-check-line-duotone',
+        route: '/ui-components/busGetAll',
+      },
+      {
+        displayName: 'Thêm mới',
+        iconName: 'solar:document-line-duotone',
+        route: '/ui-components/busAdd',
+      },
+    ]
+  },
+  {
+    displayName: 'Quản lý tài khoản',
+    iconName: 'mdi:account-cog',
+    route: '/ui-components/accountGetAll',
+  },
+  {
+    navCap: 'QUẢN LÝ CHUNG',
+    divider: true
+  },
+{
+  displayName: 'Quản lý Blog',
+  iconName: 'mdi:note-text-outline',
+  children: [
+    {
+      displayName: 'Danh sách bài viết',
+      iconName: 'solar:list-check-line-duotone',
+      route: '/ui-components/blogGetAll',
+    },
+    {
+      displayName: 'Thêm bài viết',
+      iconName: 'solar:document-line-duotone',
+      route: '/ui-components/blogAdd',
+    },
+  ]
+},
+{
+  "displayName": "Quản lý Vé",
+  "iconName": "mdi:ticket-confirmation",
+  "children": [
+    {
+      "displayName": "Danh sách vé",
+      "iconName": "solar:list-check-line-duotone",
+      "route": "/ui-components/ticketGetAll"
+    },
+    {
+      "displayName": "Đã thanh toán",
+      "iconName": "mdi:credit-card-check-outline",
+      "route": "/ui-components/ticketPaid"
+    },
+    {
+      "displayName": "Đã hủy",
+      "iconName": "mdi:cancel",
+      "route": "/ui-components/ticketCanceled"
+    }
+  ]
+},
+{
+  "displayName": "Quản lý Đánh Giá",
+  "iconName": "solar:star-line-duotone",
+  "route": "/ui-components/reviews"
+},
   {
     displayName: 'Chips',
     iconName: 'solar:danger-circle-line-duotone',
