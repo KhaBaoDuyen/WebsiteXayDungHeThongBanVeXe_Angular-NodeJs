@@ -5,7 +5,7 @@ import { Routes } from '@angular/router';
 
 
 
-export const AuthenticationRoutes: Routes = [
+export const ticketRoutes: Routes = [
   {
     path: '',
     children: [

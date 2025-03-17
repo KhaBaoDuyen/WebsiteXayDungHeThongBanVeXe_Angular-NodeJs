@@ -4,12 +4,12 @@ import { FullComponent } from './layouts/full/full.component';
 
 export const routes: Routes = [
   {
-    path: '',
+    path: 'admin',
     component: FullComponent,
     children: [
       {
         path: '',
-        redirectTo: '/dashboard',
+        redirectTo: '/admin/dashboard',
         pathMatch: 'full',
       },
       {

@@ -4,16 +4,16 @@ import { Routes } from '@angular/router';
 
 
 
-export const AuthenticationRoutes: Routes = [
+export const busTypeRoutes: Routes = [
   {
     path: '',
     children: [
       {
-        path: 'bustypeGetAll',
+        path: 'busTypeGetAll',
         component: BustypeGetAllComponent,
       },
       {
-        path: 'bustypeAdd',
+        path: 'busTypeAdd',
         component: BustypeCreateComponent,
       },
     ],

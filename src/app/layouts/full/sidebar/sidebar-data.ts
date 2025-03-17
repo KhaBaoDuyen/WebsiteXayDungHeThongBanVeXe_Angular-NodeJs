@@ -7,7 +7,7 @@ export const navItems: NavItem[] = [
   {
     displayName: 'Bảng điều khiển',
     iconName: 'solar:widget-add-line-duotone',
-    route: '/dashboard',
+    route: '/admin/dashboard',
   },
   {
     navCap: 'QUẢN LÝ CHUYẾN XE',
@@ -15,33 +15,33 @@ export const navItems: NavItem[] = [
   },
   {
     displayName: 'Quản lý tuyến đường',
-    iconName: 'material-symbols:directions-bus',
+    iconName: 'solar:routing-2-bold',
     children: [
       {
         displayName: 'Danh sách',
         iconName: 'solar:list-check-line-duotone',
-        route: '/ui-components/routesGetAll',
+        route: '/admin/ui-components/routesGetAll',
       },
       {
         displayName: 'Thêm mới',
         iconName: 'solar:document-line-duotone',
-        route: '/ui-components/routesAdd',
+        route: '/admin/ui-components/routesAdd',
       },
     ]
   },
   {
     displayName: 'Quản lý chuyến xe',
-    iconName: 'material-symbols:directions-bus',
+    iconName: 'solar:route-bold',
     children: [
       {
         displayName: 'Danh sách',
         iconName: 'solar:list-check-line-duotone',
-        route: '/ui-components/busGetAll',
+        route: '/admin/ui-components/busGetAll',
       },
       {
         displayName: 'Thêm mới',
         iconName: 'solar:document-line-duotone',
-        route: '/ui-components/busAdd',
+        route: '/admin/ui-components/busAdd',
       },
     ]
   },
@@ -52,31 +52,31 @@ export const navItems: NavItem[] = [
       {
         displayName: 'Danh sách xe',
         iconName: 'mdi:clipboard-list-outline',
-        route: '/ui-components/busesGetAll',
+        route: '/admin/ui-components/busesGetAll',
       },
       {
         displayName: 'Thêm xe mới',
         iconName: 'mdi:file-document-edit-outline',
-        route: '/ui-components/busesAdd',
+        route: '/admin/ui-components/busesAdd',
       },
     ]
   },
-{
-  displayName: 'Quản lý loại xe',
-  iconName: 'mdi:bus-multiple',
-  children: [
-    {
-      displayName: 'Danh sách loại xe',
-      iconName: 'solar:list-check-line-duotone',
-      route: '/ui-components/busTypeGetAll',
-    },
-    {
-      displayName: 'Thêm loại xe',
-      iconName: 'solar:document-line-duotone',
-      route: '/ui-components/busTypeAdd',
-    },
-  ]
-},
+  {
+    displayName: 'Quản lý loại xe',
+    iconName: 'mdi:bus-multiple',
+    children: [
+      {
+        displayName: 'Danh sách loại xe',
+        iconName: 'solar:list-check-line-duotone',
+        route: '/admin/ui-components/busTypeGetAll',
+      },
+      {
+        displayName: 'Thêm loại xe',
+        iconName: 'solar:document-line-duotone',
+        route: '/admin/ui-components/busTypeAdd',
+      },
+    ]
+  },
   {
     navCap: 'QUẢN LÝ  TÀI KHOẢN',
     divider: true
@@ -88,95 +88,65 @@ export const navItems: NavItem[] = [
       {
         displayName: 'Danh sách',
         iconName: 'solar:list-check-line-duotone',
-        route: '/ui-components/driverGetAll',
+        route: '/admin/ui-components/driverGetAll',
       },
       {
         displayName: 'Thêm mới',
         iconName: 'solar:document-line-duotone',
-        route: '/ui-components/driverAdd',
+        route: '/admin/ui-components/driverAdd',
       },
     ]
   },
   {
     displayName: 'Quản lý tài khoản',
     iconName: 'mdi:account-cog',
-    route: '/ui-components/UserGetAll',
+    route: '/admin/ui-components/UserGetAll',
   },
   {
     navCap: 'QUẢN LÝ CHUNG',
     divider: true
   },
-{
-  displayName: 'Quản lý Blog',
-  iconName: 'mdi:note-text-outline',
-  children: [
-    {
-      displayName: 'Danh sách bài viết',
-      iconName: 'solar:list-check-line-duotone',
-      route: '/ui-components/blogGetAll',
-    },
-    {
-      displayName: 'Thêm bài viết',
-      iconName: 'solar:document-line-duotone',
-      route: '/ui-components/blogAdd',
-    },
-  ]
-},
-{
-  "displayName": "Quản lý Vé",
-  "iconName": "mdi:ticket-confirmation",
-  "children": [
-    {
-      "displayName": "Danh sách vé",
-      "iconName": "solar:list-check-line-duotone",
-      "route": "/ui-components/ticketGetAll"
-    },
-    {
-      "displayName": "Đã thanh toán",
-      "iconName": "mdi:credit-card-check-outline",
-      "route": "/ui-components/ticketPaid"
-    },
-    {
-      "displayName": "Đã hủy",
-      "iconName": "mdi:cancel",
-      "route": "/ui-components/ticketCanceled"
-    }
-  ]
-},
-{
-  "displayName": "Quản lý Đánh Giá",
-  "iconName": "solar:star-line-duotone",
-  "route": "/ui-components/reviews"
-},
   {
-    displayName: 'Chips',
-    iconName: 'solar:danger-circle-line-duotone',
-    route: '/ui-components/chips',
+    displayName: 'Quản lý Blog',
+    iconName: 'mdi:note-text-outline',
+    children: [
+      {
+        displayName: 'Danh sách bài viết',
+        iconName: 'solar:list-check-line-duotone',
+        route: '/admin/ui-components/blogGetAll',
+      },
+      {
+        displayName: 'Thêm bài viết',
+        iconName: 'solar:document-line-duotone',
+        route: '/admin/ui-components/blogAdd',
+      },
+    ]
   },
   {
-    displayName: 'Lists',
-    iconName: 'solar:bookmark-square-minimalistic-line-duotone',
-    route: '/ui-components/lists',
+    displayName: 'Quản lý Vé',
+    iconName: "mdi:ticket-confirmation",
+    children: [
+      {
+        displayName: "Danh sách vé",
+        iconName: "solar:list-check-line-duotone",
+        route: "/admin/ui-components/ticketGetAll"
+      },
+      {
+        displayName: "Đã thanh toán",
+        iconName: "mdi:credit-card-check-outline",
+        route: "/admin/ui-components/ticketPaid"
+      },
+      {
+        displayName: "Đã hủy",
+        iconName: "mdi:cancel",
+        route: "/admin/ui-components/ticketCanceled"
+      }
+    ]
   },
   {
-    displayName: 'Menu',
-    iconName: 'solar:file-text-line-duotone',
-    route: '/ui-components/menu',
-  },
-  {
-    displayName: 'Tooltips',
-    iconName: 'solar:text-field-focus-line-duotone',
-    route: '/ui-components/tooltips',
-  },
-  {
-    displayName: 'Forms',
-    iconName: 'solar:file-text-line-duotone',
-    route: '/ui-components/forms',
-  },
-  {
-    displayName: 'Tables',
-    iconName: 'solar:tablet-line-duotone',
-    route: '/ui-components/tables',
+    displayName: "Quản lý Đánh Giá",
+    iconName: "solar:star-line-duotone",
+    route: "/admin/ui-components/reviews"
   },
   {
     navCap: 'Extra',
@@ -185,42 +155,22 @@ export const navItems: NavItem[] = [
   {
     displayName: 'Icons',
     iconName: 'solar:sticker-smile-circle-2-line-duotone',
-    route: '/extra/icons',
-  },
-  {
-    displayName: 'Sample Page',
-    iconName: 'solar:planet-3-line-duotone',
-    route: '/extra/sample-page',
+    route: '/admin/extra/icons',
   },
   {
     divider: true,
-    navCap: 'Auth',
+    navCap: 'Tài khoản',
   },
   {
     displayName: 'Đăng nhập',
     iconName: 'solar:lock-keyhole-minimalistic-line-duotone',
-    route: '/authentication',
-    children: [
-      {
-        displayName: 'Đăng nhập',
-        subItemIcon: true,
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
-        route: '/authentication/login',
-      }
-    ],
+    route: '//authentication/login',
   },
   {
     displayName: 'Đăng ký',
     iconName: 'solar:user-plus-rounded-line-duotone',
-    route: '/authentication',
-    children: [
-      {
-        displayName: 'Đăng ký',
-        subItemIcon: true,
-        iconName: 'solar:round-alt-arrow-right-line-duotone',
         route: '/authentication/register',
       },
-    ],
-  },
+
 
 ];
