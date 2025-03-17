@@ -14,6 +14,22 @@ export const navItems: NavItem[] = [
     divider: true
   },
   {
+    displayName: 'Quản lý tuyến đường',
+    iconName: 'material-symbols:directions-bus',
+    children: [
+      {
+        displayName: 'Danh sách',
+        iconName: 'solar:list-check-line-duotone',
+        route: '/ui-components/routesGetAll',
+      },
+      {
+        displayName: 'Thêm mới',
+        iconName: 'solar:document-line-duotone',
+        route: '/ui-components/routesAdd',
+      },
+    ]
+  },
+  {
     displayName: 'Quản lý chuyến xe',
     iconName: 'material-symbols:directions-bus',
     children: [
@@ -36,12 +52,12 @@ export const navItems: NavItem[] = [
       {
         displayName: 'Danh sách xe',
         iconName: 'mdi:clipboard-list-outline',
-        route: '/ui-components/busGetAll',
+        route: '/ui-components/busesGetAll',
       },
       {
         displayName: 'Thêm xe mới',
         iconName: 'mdi:file-document-edit-outline',
-        route: '/ui-components/busAdd',
+        route: '/ui-components/busesAdd',
       },
     ]
   },
@@ -72,19 +88,19 @@ export const navItems: NavItem[] = [
       {
         displayName: 'Danh sách',
         iconName: 'solar:list-check-line-duotone',
-        route: '/ui-components/busGetAll',
+        route: '/ui-components/driverGetAll',
       },
       {
         displayName: 'Thêm mới',
         iconName: 'solar:document-line-duotone',
-        route: '/ui-components/busAdd',
+        route: '/ui-components/driverAdd',
       },
     ]
   },
   {
     displayName: 'Quản lý tài khoản',
     iconName: 'mdi:account-cog',
-    route: '/ui-components/accountGetAll',
+    route: '/ui-components/UserGetAll',
   },
   {
     navCap: 'QUẢN LÝ CHUNG',
