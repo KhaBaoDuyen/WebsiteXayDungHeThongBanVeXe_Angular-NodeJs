@@ -6,7 +6,7 @@ import { RouterModule } from '@angular/router';
   selector: 'app-branding',
   imports: [RouterModule],
   template: `
-    <a [routerLink]="['/']">
+    <a [routerLink]="['/admin']">
       <img
         src="./assets/images/logos/logo.svg"
         class="align-middle m-2"

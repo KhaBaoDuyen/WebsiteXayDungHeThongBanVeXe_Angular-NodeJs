@@ -6,64 +6,71 @@ import { CommonModule } from '@angular/common';
 
 export interface productsData {
   id: number;
-  imagePath: string;
-  uname: string;
-  position: string;
-  hrate: number;
-  skills: string;
-  priority: string;
-  progress: string;
+  route: string;
+  departureTime: string;
+  ticketPrice: number;
+  seatsAvailable: number;
+  revenue: number;
 }
 
 const ELEMENT_DATA: productsData[] = [
   {
     id: 1,
-    imagePath: 'assets/images/products/dash-prd-1.jpg',
-    uname: 'Minecraf App',
-    position: 'Jason Roy',
-    skills: '3.5',
-    hrate: 73.2,
-    priority: 'Low',
-    progress: 'success',
+    route: 'Hà Nội - Hải Phòng',
+    departureTime: '06:00 am',
+    ticketPrice: 150000,
+    seatsAvailable: 45,
+    revenue: 6750000,
   },
   {
     id: 2,
-    imagePath: 'assets/images/products/dash-prd-2.jpg',
-    uname: 'Web App Project',
-    position: 'Mathew Flintoff',
-    skills: '3.5',
-    hrate: 73.2,
-    priority: 'Medium',
-    progress: 'warning',
+    route: 'Hà Nội - Đà Nẵng',
+    departureTime: '07:30 am',
+    ticketPrice: 300000,
+    seatsAvailable: 40,
+    revenue: 12000000,
   },
   {
     id: 3,
-    imagePath: 'assets/images/products/dash-prd-3.jpg',
-    uname: 'Modernize Dashboard',
-    position: 'Anil Kumar',
-    skills: '3.5',
-    hrate: 73.2,
-    priority: 'Very High',
-    progress: 'secondary',
+    route: 'Hà Nội - Sài Gòn',
+    departureTime: '09:00 am',
+    ticketPrice: 500000,
+    seatsAvailable: 30,
+    revenue: 15000000,
   },
   {
     id: 4,
-    imagePath: 'assets/images/products/dash-prd-4.jpg',
-    uname: 'Dashboard Co',
-    position: 'George Cruize',
-    skills: '3.5',
-    hrate: 73.2,
-    priority: 'High',
-    progress: 'error',
+    route: 'Hà Nội - Lào Cai',
+    departureTime: '11:00 am',
+    ticketPrice: 200000,
+    seatsAvailable: 35,
+    revenue: 7000000,
+  },
+  {
+    id: 5,
+    route: 'Hà Nội - Vinh',
+    departureTime: '01:00 pm',
+    ticketPrice: 250000,
+    seatsAvailable: 28,
+    revenue: 7000000,
+  },
+  {
+    id: 6,
+    route: 'Hà Nội - Quảng Ninh',
+    departureTime: '03:00 pm',
+    ticketPrice: 180000,
+    seatsAvailable: 32,
+    revenue: 5760000,
   },
 ];
+
 @Component({
   selector: 'app-revenue-product',
   imports: [MaterialModule, MatMenuModule, MatButtonModule, CommonModule],
   templateUrl: './revenue-product.component.html',
 })
 export class AppRevenueProductComponent {
-  displayedColumns: string[] = ['assigned', 'progress', 'priority', 'budget'];
+  displayedColumns: string[] = ['route', 'departureTime', 'ticketPrice', 'seatsAvailable', 'revenue'];
   dataSource = ELEMENT_DATA;
 
   constructor() {}

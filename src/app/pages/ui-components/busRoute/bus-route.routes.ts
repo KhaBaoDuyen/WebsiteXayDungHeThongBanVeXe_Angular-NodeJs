@@ -3,7 +3,7 @@ import{BusCreateComponent} from "./bus-create/bus-create.component";
 import { Routes } from '@angular/router';
 
 
-export const AuthenticationRoutes: Routes = [
+export const busRoutes: Routes = [
   {
     path: '',
     children: [

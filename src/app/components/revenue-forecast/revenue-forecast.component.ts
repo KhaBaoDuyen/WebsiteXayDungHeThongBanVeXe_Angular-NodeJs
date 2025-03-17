@@ -40,20 +40,20 @@ export class AppRevenueForecastComponent {
   public revenueForecastChart!: Partial<revenueForecastChart> | any;
 
   months: month[] = [
-    { value: 'mar', viewValue: 'Sep 2025' },
-    { value: 'apr', viewValue: 'Oct 2025' },
-    { value: 'june', viewValue: 'Nov 2025' },
+    { value: 'thang1', viewValue: 'Tháng 1 2025' },
+    { value: 'thang2', viewValue: 'Tháng 2 2025' },
+    { value: 'thang3', viewValue: 'Tháng 3 2025' },
   ];
 
   constructor() {
     this.revenueForecastChart = {
       series: [
         {
-          name: '2025',
+          name: 'Năm 2025',
           data: [1.2, 2.7, 1, 3.6, 2.1, 2.7, 2.2, 1.3, 2.5],
         },
         {
-          name: '2024',
+          name: 'Năm 2024',
           data: [-2.8, -1.1, -2.5, -1.5, -2.3, -1.9, -1, -2.1, -1.3],
         },
       ],
@@ -119,15 +119,15 @@ export class AppRevenueForecastComponent {
           show: false,
         },
         categories: [
-          'Jan',
-          'Feb',
-          'Mar',
-          'Apr',
-          'May',
-          'Jun',
-          'July',
-          'Aug',
-          'Sep',
+          'Tháng 1',
+          'Tháng 2',
+          'Tháng 3',
+          'Tháng 4',
+          'Tháng 5',
+          'Tháng 6',
+          'Tháng 7',
+          'Tháng 8',
+          'Tháng 9',
         ],
         labels: {
           style: { fontSize: '13px', colors: '#adb0bb', fontWeight: '400' },
