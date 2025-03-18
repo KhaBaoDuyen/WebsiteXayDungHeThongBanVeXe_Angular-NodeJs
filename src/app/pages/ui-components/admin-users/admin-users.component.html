@@ -1,58 +1,90 @@
-<div class="mat-elevation-z8">
-    <div class="flex justify-between items-center mb-4">
-        <h1 class="text-3xl font-bold">Danh Sách Người Dùng</h1>
-        <a mat-raised-button color="primary" [routerLink]="['/admin-users/create-users']">
-          <mat-icon>person_add</mat-icon> Thêm Người Dùng
-        </a>
-      </div>
-      
-  <br>
-    <table mat-table [dataSource]="dataSource" class="w-full">
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef class="text-red-600"> ID </th>
-        <td mat-cell *matCellDef="let user"> {{ user.id }} </td>
-      </ng-container>
-      <ng-container matColumnDef="fullName">
-        <th mat-header-cell *matHeaderCellDef> Họ và Tên </th>
-        <td mat-cell *matCellDef="let user"> {{ user.fullName }} </td>
-      </ng-container>
-      <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef> Email </th>
-        <td mat-cell *matCellDef="let user"> {{ user.email }} </td>
-      </ng-container>
-      <ng-container matColumnDef="phone">
-        <th mat-header-cell *matHeaderCellDef> Số Điện Thoại </th>
-        <td mat-cell *matCellDef="let user"> {{ user.phone }} </td>
-      </ng-container>
-      <ng-container matColumnDef="role">
-        <th mat-header-cell *matHeaderCellDef> Vai Trò </th>
-        <td mat-cell *matCellDef="let user"> {{ user.role }} </td>
-      </ng-container>
-      <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef> Trạng Thái </th>
-        <td mat-cell *matCellDef="let user">
-          <span [ngStyle]="{'color': user.status.trim() === 'Bị khóa' ? 'red' : 'green'}">
-            {{ user.status }}
-          </span>
-        </td>
-      </ng-container>
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef> Hành Động </th>
-        <td mat-cell *matCellDef="let user">
-          <button mat-button color="primary" (click)="editUser(user)" class="edit-button">
-            <mat-icon class="icon">edit</mat-icon>
-          </button>
-          <button mat-button color="warn" (click)="deleteUser(user.id)" class="delete-button">
-            <mat-icon class="icon">delete</mat-icon>
-          </button>
-        </td>
-      </ng-container>
-  
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-  
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Chọn trang người dùng">
-    </mat-paginator>
-  </div>
-  
+<div class="flex justify-between items-center mb-4  mt-5">
+  <h3 class="font-bold text-2xl text-gray-500">Danh Sách người dùng</h3>
+  <button class="border border-blue-500 text-blue-500 px-4 py-2 rounded flex items-center gap-2 hover:bg-blue-500 hover:text-white transition">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+    </svg>
+    Thêm tài khoản 
+  </button>
+</div>
+
+<div class="bg-white shadow-lg rounded-lg overflow-hidden w-full border-collapse">
+  <table mat-table [dataSource]="dataSource" class="w-full border-collapse text-center">
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2 "><span
+          class="font-bold text-gray-500">ID</span></th>
+      <td mat-cell *matCellDef="let user" class="px-4 py-2 text-center">{{ user.id }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="image">
+      <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2 "><span
+          class="font-bold text-gray-500">Ảnh</span></th>
+      <td mat-cell *matCellDef="let user" class="px-4 py-2">
+        <img [src]="'./assets/images/profile/' + user.image" alt="Ảnh người dùng" class="w-13 h-13 rounded-full">
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="fullName">
+      <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2 "><span class="font-bold text-gray-500">Họ và
+          Tên</span></th>
+      <td mat-cell *matCellDef="let user" class="px-4 py-2">{{ user.fullName }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2 "><span
+          class="font-bold text-gray-500">Email</span></th>
+      <td mat-cell *matCellDef="let user" class="px-4 py-2">{{ user.email }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2 "><span class="font-bold text-gray-500">Số Điện
+          Thoại</span></th>
+      <td mat-cell *matCellDef="let user" class="px-4 py-2">{{ user.phone }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="role">
+      <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2 "><span class="font-bold text-gray-500">Vai
+          Trò</span></th>
+      <td mat-cell *matCellDef="let user" class="px-4 py-2">
+        <span [ngClass]="{
+          'text-sky-700 bg-sky-200 px-3 p-1 rounded': user.role === 'User',
+          'text-purple-700 bg-purple-200 px-4 py-1 rounded-full': user.role === 'Admin'
+        }">
+          {{ user.role }}
+        </span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2 "><span class="font-bold text-gray-500">Trạng
+          Thái</span></th>
+      <td mat-cell *matCellDef="let user" class="px-4 py-2">
+        <span [ngClass]="{
+          'text-green-700 bg-green-200 px-3 p-1 rounded': user.status === 'Hoạt động',
+          'text-red-700 bg-red-200 px-4 py-1 rounded-full': user.status === 'Bị khóa'
+        }">
+          {{ user.status }}
+        </span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2 "><span class="font-bold text-gray-500">Hành
+          Động</span></th>
+      <td mat-cell *matCellDef="let user" class="px-4 py-2 flex justify-center space-x-2">
+        <button class="m-1 bg-yellow-100 text-yellow-700 px-2 py-2 rounded flex items-center" (click)="editUser(user)">
+          <mat-icon class="text-yellow-700">edit</mat-icon>
+        </button>
+        <button class="m-1 bg-red-100 text-red-700 px-2 py-2 rounded flex items-center" (click)="deleteUser(user.id)">
+          <mat-icon class="text-red-700">delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns" class="border-b"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="hover:bg-gray-100"></tr>
+  </table>
+
+  <mat-paginator class="bg-gray-100 py-3" [pageSizeOptions]="[10, 25, 50, 100]" showFirstLastButtons></mat-paginator>
+</div>

@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 
 // ui
-import { AdminUsersComponent } from '../admin-users/admin-users.component';
+import { AdminUsersComponent } from './admin-users/admin-users.component';
 import { ReviewComponent } from './review/review.component';
 
 import { busesRoutes } from "../ui-components/buses/buses-route.routes";
