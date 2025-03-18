@@ -1,1 +1,75 @@
-<p>ticket-get-all works!</p>
+<div class="mat-elevation-z8">
+    <div class="flex justify-between items-center mb-4">
+      <h1 class="text-3xl font-bold">Danh Sách Vé</h1>
+      <button mat-raised-button color="primary">
+        <mat-icon>add</mat-icon> Thêm Vé
+      </button>
+    </div>
+  
+    <table mat-table [dataSource]="dataSource" class="w-full">
+      <!-- Cột ID -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef class="text-red-600"> ID </th>
+        <td mat-cell *matCellDef="let ticket"> {{ ticket.id }} </td>
+      </ng-container>
+  
+      <!-- Cột Họ và Tên -->
+      <ng-container matColumnDef="userName">
+        <th mat-header-cell *matHeaderCellDef> Họ và Tên </th>
+        <td mat-cell *matCellDef="let ticket"> {{ ticket.userName }} </td>
+      </ng-container>
+  
+      <!-- Cột Số Điện Thoại -->
+      <ng-container matColumnDef="phone">
+        <th mat-header-cell *matHeaderCellDef> Số Điện Thoại </th>
+        <td mat-cell *matCellDef="let ticket"> {{ ticket.phone }} </td>
+      </ng-container>
+  
+      <!-- Cột Mã Chuyến Xe -->
+      <ng-container matColumnDef="tripID">
+        <th mat-header-cell *matHeaderCellDef> Mã Chuyến </th>
+        <td mat-cell *matCellDef="let ticket"> {{ ticket.tripID }} </td>
+      </ng-container>
+  
+      <!-- Cột Ghế -->
+      <ng-container matColumnDef="seatID">
+        <th mat-header-cell *matHeaderCellDef> Ghế </th>
+        <td mat-cell *matCellDef="let ticket"> {{ ticket.seatID }} </td>
+      </ng-container>
+  
+      <!-- Cột Giá -->
+      <ng-container matColumnDef="finalPrice">
+        <th mat-header-cell *matHeaderCellDef> Giá Vé </th>
+        <td mat-cell *matCellDef="let ticket"> {{ ticket.finalPrice | currency:'VND' }} </td>
+      </ng-container>
+  
+      <!-- Cột Trạng Thái -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef> Trạng Thái </th>
+        <td mat-cell *matCellDef="let ticket">
+          <span [ngStyle]="{'color': ticket.status === 'Canceled' ? 'red' : (ticket.status === 'Confirmed' ? 'green' : 'orange')}">
+            {{ ticket.status }}
+          </span>
+        </td>
+      </ng-container>
+  
+      <!-- Cột Hành Động -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Hành Động </th>
+        <td mat-cell *matCellDef="let ticket">
+          <button mat-button color="primary" (click)="editBooking(ticket)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-button color="warn" (click)="deleteBooking(ticket.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Chọn trang"></mat-paginator>
+  </div>
+  
