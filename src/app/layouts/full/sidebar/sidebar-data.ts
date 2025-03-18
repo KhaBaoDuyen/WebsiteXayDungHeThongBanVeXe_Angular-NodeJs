@@ -149,6 +149,11 @@ export const navItems: NavItem[] = [
     route: "/admin/ui-components/reviews"
   },
   {
+    displayName: "Quản lý Liên hệ",
+    iconName: "solar:mailbox-bold",
+    route: "/admin/ui-components/contactGetAll"
+  },
+  {
     navCap: 'Extra',
     divider: true
   },
