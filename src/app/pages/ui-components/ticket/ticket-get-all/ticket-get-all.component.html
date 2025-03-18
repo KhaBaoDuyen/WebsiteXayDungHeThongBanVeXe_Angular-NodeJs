@@ -1,75 +1,70 @@
-<div class="mat-elevation-z8">
+<div class="mat-elevation-z8 mt-5">
     <div class="flex justify-between items-center mb-4">
-      <h1 class="text-3xl font-bold">Danh Sách Vé</h1>
-      <button mat-raised-button color="primary">
-        <mat-icon>add</mat-icon> Thêm Vé
-      </button>
-    </div>
-  
-    <table mat-table [dataSource]="dataSource" class="w-full">
-      <!-- Cột ID -->
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef class="text-red-600"> ID </th>
-        <td mat-cell *matCellDef="let ticket"> {{ ticket.id }} </td>
-      </ng-container>
-  
-      <!-- Cột Họ và Tên -->
-      <ng-container matColumnDef="userName">
-        <th mat-header-cell *matHeaderCellDef> Họ và Tên </th>
-        <td mat-cell *matCellDef="let ticket"> {{ ticket.userName }} </td>
-      </ng-container>
-  
-      <!-- Cột Số Điện Thoại -->
-      <ng-container matColumnDef="phone">
-        <th mat-header-cell *matHeaderCellDef> Số Điện Thoại </th>
-        <td mat-cell *matCellDef="let ticket"> {{ ticket.phone }} </td>
-      </ng-container>
-  
-      <!-- Cột Mã Chuyến Xe -->
-      <ng-container matColumnDef="tripID">
-        <th mat-header-cell *matHeaderCellDef> Mã Chuyến </th>
-        <td mat-cell *matCellDef="let ticket"> {{ ticket.tripID }} </td>
-      </ng-container>
-  
-      <!-- Cột Ghế -->
-      <ng-container matColumnDef="seatID">
-        <th mat-header-cell *matHeaderCellDef> Ghế </th>
-        <td mat-cell *matCellDef="let ticket"> {{ ticket.seatID }} </td>
-      </ng-container>
-  
-      <!-- Cột Giá -->
-      <ng-container matColumnDef="finalPrice">
-        <th mat-header-cell *matHeaderCellDef> Giá Vé </th>
-        <td mat-cell *matCellDef="let ticket"> {{ ticket.finalPrice | currency:'VND' }} </td>
-      </ng-container>
-  
-      <!-- Cột Trạng Thái -->
-      <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef> Trạng Thái </th>
-        <td mat-cell *matCellDef="let ticket">
-          <span [ngStyle]="{'color': ticket.status === 'Canceled' ? 'red' : (ticket.status === 'Confirmed' ? 'green' : 'orange')}">
-            {{ ticket.status }}
-          </span>
-        </td>
-      </ng-container>
-  
-      <!-- Cột Hành Động -->
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef> Hành Động </th>
-        <td mat-cell *matCellDef="let ticket">
-          <button mat-button color="primary" (click)="editBooking(ticket)">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button mat-button color="warn" (click)="deleteBooking(ticket.id)">
-            <mat-icon>delete</mat-icon>
-          </button>
-        </td>
-      </ng-container>
-  
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-  
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Chọn trang"></mat-paginator>
+        <h1 class="text-2xl font-bold text-gray-500 font-bold">Danh Sách Vé</h1>
   </div>
-  
+
+  <table mat-table [dataSource]="dataSource" class="w-full">
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef><span class="text-gray-600 font-bold">ID</span></th>
+      <td mat-cell *matCellDef="let ticket"> {{ ticket.id }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="userName">
+      <th mat-header-cell *matHeaderCellDef><span class="text-gray-600 font-bold">Họ và Tên</span></th>
+      <td mat-cell *matCellDef="let ticket"> {{ ticket.userName }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef><span class="text-gray-600 font-bold">Số Điện Thoại</span></th>
+      <td mat-cell *matCellDef="let ticket"> {{ ticket.phone }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="tripID">
+      <th mat-header-cell *matHeaderCellDef><span class="text-gray-600 font-bold">Mã Chuyến</span></th>
+      <td mat-cell *matCellDef="let ticket"> {{ ticket.tripID }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="seatID">
+      <th mat-header-cell *matHeaderCellDef><span class="text-gray-600 font-bold">Ghế</span></th>
+      <td mat-cell *matCellDef="let ticket" class="font-bold"> {{ ticket.seatID }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="finalPrice">
+      <th mat-header-cell *matHeaderCellDef><span class="text-gray-600 font-bold">Giá Vé</span></th>
+      <td mat-cell *matCellDef="let ticket"> {{ ticket.finalPrice | currency:'VND' }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef><span class="text-gray-600 font-bold">Trạng Thái</span></th>
+      <td mat-cell *matCellDef="let ticket">
+      <span class="px-2 py-1 rounded"
+        [ngClass]="{
+        'bg-red-100 text-red-700 ': ticket.status === 'Canceled',
+        'bg-green-100 text-green-700 ': ticket.status === 'Confirmed',
+        'bg-orange-100 text-orange-700 ': ticket.status === 'Pending'
+        }">
+        {{ ticket.status === 'Canceled' ? 'Đã Hủy' : (ticket.status === 'Confirmed' ? 'Đã Xác Nhận' : 'Đang Chờ') }}
+      </span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2 w-[10%]">
+        <span class="text-gray-600 font-bold">Hành Động</span>
+      </th>
+      <td mat-cell *matCellDef="let review" class="px-4 py-2 flex justify-center space-x-2">
+        <button class="m-1 bg-yellow-100 text-yellow-700 px-2 py-2 rounded flex items-center">
+          <mat-icon class="text-yellow-700">edit</mat-icon>
+        </button>
+        <button class="m-1 bg-red-100 text-red-700 px-2 py-2 rounded flex items-center">
+          <mat-icon class="text-red-700">delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Chọn trang"></mat-paginator>
+</div>

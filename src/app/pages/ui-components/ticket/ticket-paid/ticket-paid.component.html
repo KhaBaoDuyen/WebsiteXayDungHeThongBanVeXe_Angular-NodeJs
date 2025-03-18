@@ -1,63 +1,54 @@
-<div class="mat-elevation-z8">
+<div class="mat-elevation-z8 mt-5">
     <div class="flex justify-between items-center mb-4">
-        <h1 class="text-3xl font-bold">Danh Sách Vé Đã Xác Nhận</h1>
-        <button mat-raised-button color="primary">
-            <mat-icon>add</mat-icon> Thêm Vé
-        </button>
+        <h1 class="text-2xl font-bold text-gray-500 font-bold">Danh Sách Vé Đã Xác Nhận</h1>
+
     </div>
 
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-full">
-
-        <!-- ID Column -->
         <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef> ID </th>
+            <th mat-header-cell *matHeaderCellDef><span class="text-gray-600 font-bold">ID</span></th>
             <td mat-cell *matCellDef="let ticket"> {{ ticket.id }} </td>
         </ng-container>
 
-        <!-- User Name Column -->
         <ng-container matColumnDef="userName">
-            <th mat-header-cell *matHeaderCellDef> Khách Hàng </th>
+            <th mat-header-cell *matHeaderCellDef><span class="text-gray-600 font-bold">Khách Hàng</span></th>
             <td mat-cell *matCellDef="let ticket"> {{ ticket.userName }} </td>
         </ng-container>
 
-        <!-- Phone Column -->
         <ng-container matColumnDef="phone">
-            <th mat-header-cell *matHeaderCellDef> Số Điện Thoại </th>
+            <th mat-header-cell *matHeaderCellDef><span class="text-gray-600 font-bold">Số Điện Thoại</span></th>
             <td mat-cell *matCellDef="let ticket"> {{ ticket.phone }} </td>
         </ng-container>
 
-        <!-- Trip ID Column -->
         <ng-container matColumnDef="tripID">
-            <th mat-header-cell *matHeaderCellDef> Chuyến Đi </th>
+            <th mat-header-cell *matHeaderCellDef><span class="text-gray-600 font-bold">Chuyến Đi</span></th>
             <td mat-cell *matCellDef="let ticket"> {{ ticket.tripID }} </td>
         </ng-container>
 
-        <!-- Seat ID Column -->
         <ng-container matColumnDef="seatID">
-            <th mat-header-cell *matHeaderCellDef> Ghế </th>
+            <th mat-header-cell *matHeaderCellDef><span class="text-gray-600 font-bold">Ghế</span></th>
             <td mat-cell *matCellDef="let ticket"> {{ ticket.seatID }} </td>
         </ng-container>
 
-        <!-- Final Price Column -->
         <ng-container matColumnDef="finalPrice">
-            <th mat-header-cell *matHeaderCellDef> Giá Vé </th>
+            <th mat-header-cell *matHeaderCellDef><span class="text-gray-600 font-bold">Giá Vé</span></th>
             <td mat-cell *matCellDef="let ticket"> {{ ticket.finalPrice | currency:'VND' }} </td>
         </ng-container>
 
-        <!-- Status Column -->
         <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef> Trạng Thái </th>
+            <th mat-header-cell *matHeaderCellDef><span class="text-gray-600 font-bold">Trạng Thái</span></th>
             <td mat-cell *matCellDef="let ticket">
                 <span style="color: green; font-weight: bold;">Đã xác nhận</span>
             </td>
         </ng-container>
 
-        <!-- Actions Column -->
         <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef> Hành Động </th>
-            <td mat-cell *matCellDef="let ticket">
-                <button mat-icon-button color="warn" (click)="deleteTicket(ticket.id)">
-                    <mat-icon>delete</mat-icon>
+            <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2 w-[10%]">
+                <span class="text-gray-600 font-bold">Hành Động</span>
+            </th>
+            <td mat-cell *matCellDef="let review" class="px-4 py-2 flex justify-center space-x-2">
+                <button class="m-1 bg-red-100 text-red-700 px-2 py-2 rounded flex items-center">
+                    <mat-icon class="text-red-700">delete</mat-icon>
                 </button>
             </td>
         </ng-container>

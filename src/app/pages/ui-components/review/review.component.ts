@@ -4,19 +4,11 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule, MatPaginatorIntl } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
 import { Injectable } from '@angular/core';
+import { reviewInterface } from 'src/app/interface/reviewInterface';
 
-export interface Review {
-  id: number;
-  userID: number;
-  tripID: number;
-  rating: number;
-  comment: string;
-  createAt: Date;
-  updateAt: Date;
-  image?: string;
-  status: string;
-}
+
 
 @Injectable()
 export class CustomPaginatorIntl extends MatPaginatorIntl {
@@ -26,14 +18,14 @@ export class CustomPaginatorIntl extends MatPaginatorIntl {
 @Component({
   selector: 'app-review',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatPaginatorModule, MatSortModule],
+  imports: [CommonModule, MatTableModule, MatPaginatorModule, MatSortModule, MatIconModule],
   templateUrl: './review.component.html',
   styleUrls: ['./review.component.scss'],
   providers: [{ provide: MatPaginatorIntl, useClass: CustomPaginatorIntl }]
 })
 export class ReviewComponent {
-  displayedColumns: string[] = ['id', 'userID', 'tripID', 'rating', 'comment', 'image', 'status', 'createAt'];
-  dataSource = new MatTableDataSource<Review>([
+  displayedColumns: string[] = ['id', 'userID', 'tripID', 'rating', 'comment', 'status', 'createAt', 'actions'];
+  dataSource = new MatTableDataSource<reviewInterface>([
     { id: 1, userID: 101, tripID: 501, rating: 5, comment: "Tuyệt vời!", createAt: new Date(), updateAt: new Date(), image: 'https://via.placeholder.com/50', status: 'active' },
     { id: 2, userID: 102, tripID: 502, rating: 4, comment: "Dịch vụ tốt", createAt: new Date(), updateAt: new Date(), status: 'inactive' },
     { id: 3, userID: 103, tripID: 503, rating: 3, comment: "Ổn", createAt: new Date(), updateAt: new Date(), image: 'https://via.placeholder.com/50', status: 'active' },
