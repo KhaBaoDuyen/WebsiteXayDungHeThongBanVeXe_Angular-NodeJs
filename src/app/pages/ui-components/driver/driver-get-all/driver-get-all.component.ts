@@ -6,11 +6,12 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 
 import { driveriInterface } from '../../../../interface/driver.interface';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-driver-get-all',
   standalone: true,
-  imports: [MatTableModule, MatButtonModule, MatIconModule, CommonModule, MatPaginatorModule],
+  imports: [RouterModule, MatTableModule, MatButtonModule, MatIconModule, CommonModule, MatPaginatorModule],
   templateUrl: './driver-get-all.component.html',
 })
 export class DriverGetAllComponent {

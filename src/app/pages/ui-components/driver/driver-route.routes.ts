@@ -1,7 +1,8 @@
 import { DriverGetAllComponent } from "./driver-get-all/driver-get-all.component";
 import{DriverCreateComponent} from "./driver-create/driver-create.component";
-import { Routes } from '@angular/router';
+import { DriverEditComponent } from "./driver-edit/driver-edit.component";
 
+import { Routes } from '@angular/router';
 
 
 export const driverRoutes: Routes = [
@@ -16,6 +17,11 @@ export const driverRoutes: Routes = [
         path: 'driverAdd',
         component: DriverCreateComponent,
       },
+      {
+        path: 'driverEdit/:id',
+        component: DriverEditComponent,
+      },
+
     ],
   },
 ];
