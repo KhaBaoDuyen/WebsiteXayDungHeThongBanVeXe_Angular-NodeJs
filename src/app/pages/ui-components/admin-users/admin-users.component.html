@@ -1,72 +1,71 @@
 <div class="mat-elevation-z8">
-    <div class="flex justify-between items-center mb-4">
-        <h1 class="text-3xl font-bold">Danh Sách Người Dùng</h1>
-        <a mat-raised-button color="primary" [routerLink]="['/admin-users/create-users']">
-          <mat-icon>person_add</mat-icon> Thêm Người Dùng
-        </a>
-      </div>
-      
-  <br>
-    <table mat-table [dataSource]="dataSource" class="w-full">
-  
-      <!-- Cột ID -->
-      <ng-container matColumnDef="id">
-        <th mat-header-cell *matHeaderCellDef class="text-red-600"> ID </th>
-        <td mat-cell *matCellDef="let user"> {{ user.id }} </td>
-      </ng-container>
-  
-      <!-- Cột Họ và Tên -->
-      <ng-container matColumnDef="fullName">
-        <th mat-header-cell *matHeaderCellDef> Họ và Tên </th>
-        <td mat-cell *matCellDef="let user"> {{ user.fullName }} </td>
-      </ng-container>
-  
-      <!-- Cột Email -->
-      <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef> Email </th>
-        <td mat-cell *matCellDef="let user"> {{ user.email }} </td>
-      </ng-container>
-  
-      <!-- Cột Số Điện Thoại -->
-      <ng-container matColumnDef="phone">
-        <th mat-header-cell *matHeaderCellDef> Số Điện Thoại </th>
-        <td mat-cell *matCellDef="let user"> {{ user.phone }} </td>
-      </ng-container>
-  
-      <!-- Cột Vai Trò -->
-      <ng-container matColumnDef="role">
-        <th mat-header-cell *matHeaderCellDef> Vai Trò </th>
-        <td mat-cell *matCellDef="let user"> {{ user.role }} </td>
-      </ng-container>
-  
-      <!-- Cột Trạng Thái -->
-      <ng-container matColumnDef="status">
-        <th mat-header-cell *matHeaderCellDef> Trạng Thái </th>
-        <td mat-cell *matCellDef="let user">
-          <span [ngStyle]="{'color': user.status.trim() === 'Bị khóa' ? 'red' : 'green'}">
-            {{ user.status }}
-          </span>
-        </td>
-      </ng-container>
-  
-      <!-- Cột Hành Động -->
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef> Hành Động </th>
-        <td mat-cell *matCellDef="let user">
-          <button mat-button color="primary" (click)="editUser(user)" class="edit-button">
-            <mat-icon class="icon">edit</mat-icon>
-          </button>
-          <button mat-button color="warn" (click)="deleteUser(user.id)" class="delete-button">
-            <mat-icon class="icon">delete</mat-icon>
-          </button>
-        </td>
-      </ng-container>
-  
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-  
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Chọn trang người dùng">
-    </mat-paginator>
+  <div class="flex justify-between items-center mb-4">
+    <h1 class="text-3xl font-bold">Danh Sách Người Dùng</h1>
+    <a mat-raised-button color="primary" [routerLink]="['/admin-users/create-users']">
+      <mat-icon>person_add</mat-icon> Thêm Người Dùng
+    </a>
   </div>
-  
+
+  <br>
+  <table mat-table [dataSource]="dataSource" class="w-full">
+
+    <!-- Cột ID -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef class="text-red-600"> ID </th>
+      <td mat-cell *matCellDef="let user"> {{ user.id }} </td>
+    </ng-container>
+
+    <!-- Cột Họ và Tên -->
+    <ng-container matColumnDef="fullName">
+      <th mat-header-cell *matHeaderCellDef> Họ và Tên </th>
+      <td mat-cell *matCellDef="let user"> {{ user.fullName }} </td>
+    </ng-container>
+
+    <!-- Cột Email -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef> Email </th>
+      <td mat-cell *matCellDef="let user"> {{ user.email }} </td>
+    </ng-container>
+
+    <!-- Cột Số Điện Thoại -->
+    <ng-container matColumnDef="phone">
+      <th mat-header-cell *matHeaderCellDef> Số Điện Thoại </th>
+      <td mat-cell *matCellDef="let user"> {{ user.phone }} </td>
+    </ng-container>
+
+    <!-- Cột Vai Trò -->
+    <ng-container matColumnDef="role">
+      <th mat-header-cell *matHeaderCellDef> Vai Trò </th>
+      <td mat-cell *matCellDef="let user"> {{ user.role }} </td>
+    </ng-container>
+
+    <!-- Cột Trạng Thái -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef> Trạng Thái </th>
+      <td mat-cell *matCellDef="let user">
+        <span [ngStyle]="{'color': user.status.trim() === 'Bị khóa' ? 'red' : 'green'}">
+          {{ user.status }}
+        </span>
+      </td>
+    </ng-container>
+
+    <!-- Cột Hành Động -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Hành Động </th>
+      <td mat-cell *matCellDef="let user">
+        <button mat-button color="primary" (click)="editUser(user)" class="edit-button">
+          <mat-icon class="icon">edit</mat-icon>
+        </button>
+        <button mat-button color="warn" (click)="deleteUser(user.id)" class="delete-button">
+          <mat-icon class="icon">delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Chọn trang người dùng">
+  </mat-paginator>
+</div>

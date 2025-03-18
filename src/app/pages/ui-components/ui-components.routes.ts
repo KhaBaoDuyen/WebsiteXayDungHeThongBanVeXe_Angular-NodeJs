@@ -10,6 +10,8 @@ import { AppFormsComponent } from './forms/forms.component';
 import { AppTablesComponent } from './tables/tables.component';
 import { BusGetAllComponent } from './busRoute/bus-get-all/bus-get-all.component';
 import { BusCreateComponent } from './busRoute/bus-create/bus-create.component';
+import { AdminUsersComponent } from './admin-users/admin-users.component';
+import { AdminPayComponent } from './admin-pay/admin-pay.component';
 
 export const UiComponentsRoutes: Routes = [
   {
@@ -42,6 +44,13 @@ export const UiComponentsRoutes: Routes = [
       {
         path: 'tables',
         component: AppTablesComponent,
+      }, 
+      {
+        path: 'admin-users',
+        component: AdminUsersComponent,
+      }, {
+        path: 'admin-pay',
+        component: AdminPayComponent,
       },
     ],
   },
