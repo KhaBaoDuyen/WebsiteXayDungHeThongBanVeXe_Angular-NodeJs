@@ -11,6 +11,7 @@ import { routesRoutes } from './routes/routes-route.routes';
 import { busTypeRoutes } from './bustype/bustype-route.routes';
 import { driverRoutes } from './driver/driver-route.routes';
 import { blogRoutes } from './blog/blog-route.routes';
+import { contactRoutes } from './contact/contact-route.routes';
 
 export const UiComponentsRoutes: Routes = [
   {
@@ -23,6 +24,7 @@ export const UiComponentsRoutes: Routes = [
       ...driverRoutes,
       ...blogRoutes,
       ...ticketRoutes,
+      ...contactRoutes,
       {
         path: 'reviews',
         component: ReviewComponent,

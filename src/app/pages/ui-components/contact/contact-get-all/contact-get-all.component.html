@@ -1,0 +1,63 @@
+<div class="flex justify-between items-center mb-4 mt-5">
+   <h3 class="font-bold text-2xl text-gray-500">Danh Sách Câu Hỏi</h3>
+</div>
+
+<div class="bg-white shadow-lg rounded-lg overflow-hidden w-full border-collapse">
+   <table mat-table [dataSource]="dataSource" class="w-full border-collapse text-center">
+      <ng-container matColumnDef="stt">
+         <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2">
+            <span class="font-bold text-gray-500">STT</span>
+         </th>
+         <td mat-cell *matCellDef="let contact; let i = index" class="px-4 py-2">{{ i + 1 }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="question">
+         <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2">
+         <span class="font-bold text-gray-500">Câu Hỏi</span>
+         </th>
+         <td mat-cell *matCellDef="let contact" class="px-4 py-2">
+         <div class="truncate" style="display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;">
+            {{ contact.question }}
+         </div>
+         </td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+         <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2">
+            <span class="font-bold text-gray-500">Người Gửi</span>
+         </th>
+         <td mat-cell *matCellDef="let contact" class="px-4 py-2">{{ contact.email }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+         <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2">
+            <span class="font-bold text-gray-500">Trạng thái</span>
+         </th>
+         <td mat-cell *matCellDef="let contact" class="px-4 py-2">
+            <span
+               [ngClass]="{'bg-green-100 text-green-700': contact.status, 'bg-red-100 text-red-700': !contact.status}"
+               class="px-2 py-1 rounded">
+               {{ contact.status ? 'Đã trả lời' : 'Chưa trả lời' }}
+            </span>
+         </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+         <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2">
+            <span class="font-bold text-gray-500">Hành Động</span>
+         </th>
+         <td mat-cell *matCellDef="let contact" class="px-4 py-2">
+            <a [routerLink]="['/admin/ui-components/contactReply', contact.id]" *ngIf="!contact.status"
+               class="bg-green-100 text-green-700 px-4 py-2 rounded flex items-center gap-2 hover:bg-green-200 transition text-center">
+               <mat-icon>reply</mat-icon>
+               Trả lời
+            </a>
+         </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns" class="border-b"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="hover:bg-gray-100"></tr>
+   </table>
+
+   <mat-paginator class="bg-gray-100 py-3" [pageSizeOptions]="[10, 25, 50, 100]" showFirstLastButtons></mat-paginator>
+</div>
