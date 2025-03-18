@@ -1,1 +1,75 @@
-<p>ticket-canceled works!</p>
+<div class="mat-elevation-z8">
+    <div class="flex justify-between items-center mb-4">
+        <h1 class="text-3xl font-bold">Danh Sách Vé Đã Hủy</h1>
+        <button mat-raised-button color="primary">
+            <mat-icon>add</mat-icon> Thêm Vé
+        </button>
+    </div>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 w-full">
+
+        <!-- ID Column -->
+        <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> ID </th>
+            <td mat-cell *matCellDef="let ticket"> {{ ticket.id }} </td>
+        </ng-container>
+
+        <!-- User Name Column -->
+        <ng-container matColumnDef="userName">
+            <th mat-header-cell *matHeaderCellDef> Khách Hàng </th>
+            <td mat-cell *matCellDef="let ticket"> {{ ticket.userName }} </td>
+        </ng-container>
+
+        <!-- Phone Column -->
+        <ng-container matColumnDef="phone">
+            <th mat-header-cell *matHeaderCellDef> Số Điện Thoại </th>
+            <td mat-cell *matCellDef="let ticket"> {{ ticket.phone }} </td>
+        </ng-container>
+
+        <!-- Trip ID Column -->
+        <ng-container matColumnDef="tripID">
+            <th mat-header-cell *matHeaderCellDef> Chuyến Đi </th>
+            <td mat-cell *matCellDef="let ticket"> {{ ticket.tripID }} </td>
+        </ng-container>
+
+        <!-- Seat ID Column -->
+        <ng-container matColumnDef="seatID">
+            <th mat-header-cell *matHeaderCellDef> Ghế </th>
+            <td mat-cell *matCellDef="let ticket"> {{ ticket.seatID }} </td>
+        </ng-container>
+
+        <!-- Final Price Column -->
+        <ng-container matColumnDef="finalPrice">
+            <th mat-header-cell *matHeaderCellDef> Giá Vé </th>
+            <td mat-cell *matCellDef="let ticket"> {{ ticket.finalPrice | currency:'VND' }} </td>
+        </ng-container>
+
+        <!-- Cancel Reason Column -->
+        <ng-container matColumnDef="cancelReason">
+            <th mat-header-cell *matHeaderCellDef> Lý Do Hủy </th>
+            <td mat-cell *matCellDef="let ticket"> {{ ticket.cancelReason }} </td>
+        </ng-container>
+
+        <!-- Status Column -->
+        <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef> Trạng Thái </th>
+            <td mat-cell *matCellDef="let ticket">
+                <span style="color: red; font-weight: bold;">Đã hủy</span>
+            </td>
+        </ng-container>
+
+        <!-- Actions Column -->
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef> Hành Động </th>
+            <td mat-cell *matCellDef="let ticket">
+                <button mat-icon-button color="warn" (click)="deleteTicket(ticket.id)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Chọn trang"></mat-paginator>
+</div>
