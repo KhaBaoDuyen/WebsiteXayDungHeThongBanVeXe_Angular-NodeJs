@@ -4,13 +4,15 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { BusRoute } from '../../../../interface/bus-route.interface';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-bus-get-all',
   templateUrl: './bus-get-all.component.html',
   styleUrls: ['./bus-get-all.component.scss'],  
   standalone: true,
-  imports: [MatTableModule, MatButtonModule, MatIconModule, CommonModule, MatPaginatorModule],
+  imports: [MatTableModule, MatButtonModule, MatIconModule, CommonModule, MatPaginatorModule, RouterModule],
 })
 export class BusGetAllComponent implements AfterViewInit {
   displayedColumns: string[] = ['id', 'route', 'departure', 'arrival', 'price', 'status', 'actions'];
@@ -42,11 +44,4 @@ export class BusGetAllComponent implements AfterViewInit {
   }
 }
 
-interface BusRoute {
-  id: number;
-  route: string;
-  departure: string;
-  arrival: string;
-  price: number;
-  status: string;
-}
+
