@@ -1,11 +1,13 @@
 <div class="flex justify-between items-center mb-4  mt-5">
   <h3 class="font-bold text-2xl text-gray-500">Danh Sách người dùng</h3>
-  <button class="border border-blue-500 text-blue-500 px-4 py-2 rounded flex items-center gap-2 hover:bg-blue-500 hover:text-white transition">
-    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
+  <a [routerLink]="['/admin/ui-components/userAdd']"
+    class="border border-gray-300 text-gray-700 px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-gray-100 hover:border-gray-400 hover:text-gray-900 transition-shadow shadow-sm hover:shadow-md">
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+      class="w-5 h-5">
       <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
     </svg>
-    Thêm tài khoản 
-  </button>
+    Thêm tài khoản
+  </a>
 </div>
 
 <div class="bg-white shadow-lg rounded-lg overflow-hidden w-full border-collapse">
@@ -73,9 +75,10 @@
       <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2 "><span class="font-bold text-gray-500">Hành
           Động</span></th>
       <td mat-cell *matCellDef="let user" class="px-4 py-2 flex justify-center space-x-2">
-        <button class="m-1 bg-yellow-100 text-yellow-700 px-2 py-2 rounded flex items-center" (click)="editUser(user)">
+        <a class="m-1 bg-yellow-100 text-yellow-700 px-2 py-2 rounded flex items-center"
+          [routerLink]="['/admin/ui-components/userEdit', user.id]">
           <mat-icon class="text-yellow-700">edit</mat-icon>
-        </button>
+        </a>
         <button class="m-1 bg-red-100 text-red-700 px-2 py-2 rounded flex items-center" (click)="deleteUser(user.id)">
           <mat-icon class="text-red-700">delete</mat-icon>
         </button>

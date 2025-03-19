@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 
 // ui
-import { AdminUsersComponent } from './admin-users/admin-users.component';
+
 import { ReviewComponent } from './review/review.component';
 import { ReviewEditComponent } from './review-edit/review-edit.component';
 
@@ -13,6 +13,7 @@ import { busTypeRoutes } from './bustype/bustype-route.routes';
 import { driverRoutes } from './driver/driver-route.routes';
 import { blogRoutes } from './blog/blog-route.routes';
 import { contactRoutes } from './contact/contact-route.routes';
+import { userRoutes } from './users/userRoute.routes';
 
 export const UiComponentsRoutes: Routes = [
   {
@@ -26,6 +27,7 @@ export const UiComponentsRoutes: Routes = [
       ...blogRoutes,
       ...ticketRoutes,
       ...contactRoutes,
+      ...userRoutes,
       {
         path: 'reviews',
         component: ReviewComponent,
@@ -33,10 +35,6 @@ export const UiComponentsRoutes: Routes = [
       {
         path: 'reviewsEdit/:id',
         component: ReviewEditComponent,
-      },
-      {
-        path: 'UserGetAll',
-        component: AdminUsersComponent,
       },
     ],
   },
