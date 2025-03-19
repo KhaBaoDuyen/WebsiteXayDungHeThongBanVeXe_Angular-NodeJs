@@ -3,6 +3,7 @@ import { Routes } from '@angular/router';
 // ui
 import { AdminUsersComponent } from './admin-users/admin-users.component';
 import { ReviewComponent } from './review/review.component';
+import { ReviewEditComponent } from './review-edit/review-edit.component';
 
 import { busesRoutes } from "../ui-components/buses/buses-route.routes";
 import { ticketRoutes } from "../ui-components/ticket/ticket-route.routes";
@@ -28,6 +29,10 @@ export const UiComponentsRoutes: Routes = [
       {
         path: 'reviews',
         component: ReviewComponent,
+      },
+      {
+        path: 'reviewsEdit/:id',
+        component: ReviewEditComponent,
       },
       {
         path: 'UserGetAll',

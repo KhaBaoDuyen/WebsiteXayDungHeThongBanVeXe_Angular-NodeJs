@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { Injectable } from '@angular/core';
 import { reviewInterface } from 'src/app/interface/reviewInterface';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -18,7 +19,7 @@ export class CustomPaginatorIntl extends MatPaginatorIntl {
 @Component({
   selector: 'app-review',
   standalone: true,
-  imports: [CommonModule, MatTableModule, MatPaginatorModule, MatSortModule, MatIconModule],
+  imports: [CommonModule, MatTableModule, MatPaginatorModule, MatSortModule, MatIconModule,RouterModule],
   templateUrl: './review.component.html',
   styleUrls: ['./review.component.scss'],
   providers: [{ provide: MatPaginatorIntl, useClass: CustomPaginatorIntl }]
