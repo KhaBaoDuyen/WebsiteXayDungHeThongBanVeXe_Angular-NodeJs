@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 
 @Component({
   selector: 'app-bustype-create',
-  imports: [],
+  imports: [MaterialModule, CommonModule, ReactiveFormsModule],
   templateUrl: './bustype-create.component.html',
   styleUrl: './bustype-create.component.scss'
 })
