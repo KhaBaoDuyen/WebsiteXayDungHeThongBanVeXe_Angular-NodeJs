@@ -100,7 +100,18 @@ export const navItems: NavItem[] = [
   {
     displayName: 'Quản lý tài khoản',
     iconName: 'mdi:account-cog',
-    route: '/admin/ui-components/UserGetAll',
+    children: [
+      {
+        displayName: 'Danh sách',
+        iconName: 'solar:list-check-line-duotone',
+        route: '/admin/ui-components/userGetAll',
+      },
+      {
+        displayName: 'Thêm mới',
+        iconName: 'solar:document-line-duotone',
+        route: '/admin/ui-components/userAdd'
+      },
+    ]
   },
   {
     navCap: 'QUẢN LÝ CHUNG',
@@ -174,8 +185,8 @@ export const navItems: NavItem[] = [
   {
     displayName: 'Đăng ký',
     iconName: 'solar:user-plus-rounded-line-duotone',
-        route: '/authentication/register',
-      },
+    route: '/authentication/register',
+  },
 
 
 ];

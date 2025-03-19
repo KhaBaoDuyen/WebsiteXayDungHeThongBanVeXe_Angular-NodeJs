@@ -6,7 +6,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 
-import {userInterface } from '../../../interface/user.interface'
+import {userInterface } from '../../../../interface/user.interface'
 @Component({
   selector: 'app-admin-users',
   templateUrl: './admin-users.component.html',
