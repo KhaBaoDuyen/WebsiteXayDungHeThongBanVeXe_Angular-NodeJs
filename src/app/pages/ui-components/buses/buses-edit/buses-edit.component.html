@@ -11,9 +11,13 @@
             </div>
             <div>
               <label class="block font-medium  text-gray-700 mb-2">Tài xế</label>
-              <input type="text" [value]="buses.driverId"
+              <select
                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition duration-200">
-            </div>
+                <option [selected]="buses.driverId" selected>Nguyễn Văn A</option>
+                <option >Nguyễn Văn B</option>
+                <option >Nguyễn Văn C</option>
+              </select>
+          </div>
           </div>
     
           <div class="grid grid-cols-2 gap-6">
@@ -38,7 +42,7 @@
                   <option >Ghế</option>
                   <option >Giường</option>
                 </select>
-              </div>
+            </div>
             <div>
               <label class="block font-medium  text-gray-700 mb-2">Trạng Thái</label>
               <select
