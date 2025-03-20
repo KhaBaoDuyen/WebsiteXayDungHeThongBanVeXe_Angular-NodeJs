@@ -1,0 +1,36 @@
+.post-form-container {
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  
+  .file-upload-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  
+  .custom-file-upload {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 12px;
+    background: #6200ea;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .custom-file-upload input {
+    display: none;
+  }
+  
+  .submit-button {
+    width: 100%;
+  }
+  

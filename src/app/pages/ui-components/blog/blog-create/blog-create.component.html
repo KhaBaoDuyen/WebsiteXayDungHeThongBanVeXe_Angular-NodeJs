@@ -1,1 +1,45 @@
-<p>blog-create works!</p>
+
+<mat-card-header>
+    <mat-card-title class="m-b-0">Thêm Bài Viết</mat-card-title>
+  </mat-card-header>
+  <mat-card class="cardWithShadow theme-card">
+   
+    <mat-card-content class="b-t-1">
+        <form [formGroup]="postForm" (ngSubmit)="submitPost()" class="post-form">
+      
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Tiêu Đề</mat-label>
+              <input matInput formControlName="title" required />
+              <mat-error *ngIf="postForm.get('title')?.invalid">Tiêu đề phải có ít nhất 5 ký tự</mat-error>
+            </mat-form-field>
+          
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Nội Dung</mat-label>
+              <textarea matInput formControlName="content" required rows="4"></textarea>
+              <mat-error *ngIf="postForm.get('content')?.invalid">Nội dung phải có ít nhất 10 ký tự</mat-error>
+            </mat-form-field>
+          
+            <div class="file-upload-container">
+              <label class="custom-file-upload">
+                <input type="file" (change)="onFileSelected($event)" />
+                <mat-icon>upload</mat-icon> Tải Ảnh Lên
+              </label>
+              <!-- <span *ngIf="selectedFileName">{{ selectedFileName }}</span> -->
+            </div>
+          
+            <!-- <mat-error *ngIf="postForm.get('image')?.invalid">Ảnh là bắt buộc</mat-error> -->
+          
+            <!-- <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Ngày Tạo</mat-label>
+              <input matInput formControlName="createAt" [disabled]="true" />
+            </mat-form-field> -->
+          
+            <!-- <mat-error *ngIf="errorMessage" class="error-message">{{ errorMessage }}</mat-error> -->
+          
+            <button mat-raised-button color="primary" type="submit" [disabled]="postForm.invalid" class="submit-button">
+              Gửi Bài Viết
+            </button>
+          </form>
+          
+    </mat-card-content>
+  </mat-card>
