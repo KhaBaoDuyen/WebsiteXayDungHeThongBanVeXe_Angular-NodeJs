@@ -17,11 +17,6 @@ export class BustypeCreateComponent {
   onSave() {
     const controls = { name: this.name };
     Object.values(controls).forEach(control =>  control.markAsTouched());
-
-    if (this.name.invalid) {
       return;
     }
-
-    console.log('Form Submitted!', { name: this.name.value, status: this.status.value });
-  }
 }
