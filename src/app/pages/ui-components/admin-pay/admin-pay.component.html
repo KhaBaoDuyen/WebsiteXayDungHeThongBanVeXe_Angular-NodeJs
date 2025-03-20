@@ -1,0 +1,66 @@
+<div class="mat-elevation-z8">
+  <h1 class="text-3xl font-bold underline">Quản Lý Thanh Toán</h1>
+  <br />
+
+  <!-- Bảng quản lý thanh toán -->
+  <table mat-table [dataSource]="dataSource" class="w-full">
+    <!-- Cột ID Thanh Toán -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef class="text-red-600">
+        Mã Giao Dịch
+      </th>
+      <td mat-cell *matCellDef="let payment">{{ payment.id }}</td>
+    </ng-container>
+
+    <!-- Cột Tên Người Dùng -->
+    <ng-container matColumnDef="userName">
+      <th mat-header-cell *matHeaderCellDef>Người Thanh Toán</th>
+      <td mat-cell *matCellDef="let payment">{{ payment.userName }}</td>
+    </ng-container>
+
+    <!-- Cột Số Tiền -->
+    <ng-container matColumnDef="amount">
+      <th mat-header-cell *matHeaderCellDef>Số Tiền</th>
+      <td mat-cell *matCellDef="let payment">
+        {{ payment.amount | currency : "VND" }}
+      </td>
+    </ng-container>
+    <!-- 🔹 Đã thêm thẻ đóng -->
+
+    <!-- Cột Phương Thức Thanh Toán -->
+    <ng-container matColumnDef="paymentMethod">
+      <th mat-header-cell *matHeaderCellDef>Phương Thức</th>
+      <td mat-cell *matCellDef="let payment">{{ payment.paymentMethod }}</td>
+    </ng-container>
+
+    <!-- Cột Trạng Thái -->
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef>Trạng Thái</th>
+      <td mat-cell *matCellDef="let payment">
+        <span [ngStyle]="{ color: getStatusColor(payment.status) }">
+          {{ payment.status }}
+        </span>
+      </td>
+    </ng-container>
+
+    <!-- Cột Hành Động -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Hành Động</th>
+      <td mat-cell *matCellDef="let payment">
+        <button mat-button color="primary" (click)="confirmPayment(payment)"
+          [disabled]="payment.status === 'Thành công'">
+          <mat-icon>check_circle</mat-icon>
+        </button>
+        <button mat-button color="warn" (click)="refundPayment(payment)" [disabled]="payment.status !== 'Thành công'">
+          <mat-icon>undo</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+    aria-label="Chọn trang thanh toán"></mat-paginator>
+</div>
