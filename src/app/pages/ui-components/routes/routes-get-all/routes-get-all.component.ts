@@ -22,13 +22,13 @@ displayedColumns: string[] = ['id', 'startPoint', 'endPoint', 'distance','action
       id: 1,
       startPoint: "Hà Nội",
       endPoint: "Hồ Chí Minh",
-      distance: "2000 km"
+      distance: 2000
     },
     {
       id: 2,
       startPoint: "An Giang",
       endPoint: "Bà Rịa - Vũng Tàu",
-      distance: "140 km"
+      distance: 140
     },
   ]);
 }
