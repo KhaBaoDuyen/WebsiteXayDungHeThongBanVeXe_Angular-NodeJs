@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-ticket-get-all',
@@ -16,7 +17,8 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
     MatIconModule,
     MatButtonModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    RouterModule
   ],
 })
 export class TicketGetAllComponent implements OnInit {
