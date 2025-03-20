@@ -86,7 +86,7 @@ export class BlogCreateComponent {
     formData.append('userID', this.postForm.get('userID')?.value || '');
     formData.append('title', this.postForm.get('title')?.value || '');
     formData.append('content', this.postForm.get('content')?.value || '');
-    formData.append('createAt', this.postForm.get('createAt')?.value || '');
+    // formData.append('createAt', this.postForm.get('createAt')?.value || '');
 
     const file = this.postForm.get('image')?.value as File;
     if (file) {
