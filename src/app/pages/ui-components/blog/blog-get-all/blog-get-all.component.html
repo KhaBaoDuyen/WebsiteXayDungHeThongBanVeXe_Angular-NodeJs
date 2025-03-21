@@ -1,7 +1,7 @@
 <div class="bg-white shadow-lg rounded-lg overflow-hidden w-full border-collapse">
   <div class="flex justify-between items-center mb-4 mt-5 px-4">
     <h3 class="font-bold text-2xl text-gray-500">Danh Sách Bài Viết</h3>
-
+    
   </div>
 
   <table mat-table [dataSource]="dataSource" class="w-full border-collapse text-center">
@@ -62,9 +62,10 @@
         <span class="font-bold text-gray-500">Hành Động</span>
       </th>
       <td mat-cell *matCellDef="let post" class="px-4 py-2 flex justify-center space-x-2">
-        <button class="m-1 bg-yellow-100 text-yellow-700 px-2 py-2 rounded flex items-center" (click)="editPost(post)">
+        <a class="m-1 bg-yellow-100 text-yellow-700 px-2 py-2 rounded flex items-center" 
+        [routerLink]="['/admin/ui-components/editBlogs', post.id]">
           <mat-icon class="text-yellow-700">edit</mat-icon>
-        </button>
+        </a>
         <button class="m-1 bg-red-100 text-red-700 px-2 py-2 rounded flex items-center" (click)="deletePost(post.id)">
           <mat-icon class="text-red-700">delete</mat-icon>
         </button>
