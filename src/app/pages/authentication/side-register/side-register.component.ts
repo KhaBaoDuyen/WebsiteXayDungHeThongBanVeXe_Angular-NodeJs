@@ -8,6 +8,7 @@ import { MaterialModule } from 'src/app/material.module';
 
 @Component({
   selector: 'app-side-register',
+  standalone: true,
   imports: [RouterModule, MaterialModule, FormsModule, ReactiveFormsModule],
   templateUrl: './side-register.component.html',
 })
@@ -18,8 +19,8 @@ export class AppSideRegisterComponent {
 
   form = new FormGroup({
     uname: new FormControl('', [Validators.required, Validators.minLength(6)]),
-    email: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
   });
 
   get f() {
@@ -27,7 +28,9 @@ export class AppSideRegisterComponent {
   }
 
   submit() {
-    // console.log(this.form.value);
+    if (this.form.invalid) {
+      return;
+    }
     this.router.navigate(['/']);
   }
 }
