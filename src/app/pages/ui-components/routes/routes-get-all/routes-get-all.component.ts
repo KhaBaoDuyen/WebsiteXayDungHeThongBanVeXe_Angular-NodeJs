@@ -6,12 +6,14 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { routesInterface } from '../../../../interface/routes.interface';
 import { RouterModule } from '@angular/router';
+import { FormDeleteComponent } from 'src/app/components/form-delete/form-delete.component';
 
 
 @Component({
   selector: 'app-routes-get-all',
   standalone: true,
-  imports: [RouterModule, MatTableModule, MatButtonModule, MatIconModule, CommonModule, MatPaginatorModule],
+  imports: [RouterModule, MatTableModule, MatButtonModule, MatIconModule, 
+CommonModule, MatPaginatorModule, FormDeleteComponent],
   templateUrl: './routes-get-all.component.html',
   styleUrl: './routes-get-all.component.scss'
 })
@@ -31,4 +33,24 @@ displayedColumns: string[] = ['id', 'startPoint', 'endPoint', 'distance','action
       distance: 140
     },
   ]);
+  showFormDelete = false;
+  driverId: number | null = null;
+
+  openDeleteConfirmation(driverId: number) {
+    this.driverId = driverId;
+    this.showFormDelete = true;
+  }
+
+  handleDeleteConfirmed() {
+    if (this.driverId !== null) {
+      this.dataSource.data = this.dataSource.data.filter(
+        (driver) => driver.id !== this.driverId
+      );
+    }
+    this.showFormDelete = false;
+  }
+
+  handleCancel() {
+    this.showFormDelete = false;
+  }
 }

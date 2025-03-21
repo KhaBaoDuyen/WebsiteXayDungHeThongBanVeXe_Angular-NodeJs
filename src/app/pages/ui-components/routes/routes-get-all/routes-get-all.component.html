@@ -30,7 +30,7 @@
               class="m-1 bg-yellow-100 text-yellow-700 px-2 py-2 rounded flex items-center">
               <mat-icon class="text-yellow-700">edit</mat-icon>
            </a>
-           <button class="m-1 bg-red-100 text-red-700 px-2 py-2 rounded flex items-center">
+           <button (click)="openDeleteConfirmation(routes.id)" class="m-1 bg-red-100 text-red-700 px-2 py-2 rounded flex items-center">
               <mat-icon class="text-red-700">delete</mat-icon>
            </button>
         </td>
@@ -40,6 +40,7 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="hover:bg-gray-100"></tr>
 
   </table>
-
+   <app-form-delete *ngIf="showFormDelete" (deleteConfirmed)="handleDeleteConfirmed()"
+         (cancel)="handleCancel()"></app-form-delete>
   <mat-paginator class="bg-gray-100 py-3" [pageSizeOptions]="[10,25, 50,100]" showFirstLastButtons></mat-paginator>
 </div>
