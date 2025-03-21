@@ -11,7 +11,7 @@
         }
       },
       "root": "",
-      "sourceRoot": "src",
+      "sourceRoot": "src", 
       "prefix": "app",
       "architect": {
         "build": {
@@ -31,7 +31,7 @@
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "src/favicon.ico",
+              "src/assets/images/logos/logo-icon.png",  
               "src/assets"
             ],
             "styles": [
@@ -100,7 +100,7 @@
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              "src/favicon.ico",
+              "src/favicon.ico",  
               "src/assets"
             ],
             "styles": [
