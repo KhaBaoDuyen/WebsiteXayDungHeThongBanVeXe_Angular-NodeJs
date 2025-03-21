@@ -4,8 +4,8 @@ export interface driveriInterface {
   phone: string;
   licenseNumber: string;
   experienceYears: number;
-  birthDate: string;
-  status: 'active' | 'inactive';
+  birthDate: Date;
+  status: string;
   createdAt: string;
   age: number;
   image: string;

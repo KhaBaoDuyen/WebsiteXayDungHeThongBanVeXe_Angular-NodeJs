@@ -24,7 +24,7 @@ export class DriverGetAllComponent {
       phone: "0987654321",
       licenseNumber: "B123456",
       experienceYears: 5,
-      birthDate: "1990-05-20",
+      birthDate: new Date("1990-05-20"),
       status: "active",
       createdAt: "2023-05-15T10:00:00",
       age: 34,

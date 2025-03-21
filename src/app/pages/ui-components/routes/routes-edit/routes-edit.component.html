@@ -43,9 +43,11 @@
             </div>
 
             <div class="flex justify-end space-x-4">
-                <button type="submit"
-                    class="px-6 py-3 bg-orange-500 text-white rounded-lg font-semibold hover:bg-orange-600 transition">
-                    Thêm quãng đường
+                <button type="submit" [disabled]="routesForm.invalid && routesForm.touched" [ngClass]="{
+    'bg-orange-500 text-white hover:bg-orange-600': !(routesForm.invalid && routesForm.touched),
+    'bg-gray-300 text-gray-500 cursor-not-allowed': routesForm.invalid && routesForm.touched
+  }" class="px-6 py-3 rounded-lg font-semibold transition duration-200">
+                    Lưu thay đổi
                 </button>
             </div>
         </div>

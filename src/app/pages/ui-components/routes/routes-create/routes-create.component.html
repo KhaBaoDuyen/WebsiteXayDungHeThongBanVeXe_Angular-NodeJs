@@ -1,14 +1,14 @@
 <main class="flex-1 bg-white p-[2rem] rounded-xl shadow-xl">
     <h2 class="text-2xl text-gray-800 font-bold mb-8 mt-5">Thông tin tuyến đường</h2>
 
-    <form class="p-[20px] space-y-8">
+    <form [formGroup]="routesForm" (ngSubmit)="onSave()" class="p-[20px] space-y-8">
         <div class="grid grid-cols-1 gap-6 mt-5">
             <div>
                 <label class="text-gray-700 block font-medium mb-2">Điểm xuất phát</label>
-                <input type="text" value="" [formControl]="startPoint" placeholder="Vui lòng nhập điểm xuất phát"
-                    [ngClass]="{ 'border-red-500': startPoint.invalid && startPoint.touched }"
+                <input type="text" formControlName="startPoint" placeholder="Vui lòng nhập điểm xuất phát"
+                    [ngClass]="{ 'border-red-500': startPoint.invalid && routesForm.touched }"
                     class="border border-gray-300 rounded-lg w-full duration-200 focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition">
-                <div *ngIf="startPoint.invalid && startPoint.touched" class="text-red-500 mt-2">
+                <div *ngIf="startPoint.invalid && routesForm.touched" class="text-red-500 mt-2">
                     <span *ngIf="startPoint.errors?.['required']">Địa điểm không được bỏ trống.</span>
                     <span *ngIf="startPoint.errors?.['minlength']">Địa điểm phải có ít nhất 5 ký tự.</span>
                 </div>
@@ -18,10 +18,10 @@
         <div class="grid grid-cols-1 gap-6 mt-5">
             <div>
                 <label class="text-gray-700 block font-medium mb-2">Điểm đến</label>
-                <input type="text" value [formControl]="endPoint" placeholder="Vui lòng nhập điểm đến"
-                    [ngClass]="{ 'border-red-500': endPoint.invalid && endPoint.touched }"
+                <input type="text" formControlName="endPoint" placeholder="Vui lòng nhập điểm đến"
+                    [ngClass]="{ 'border-red-500': endPoint.invalid && routesForm.touched }"
                     class="border border-gray-300 rounded-lg w-full duration-200 focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition">
-                <div *ngIf="endPoint.invalid && endPoint.touched" class="text-red-500 mt-2">
+                <div *ngIf="endPoint.invalid && routesForm.touched" class="text-red-500 mt-2">
                     <span *ngIf="endPoint.errors?.['required']">Địa điểm không được bỏ trống.</span>
                     <span *ngIf="endPoint.errors?.['minlength']">Địa điểm phải có ít nhất 5 ký tự.</span>
                 </div>
@@ -31,20 +31,22 @@
         <div class="grid grid-cols-1 gap-6 mt-5">
             <div>
                 <label class="text-gray-700 block font-medium mb-2">Quảng đường (km)</label>
-                <input type="text" value [formControl]="distance" placeholder="Vui lòng nhập quảng đường"
-                    [ngClass]="{ 'border-red-500': distance.invalid && distance.touched }"
+                <input type="text" formControlName="distance" placeholder="Vui lòng nhập quảng đường"
+                    [ngClass]="{ 'border-red-500': distance.invalid && routesForm.touched }"
                     class="border border-gray-300 rounded-lg w-full duration-200 focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition">
-                <div *ngIf="distance.invalid && distance.touched" class="text-red-500 mt-2">
+                <div *ngIf="distance.invalid && routesForm.touched" class="text-red-500 mt-2">
                     <span *ngIf="distance.errors?.['required']">Quảng đường không được bỏ trống.</span>
-                    <span *ngIf="distance.errors?.['pattern']">Quảng đường phải là dạng số</span>
+                    <span *ngIf="distance.errors?.['pattern']">Quảng đường phải là số và có đúng 10 chữ số.</span>
                 </div>
             </div>
         </div>
 
         <div class="flex justify-end space-x-4">
-            <button type="button" (click)="onSave()"
-                class="bg-orange-500 rounded-lg text-white duration-200 font-semibold hover:bg-orange-600 px-6 py-3 transition">
-                Thêm quảng đường
+            <button type="submit" [disabled]="routesForm.invalid && routesForm.touched" [ngClass]="{
+        'bg-orange-500 text-white hover:bg-orange-600': !(routesForm.invalid && routesForm.touched),
+        'bg-gray-300 text-gray-500 cursor-not-allowed': routesForm.invalid && routesForm.touched
+      }" class="px-6 py-3 rounded-lg font-semibold transition duration-200">
+                Lưu thay đổi
             </button>
         </div>
     </form>
