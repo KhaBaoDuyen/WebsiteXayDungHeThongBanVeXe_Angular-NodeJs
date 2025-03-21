@@ -30,32 +30,24 @@ export class BustypeGetAllComponent {
     { id: 2, name: 'Xe Buýt Cao Cấp', status: 'inactive' },
   ]);
 
-  showDeleteConfirmation = false; 
-  selectedBusTypeId: number | null = null; 
+  showFormDelete = false; 
+  busTypeId: number | null = null;
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
-  }
-
-  // Mở form xác nhận xóa
   openDeleteConfirmation(busTypeId: number) {
-    this.selectedBusTypeId = busTypeId;
-    this.showDeleteConfirmation = true;
+    this.busTypeId = busTypeId;
+    this.showFormDelete = true;
   }
 
-  // Xử lý khi xác nhận xóa
   handleDeleteConfirmed() {
-    if (this.selectedBusTypeId !== null) {
+    if (this.busTypeId !== null) {
       this.dataSource.data = this.dataSource.data.filter(
-        (busType) => busType.id !== this.selectedBusTypeId
+        (driver) => driver.id !== this.busTypeId
       );
     }
-    this.showDeleteConfirmation = false; 
+    this.showFormDelete = false;
   }
 
   handleCancel() {
-    this.showDeleteConfirmation = false; 
+    this.showFormDelete = false;
   }
 }
