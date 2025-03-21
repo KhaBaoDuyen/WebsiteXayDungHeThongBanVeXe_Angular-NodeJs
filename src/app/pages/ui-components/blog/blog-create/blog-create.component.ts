@@ -25,75 +25,39 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   ]
 })
 export class BlogCreateComponent {
-  postForm = new FormGroup({
-    userID: new FormControl('', [Validators.required]),
-    title: new FormControl('', [Validators.required, Validators.minLength(5)]),
-    content: new FormControl('', [Validators.required, Validators.minLength(10)]),
-    image: new FormControl<File | null>(null, [Validators.required]),
-    createAt: new FormControl({ value: new Date().toISOString(), disabled: true }, [Validators.required]),
-  });
-
-  selectedFileName = signal<string>('Chưa chọn tệp');
-  errorMessage = signal<string>('');
+  blogForm: FormGroup;
+  imagePreview: string | ArrayBuffer | null = null; // Hiển thị ảnh xem trước
 
   constructor() {
-    merge(
-      this.postForm.controls['title'].statusChanges,
-      this.postForm.controls['content'].statusChanges,
-      this.postForm.controls['image'].statusChanges
-    )
-      .pipe(takeUntilDestroyed())
-      .subscribe(() => this.updateErrorMessage());
+    this.blogForm = new FormGroup({
+      userID: new FormControl('', Validators.required),
+      title: new FormControl('', [Validators.required, Validators.minLength(5)]),
+      content: new FormControl('', [Validators.required, Validators.minLength(10)]),
+      image: new FormControl(null, Validators.required),
+      createAt: new FormControl(new Date().toISOString().slice(0, 16)) // Mặc định là ngày hiện tại
+    });
   }
 
-  updateErrorMessage() {
-    const titleCtrl = this.postForm.controls['title'];
-    const contentCtrl = this.postForm.controls['content'];
-    const imageCtrl = this.postForm.controls['image'];
-
-    if (titleCtrl.hasError('required')) {
-      this.errorMessage.set('Tiêu đề là bắt buộc');
-    } else if (titleCtrl.hasError('minlength')) {
-      this.errorMessage.set('Tiêu đề phải có ít nhất 5 ký tự');
-    } else if (contentCtrl.hasError('required')) {
-      this.errorMessage.set('Nội dung là bắt buộc');
-    } else if (contentCtrl.hasError('minlength')) {
-      this.errorMessage.set('Nội dung phải có ít nhất 10 ký tự');
-    } else if (imageCtrl.hasError('required')) {
-      this.errorMessage.set('Ảnh là bắt buộc');
-    } else {
-      this.errorMessage.set('');
-    }
-  }
-
-  onFileSelected(event: Event) {
+  onFileSelect(event: Event) {
     const file = (event.target as HTMLInputElement).files?.[0];
     if (file) {
-      this.postForm.patchValue({ image: file });
-      this.postForm.get('image')?.updateValueAndValidity();
-      this.selectedFileName.set(file.name);
+      this.blogForm.patchValue({ image: file });
+      this.blogForm.get('image')?.updateValueAndValidity();
+
+      // Hiển thị ảnh xem trước
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagePreview = reader.result;
+      };
+      reader.readAsDataURL(file);
     }
-    this.updateErrorMessage();
   }
 
-  submitPost() {
-    if (this.postForm.invalid) {
-      this.updateErrorMessage();
+  onSave() {
+    if (this.blogForm.invalid) {
+      this.blogForm.markAllAsTouched(); // Hiển thị lỗi nếu có
       return;
     }
-
-    const formData = new FormData();
-    formData.append('userID', this.postForm.get('userID')?.value || '');
-    formData.append('title', this.postForm.get('title')?.value || '');
-    formData.append('content', this.postForm.get('content')?.value || '');
-    // formData.append('createAt', this.postForm.get('createAt')?.value || '');
-
-    const file = this.postForm.get('image')?.value as File;
-    if (file) {
-      formData.append('image', file);
-    }
-
-    console.log('Bài viết đã được gửi', formData);
-    // Gửi formData lên server qua API
+    console.log('Dữ liệu hợp lệ:', this.blogForm.value);
   }
 }

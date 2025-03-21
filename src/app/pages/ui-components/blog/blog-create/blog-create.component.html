@@ -1,45 +1,48 @@
+<main class="flex-1 bg-white p-[2rem] rounded-xl shadow-xl">
+  <h2 class="text-2xl text-gray-800 font-bold mb-8 mt-5">Thêm Bài Viết </h2>
 
-<mat-card-header>
-    <mat-card-title class="m-b-0">Thêm Bài Viết</mat-card-title>
-  </mat-card-header>
-  <mat-card class="cardWithShadow theme-card">
-   
-    <mat-card-content class="b-t-1">
-        <form [formGroup]="postForm" (ngSubmit)="submitPost()" class="post-form">
-      
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Tiêu Đề</mat-label>
-              <input matInput formControlName="title" required />
-              <mat-error *ngIf="postForm.get('title')?.invalid">Tiêu đề phải có ít nhất 5 ký tự</mat-error>
-            </mat-form-field>
-          
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Nội Dung</mat-label>
-              <textarea matInput formControlName="content" required rows="4"></textarea>
-              <mat-error *ngIf="postForm.get('content')?.invalid">Nội dung phải có ít nhất 10 ký tự</mat-error>
-            </mat-form-field>
-          
-            <div class="file-upload-container">
-              <label class="custom-file-upload">
-                <input type="file" (change)="onFileSelected($event)" />
-                <mat-icon>upload</mat-icon> Tải Ảnh Lên
-              </label>
-              <span *ngIf="selectedFileName">{{ selectedFileName }}</span>
+  <form class="p-[20px] space-y-8" [formGroup]="blogForm" (ngSubmit)="onSave()">
+    <div class="grid grid-cols-1 gap-6 mt-5">
+        <div>
+            <label class="text-gray-700 block font-medium mb-2">Tiêu đề</label>
+            <input type="text" formControlName="title" placeholder="Nhập tiêu đề bài viết"
+                [ngClass]="{ 'border-red-500': blogForm.controls['title'].invalid && blogForm.controls['title'].touched }"
+                class="border border-gray-300 rounded-lg w-full duration-200 focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition">
+            <div *ngIf="blogForm.controls['title'].invalid && blogForm.controls['title'].touched" class="text-red-500 mt-2">
+                <span *ngIf="blogForm.controls['title'].errors?.['required']">Tiêu đề không được bỏ trống.</span>
+                <span *ngIf="blogForm.controls['title'].errors?.['minlength']">Tiêu đề phải có ít nhất 5 ký tự.</span>
             </div>
-          
-            <!-- <mat-error *ngIf="postForm.get('image')?.invalid">Ảnh là bắt buộc</mat-error> -->
-          
-            <!-- <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Ngày Tạo</mat-label>
-              <input matInput formControlName="createAt" [disabled]="true" />
-            </mat-form-field> -->
-          
-            <!-- <mat-error *ngIf="errorMessage" class="error-message">{{ errorMessage }}</mat-error> -->
-          
-            <button mat-raised-button color="primary" type="submit" [disabled]="postForm.invalid" class="submit-button">
-              Gửi Bài Viết
-            </button>
-          </form>
-          
-    </mat-card-content>
-  </mat-card>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6 mt-5">
+        <div>
+            <label class="text-gray-700 block font-medium mb-2">Nội dung</label>
+            <textarea formControlName="content" placeholder="Nhập nội dung bài viết"
+                [ngClass]="{ 'border-red-500': blogForm.controls['content'].invalid && blogForm.controls['content'].touched }"
+                class="border border-gray-300 rounded-lg w-full duration-200 focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"></textarea>
+            <div *ngIf="blogForm.controls['content'].invalid && blogForm.controls['content'].touched" class="text-red-500 mt-2">
+                <span *ngIf="blogForm.controls['content'].errors?.['required']">Nội dung không được bỏ trống.</span>
+                <span *ngIf="blogForm.controls['content'].errors?.['minlength']">Nội dung phải có ít nhất 10 ký tự.</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 gap-6 mt-5">
+        <div>
+            <label class="text-gray-700 block font-medium mb-2">Hình ảnh</label>
+            <input type="file" (change)="onFileSelect($event)"
+                class="border border-gray-300 rounded-lg w-full px-4 py-3 transition">
+            <img *ngIf="imagePreview" [src]="imagePreview" class="w-32 h-32 mt-3 rounded-lg object-cover">
+        </div>
+    </div>
+
+    <div class="flex justify-end space-x-4">
+        <button type="submit" [disabled]="blogForm.invalid"
+            class="bg-orange-500 rounded-lg text-white duration-200 font-semibold hover:bg-orange-600 px-6 py-3 transition">
+            Thêm bài viết
+        </button>
+    </div>
+</form>
+
+</main>
