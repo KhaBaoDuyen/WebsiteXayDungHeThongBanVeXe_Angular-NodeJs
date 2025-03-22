@@ -1,0 +1,68 @@
+<h3 class="font-bold text-2xl  m-b-10 text-gray-500">Danh sách </h3>
+<div class="bg-white shadow-lg rounded-lg overflow-hidden w-full border-collapse">
+
+  <table mat-table [dataSource]="dataSource" class="w-full border-collapse text-center">
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2 text-gray-700 text-center ">ID</th>
+      <td mat-cell *matCellDef="let route" class=" px-4 py-2 text-center"> {{ route.id }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="route">
+      <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2 text-gray-700">Tuyến Đường</th>
+      <td mat-cell *matCellDef="let route" class=" px-4 py-2"> {{ route.route }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="departure">
+      <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2 text-gray-700">Khởi Hành</th>
+      <td mat-cell *matCellDef="let route" class=" px-4 py-2"> {{ route.departure }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="arrival">
+      <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2 text-gray-700">Giờ Đến</th>
+      <td mat-cell *matCellDef="let route" class=" px-4 py-2"> {{ route.arrival }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2 text-gray-700">Giá Vé</th>
+      <td mat-cell *matCellDef="let route" class=" px-4 py-2"> {{ route.price | currency:'VND' }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2 text-gray-700 text-center">Trạng Thái</th>
+      <td mat-cell *matCellDef="let route" class=" px-4 py-2 text-center">
+        <span [ngClass]="{
+  'text-red-700  bg-red-200 px-6 font-semibold rounded-xl': route.status.trim() === 'Hủy',
+  'text-yellow-700 px-4 bg-yellow-200 font-semibold rounded': route.status.trim() === 'Đang chạy',
+  'text-green-700 px-5 bg-green-100 font-semibold rounded-lg': route.status.trim() === 'Sắp khởi hành'
+}">
+          {{ route.status }}
+        </span>
+
+
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2 text-gray-700 text-center ">Hành động</th>
+      <td mat-cell *matCellDef="let route" class=" px-4 py-2 flex justify-center space-x-2">
+        <a [routerLink]="['/admin/busEdit', route.id]"
+          class="m-1 cursor-pointer bg-yellow-100 text-yellow-700 px-2 py-2 rounded flex items-center">
+          <mat-icon class="text-yellow-700">edit</mat-icon>
+        </a>
+        <button (click)="openDeleteConfirmation(route.id)"
+          class="m-1 cursor-pointer bg-red-100 text-red-700 px-2 py-2 rounded flex items-center">
+          <mat-icon class="text-red-700">delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns" class="border-b"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="hover:bg-gray-100"></tr>
+
+  </table>
+  <app-form-delete *ngIf="showDeleteConfirmation" (deleteConfirmed)="handleDeleteConfirmed()"
+      (cancel)="handleCancel()"></app-form-delete>
+
+  <mat-paginator class="bg-gray-100 py-3" [pageSizeOptions]="[10,25, 50,100]" showFirstLastButtons></mat-paginator>
+</div>

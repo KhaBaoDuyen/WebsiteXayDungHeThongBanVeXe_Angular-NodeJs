@@ -1,0 +1,72 @@
+<form (ngSubmit)="onSave()">
+    <main class="flex-1 bg-white p-[2rem] rounded-xl shadow-xl">
+        <h2 class="text-2xl text-gray-800 font-bold mb-8">Thêm mới xe</h2>
+    
+        <div class="space-y-8">
+            <div class="mt-2">
+                <label class="text-gray-700 block font-medium mb-2">Tuyến đường</label>
+                <input type="text" [formControl]="route"
+                  class="border border-gray-300 rounded-lg w-full duration-200 focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
+                  [ngClass]="{ 'border-red-500': route.invalid && route.touched }">
+                  
+                  <div *ngIf="route.invalid && route.touched" class="text-red-500 mt-2">
+                    <span *ngIf="route.errors?.['required']">Tên không được bỏ trống.</span>
+                    <span *ngIf="route.errors?.['minlength']">Tên phải có ít nhất 5 ký tự.</span>
+                  </div>
+            </div>
+    
+          <div class="grid grid-cols-2 gap-6">
+            <div>
+              <label class="text-gray-700 block font-medium mb-2">Giờ khởi hành</label>
+              <input type="datetime-local" [formControl]="departure"
+                class="border border-gray-300 rounded-lg w-full duration-200 focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
+                [ngClass]="{ 'border-red-500': departure.invalid && departure.touched }">
+                <div *ngIf="departure.invalid && departure.touched" class="text-red-500 mt-2">
+                  <span *ngIf="departure.errors?.['required']">Giờ đi không được bỏ trống.</span>
+                </div>
+            </div>
+            <div>
+              <label class="text-gray-700 block font-medium mb-2">Giờ đến</label>
+              <input type="datetime-local" [formControl]="arrival"
+                class="border border-gray-300 rounded-lg w-full duration-200 focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
+                [ngClass]="{ 'border-red-500': arrival.invalid && arrival.touched }">
+                <div *ngIf="arrival.invalid && arrival.touched" class="text-red-500 mt-2">
+                  <span *ngIf="arrival.errors?.['required']">Giờ đến không được bỏ trống.</span>
+                </div>
+            </div>
+          </div>
+    
+          <div class="grid grid-cols-2 gap-6">
+            <div>
+                <label class="text-gray-700 block font-medium mb-2">Giá vé</label>
+                <input type="text" [formControl]="price"
+                  class="border border-gray-300 rounded-lg w-full duration-200 focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition" 
+                  [ngClass]="{ 'border-red-500': price.invalid && price.touched }">
+                  <div *ngIf="price.invalid && price.touched" class="text-red-500 mt-2">
+                    <span *ngIf="price.errors?.['required']">Giá vé không được bỏ trống.</span>
+                    <span *ngIf="price.errors?.['pattern']">Giá vé phải là số.</span>
+                  </div>
+              </div>
+            <div>
+              <label class="text-gray-700 block font-medium mb-2">Trạng Thái</label>
+              <select
+                class="border border-gray-300 rounded-lg w-full duration-200 
+                focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
+                [ngClass]="{ 'border-red-500': status.invalid && status.touched }">
+                <option value="active" selected>Sắp khởi hành</option>
+                <option value="inactive">Đang chạy</option>
+                <option value="inactive">Hủy</option>
+              </select>
+            </div>
+          </div>
+    
+          <div class="flex justify-end space-x-4">
+    
+            <button type="submit"
+              class="bg-orange-500 rounded-lg text-white duration-200 font-semibold hover:bg-orange-600 px-6 py-3 transition">
+              Thêm mới chuyến xe
+            </button>
+          </div>
+        </div>
+      </main>
+</form>
