@@ -1,0 +1,69 @@
+<h3 class="font-bold text-2xl  m-b-10 text-gray-500">Danh sách </h3>
+<div class="bg-white shadow-lg rounded-lg overflow-hidden w-full border-collapse">
+
+  <table mat-table [dataSource]="dataSource" class="w-full border-collapse text-center">
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2 text-gray-700 text-center ">ID</th>
+      <td mat-cell *matCellDef="let buses" class=" px-4 py-2 text-center"> {{ buses.id }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="plateNumber">
+      <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2 text-gray-700">Mã số xe</th>
+      <td mat-cell *matCellDef="let buses" class=" px-4 py-2"> {{ buses.plateNumber }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="busTypeID">
+        <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2 text-gray-700">Loại xe</th>
+        <td mat-cell *matCellDef="let buses" class=" px-4 py-2"> {{ buses.busTypeID }} </td>
+      </ng-container>
+
+    <ng-container matColumnDef="driverId">
+      <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2 text-gray-700">Tài xế</th>
+      <td mat-cell *matCellDef="let buses" class=" px-4 py-2"> {{ buses.driverId }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="totalSeats">
+        <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2 text-gray-700">Tổng số ghế </th>
+        <td mat-cell *matCellDef="let buses" class=" px-4 py-2"> {{ buses.totalSeats }} </td>
+      </ng-container>
+
+    <ng-container matColumnDef="seatsId">
+        <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2 text-gray-700">Mã số ghế</th>
+        <td mat-cell *matCellDef="let buses" class=" px-4 py-2"> {{ buses.seatsId }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2 text-gray-700">Trạng Thái</th>
+        <td mat-cell *matCellDef="let buses" class="px-4 py-2">
+           <span [ngClass]="{
+         'text-green-700 bg-green-200 px-3 p-1 rounded': buses.status === 'active',
+         'text-red-700 bg-red-200 px-4 py-1 rounded-lg': buses.status === 'inactive'
+       }">
+              {{ buses.status === 'active' ? 'Hoạt động' : 'Ngừng hoạt động' }}
+           </span>
+        </td>
+     </ng-container>
+
+    <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2 text-gray-700 text-center">Hành động</th>
+        <td mat-cell *matCellDef="let buses" class="px-4 py-2 flex justify-center space-x-2">
+           <a [routerLink]="['/admin/busesEdit', buses.id]"
+              class="m-1 bg-yellow-100 text-yellow-700 px-2 py-2 rounded flex items-center">
+              <mat-icon class="text-yellow-700">edit</mat-icon>
+           </a>
+           <button (click)="openDeleteConfirmation(buses.id)" class="m-1 bg-red-100 text-red-700 px-2 py-2 rounded flex items-center">
+              <mat-icon class="text-red-700">delete</mat-icon>
+           </button>
+        </td>
+     </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns" class="border-b"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="hover:bg-gray-100"></tr>
+
+  </table>
+    <app-form-delete *ngIf="showDeleteConfirmation" (deleteConfirmed)="handleDeleteConfirmed()"
+      (cancel)="handleCancel()"></app-form-delete>
+
+  <mat-paginator class="bg-gray-100 py-3" [pageSizeOptions]="[10,25, 50,100]" showFirstLastButtons></mat-paginator>
+</div>
