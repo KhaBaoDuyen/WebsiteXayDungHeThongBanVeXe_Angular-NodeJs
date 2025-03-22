@@ -20,12 +20,12 @@ export const navItems: NavItem[] = [
       {
         displayName: 'Danh sách',
         iconName: 'solar:list-check-line-duotone',
-        route: '/admin/ui-components/routesGetAll',
+        route: '/admin/routesGetAll',
       },
       {
         displayName: 'Thêm mới',
         iconName: 'solar:document-line-duotone',
-        route: '/admin/ui-components/routesAdd',
+        route: '/admin/routesAdd',
       },
     ]
   },
@@ -36,12 +36,12 @@ export const navItems: NavItem[] = [
       {
         displayName: 'Danh sách',
         iconName: 'solar:list-check-line-duotone',
-        route: '/admin/ui-components/busGetAll',
+        route: '/admin/busGetAll',
       },
       {
         displayName: 'Thêm mới',
         iconName: 'solar:document-line-duotone',
-        route: '/admin/ui-components/busAdd',
+        route: '/admin/busAdd',
       },
     ]
   },
@@ -52,12 +52,12 @@ export const navItems: NavItem[] = [
       {
         displayName: 'Danh sách xe',
         iconName: 'mdi:clipboard-list-outline',
-        route: '/admin/ui-components/busesGetAll',
+        route: '/admin/busesGetAll',
       },
       {
         displayName: 'Thêm xe mới',
         iconName: 'mdi:file-document-edit-outline',
-        route: '/admin/ui-components/busesAdd',
+        route: '/admin/busesAdd',
       },
     ]
   },
@@ -68,12 +68,12 @@ export const navItems: NavItem[] = [
       {
         displayName: 'Danh sách loại xe',
         iconName: 'solar:list-check-line-duotone',
-        route: '/admin/ui-components/busTypeGetAll',
+        route: '/admin/busTypeGetAll',
       },
       {
         displayName: 'Thêm loại xe',
         iconName: 'solar:document-line-duotone',
-        route: '/admin/ui-components/busTypeAdd',
+        route: '/admin/busTypeAdd',
       },
     ]
   },
@@ -88,12 +88,12 @@ export const navItems: NavItem[] = [
       {
         displayName: 'Danh sách',
         iconName: 'solar:list-check-line-duotone',
-        route: '/admin/ui-components/driverGetAll',
+        route: '/admin/driverGetAll',
       },
       {
         displayName: 'Thêm mới',
         iconName: 'solar:document-line-duotone',
-        route: '/admin/ui-components/driverAdd',
+        route: '/admin/driverAdd',
       },
     ]
   },
@@ -104,12 +104,12 @@ export const navItems: NavItem[] = [
       {
         displayName: 'Danh sách',
         iconName: 'solar:list-check-line-duotone',
-        route: '/admin/ui-components/userGetAll',
+        route: '/admin/userGetAll',
       },
       {
         displayName: 'Thêm mới',
         iconName: 'solar:document-line-duotone',
-        route: '/admin/ui-components/userAdd'
+        route: '/admin/userAdd'
       },
     ]
   },
@@ -124,12 +124,12 @@ export const navItems: NavItem[] = [
       {
         displayName: 'Danh sách bài viết',
         iconName: 'solar:list-check-line-duotone',
-        route: '/admin/ui-components/blogGetAll',
+        route: '/admin/blogGetAll',
       },
       {
         displayName: 'Thêm bài viết',
         iconName: 'solar:document-line-duotone',
-        route: '/admin/ui-components/blogAdd',
+        route: '/admin/blogAdd',
       },
     ]
   },
@@ -140,29 +140,29 @@ export const navItems: NavItem[] = [
       {
         displayName: "Danh sách vé",
         iconName: "solar:list-check-line-duotone",
-        route: "/admin/ui-components/ticketGetAll"
+        route: "/admin/ticketGetAll"
       },
       {
         displayName: "Đã thanh toán",
         iconName: "mdi:credit-card-check-outline",
-        route: "/admin/ui-components/ticketPaid"
+        route: "/admin/ticketPaid"
       },
       {
         displayName: "Đã hủy",
         iconName: "mdi:cancel",
-        route: "/admin/ui-components/ticketCanceled"
+        route: "/admin/ticketCanceled"
       }
     ]
   },
   {
     displayName: "Quản lý Đánh Giá",
     iconName: "solar:star-line-duotone",
-    route: "/admin/ui-components/reviews"
+    route: "/admin/reviews"
   },
   {
     displayName: "Quản lý Liên hệ",
     iconName: "solar:mailbox-bold",
-    route: "/admin/ui-components/contactGetAll"
+    route: "/admin/contactGetAll"
   },
   {
     navCap: 'Extra',
@@ -180,7 +180,7 @@ export const navItems: NavItem[] = [
   {
     displayName: 'Đăng nhập',
     iconName: 'solar:lock-keyhole-minimalistic-line-duotone',
-    route: '//authentication/login',
+    route: '/authentication/login',
   },
   {
     displayName: 'Đăng ký',

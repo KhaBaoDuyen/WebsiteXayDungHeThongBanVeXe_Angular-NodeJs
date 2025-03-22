@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { BlankComponent } from './layouts/blank/blank.component';
 import { FullComponent } from './layouts/full/full.component';
+import { ClientLayoutComponent } from './layouts/Client/client-layout.component';
 
 export const routes: Routes = [
   {
@@ -18,10 +19,10 @@ export const routes: Routes = [
           import('./pages/pages.routes').then((m) => m.PagesRoutes),
       },
       {
-        path: 'ui-components',
+        path: '',
         loadChildren: () =>
-          import('./pages/ui-components/ui-components.routes').then(
-            (m) => m.UiComponentsRoutes
+          import('./pages/ui-components/Admin/admin.routes').then(
+            (m) => m.AdminRoutes
           ),
       },
       {
@@ -33,15 +34,15 @@ export const routes: Routes = [
   },
   {
     path: '',
-    component: BlankComponent,
+    component: ClientLayoutComponent,
     children: [
       {
-        path: 'authentication',
+        path: '',
         loadChildren: () =>
-          import('./pages/authentication/authentication.routes').then(
-            (m) => m.AuthenticationRoutes
+          import('./pages/ui-components/Client/client.routes').then(
+            (m) => m.ClientRoutes
           ),
-      },
+      }
     ],
   },
   {
