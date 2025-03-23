@@ -5,5 +5,4 @@ export interface busesInterface {
     driverId: number;
     status: 'active' | 'inactive';
     totalSeats: number;
-    seatsId: number;
 }

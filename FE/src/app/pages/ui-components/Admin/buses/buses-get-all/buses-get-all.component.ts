@@ -25,16 +25,15 @@ import { busesInterface } from 'src/app/interface/buses.interface';
   styleUrl: './buses-get-all.component.scss'
 })
 export class BusesGetAllComponent implements AfterViewInit {
-displayedColumns: string[] = ['id', 'plateNumber', 'busTypeID', 'driverId','totalSeats','seatsId','status','actions'];
+displayedColumns: string[] = ['id', 'plateNumber', 'busTypeID', 'driverId','totalSeats','status','actions'];
   dataSource = new MatTableDataSource<busesInterface>([
     {
       id: 1,
       plateNumber: "51A-12345",
-      busTypeID: 1,
-      driverId: 1,
+      busTypeID: 1, //hiển thị tên loại xe
+      driverId: 1,   //hiển thị tên tài xế
       status: 'active',
-      totalSeats: 40,
-      seatsId: 1
+      totalSeats: 40   
     },
     {
       id: 2,
@@ -42,8 +41,7 @@ displayedColumns: string[] = ['id', 'plateNumber', 'busTypeID', 'driverId','tota
       busTypeID: 2,
       driverId: 2,
       status: 'inactive',
-      totalSeats: 30,
-      seatsId: 2
+      totalSeats: 30
     },
     {
       id: 3,
@@ -51,8 +49,7 @@ displayedColumns: string[] = ['id', 'plateNumber', 'busTypeID', 'driverId','tota
       busTypeID: 3,
       driverId: 3,
       status: 'inactive',
-      totalSeats: 30,
-      seatsId: 3
+      totalSeats: 30
     },
   ]);
 
