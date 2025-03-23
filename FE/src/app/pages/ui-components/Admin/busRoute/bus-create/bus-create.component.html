@@ -49,14 +49,18 @@
               </div>
             <div>
               <label class="text-gray-700 block font-medium mb-2">Trạng Thái</label>
-              <select
+              <select  [formControl]="status"
                 class="border border-gray-300 rounded-lg w-full duration-200 
                 focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
                 [ngClass]="{ 'border-red-500': status.invalid && status.touched }">
-                <option value="active" selected>Sắp khởi hành</option>
+                <option value="">------ Chọn loại xe --------</option>
+                <option value="active">Sắp khởi hành</option>
                 <option value="inactive">Đang chạy</option>
                 <option value="inactive">Hủy</option>
               </select>
+              <div *ngIf="status.invalid && status.touched" class="text-red-500 mt-2">
+                <span *ngIf="status.errors?.['required']">Trạng thái không được bỏ trống.</span>
+              </div>
             </div>
           </div>
     
