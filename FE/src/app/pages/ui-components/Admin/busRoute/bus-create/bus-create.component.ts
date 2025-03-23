@@ -15,10 +15,10 @@ export class BusCreateComponent {
   departure = new FormControl('', Validators.required);
   arrival = new FormControl('', Validators.required);
   price = new FormControl('', [Validators.required, Validators.pattern('^[0-9]+$')]);
-  status = new FormControl('active'); 
+  status = new FormControl('', Validators.required); 
 
   onSave() {
-    const controls = { route: this.route, departure: this.departure, arrival: this.arrival, price: this.price };
+    const controls = { route: this.route, departure: this.departure, arrival: this.arrival, price: this.price, status: this.status };
     Object.values(controls).forEach(control =>  control.markAsTouched());
       return;
     }
