@@ -8,6 +8,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { merge } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import ClassicEditorBuild from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
   selector: 'app-blog-create',
@@ -21,12 +23,14 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     MatButtonModule,
     MatCardModule,
     MatIconModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CKEditorModule
   ]
 })
 export class BlogCreateComponent {
   blogForm: FormGroup;
   imagePreview: string | ArrayBuffer | null = null; // Hiển thị ảnh xem trước
+  public Editor: any = ClassicEditorBuild;
 
   constructor() {
     this.blogForm = new FormGroup({
