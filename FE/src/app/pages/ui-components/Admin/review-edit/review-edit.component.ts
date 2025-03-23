@@ -12,8 +12,8 @@ import { reviewInterface } from 'src/app/interface/reviewInterface';
 export class ReviewEditComponent {
   review: reviewInterface = {
     id: 1,
-    userID: 1,
-    tripID: 1,
+    userID: 1,    //hiển thị tên 
+    tripID: 1,    //hiển thị mã chuyến xe 
     rating: 5,
     comment: `Website đặt vé xe trực tuyến này mang đến trải nghiệm thuận tiện cho người dùng với giao diện thân thiện và dễ sử dụng. Ngay từ trang chủ, khách hàng có thể dễ dàng tìm kiếm chuyến xe phù hợp bằng cách nhập điểm đi, điểm đến và thời gian mong muốn. Hệ thống lọc và sắp xếp kết quả cũng được tối ưu, giúp người dùng nhanh chóng lựa chọn chuyến xe theo giá cả, hãng xe hoặc thời gian khởi hành.    
     Quá trình đặt vé diễn ra mượt mà với các bước đơn giản, từ chọn chỗ ngồi, nhập thông tin hành khách cho đến thanh toán trực tuyến. Việc tích hợp nhiều phương thức thanh toán như ví điện tử, thẻ ngân hàng và QR code giúp khách hàng linh hoạt hơn trong giao dịch.   
