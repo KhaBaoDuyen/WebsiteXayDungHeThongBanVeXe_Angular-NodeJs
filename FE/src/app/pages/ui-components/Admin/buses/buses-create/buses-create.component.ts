@@ -16,10 +16,10 @@ export class BusesCreateComponent {
   driverId = new FormControl('', Validators.required);
   totalSeats = new FormControl('', [Validators.required, Validators.pattern('^[0-9]+$')]);
   seatsId = new FormControl('',  Validators.required);
-  status = new FormControl('active'); 
+  status = new FormControl('',  Validators.required); 
 
   onSave() {
-    const controls = { plateNumber: this.plateNumber, busTypeID: this.busTypeID, driverId: this.driverId, totalSeats: this.totalSeats, seatsId: this.seatsId };
+    const controls = { plateNumber: this.plateNumber, busTypeID: this.busTypeID, driverId: this.driverId, totalSeats: this.totalSeats, seatsId: this.seatsId, status: this.status };
     Object.values(controls).forEach(control =>  control.markAsTouched());
       return;
     }

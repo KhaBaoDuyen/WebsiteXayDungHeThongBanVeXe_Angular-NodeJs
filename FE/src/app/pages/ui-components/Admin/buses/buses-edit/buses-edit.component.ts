@@ -17,8 +17,7 @@ export class BusesEditComponent {
     busTypeID: 1,
     driverId: 1,
     status: 'active',
-    totalSeats: 40,
-    seatsId: 1
+    totalSeats: 40
   };
 
   plateNumber = new FormControl(this.buses.plateNumber, [Validators.required,  Validators.minLength(5)]);
@@ -26,10 +25,9 @@ export class BusesEditComponent {
   driverId = new FormControl(this.buses.driverId, Validators.required);
   totalSeats = new FormControl(this.buses.totalSeats, [Validators.required, Validators.pattern('^[0-9]+$')]);
   status = new FormControl(this.buses.status); 
-  seatsId = new FormControl(this.buses.seatsId, Validators.required);
 
   onSave() {
-    Object.values({ plateNumber: this.plateNumber, busTypeID: this.busTypeID, driverId: this.driverId, totalSeats: this.totalSeats, seatsId: this.seatsId }).forEach(control => control.markAsTouched())
+    Object.values({ plateNumber: this.plateNumber, busTypeID: this.busTypeID, driverId: this.driverId, totalSeats: this.totalSeats }).forEach(control => control.markAsTouched())
      return;
   }
 }
