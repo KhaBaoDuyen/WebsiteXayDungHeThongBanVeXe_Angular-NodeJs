@@ -12,10 +12,10 @@ import { FormsModule } from '@angular/forms';
 })
 export class BustypeCreateComponent {
   name = new FormControl('', [Validators.required, Validators.minLength(5)]);
-  status = new FormControl('active');
+  status = new FormControl('', Validators.required);
 
   onSave() {
-    const controls = { name: this.name };
+    const controls = { name: this.name, status: this.status };
     Object.values(controls).forEach(control =>  control.markAsTouched());
       return;
     }
