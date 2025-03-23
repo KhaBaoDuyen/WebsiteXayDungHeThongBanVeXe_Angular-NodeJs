@@ -20,6 +20,8 @@
     "@angular/platform-browser": "^19.0.5",
     "@angular/platform-browser-dynamic": "^19.0.5",
     "@angular/router": "^19.0.5",
+    "@ckeditor/ckeditor5-angular": "^5.0.0",
+    "@ckeditor/ckeditor5-build-classic": "^39.0.1",
     "@fontsource/manrope": "^5.2.5",
     "@fontsource/roboto": "^5.2.5",
     "@iconify-icons/mdi": "^1.2.48",
@@ -34,7 +36,11 @@
     "iconify": "^1.4.0",
     "material-icons": "^1.13.14",
     "ng-apexcharts": "^1.7.6",
+    "ngx-quill": "^27.0.1",
     "ngx-scrollbar": "^11.0.0",
+    "parchment": "^3.0.0",
+    "quill": "^2.0.3",
+    "quill-delta": "^5.1.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
@@ -55,7 +61,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
     "postcss": "^8.5.3",
-    "sass": "^1.85.1",
+    "sass": "^1.86.0",
     "tailwindcss": "^4.0.14",
     "typescript": "~5.6.3"
   }
