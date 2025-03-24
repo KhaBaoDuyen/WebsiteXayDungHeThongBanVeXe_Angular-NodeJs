@@ -1,5 +1,17 @@
 @use "variables" as *;
+.truncate-title {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;  
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 
+.truncate-content {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;  
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 *,
 :after,
 :before {
