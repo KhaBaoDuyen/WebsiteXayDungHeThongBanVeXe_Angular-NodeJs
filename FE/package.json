@@ -6,7 +6,9 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "build:tailwind": "npx tailwindcss -i ./src/assets/css/tailwind.css -o ./src/assets/css/tailwind-output.css",
+    "watch:tailwind": "npx tailwindcss -i ./src/assets/css/tailwind.css -o ./src/assets/css/tailwind-output.css --watch"
   },
   "private": true,
   "dependencies": {
@@ -24,6 +26,7 @@
     "@ckeditor/ckeditor5-build-classic": "^39.0.1",
     "@fontsource/manrope": "^5.2.5",
     "@fontsource/roboto": "^5.2.5",
+    "@fortawesome/fontawesome-free": "^6.7.2",
     "@iconify-icons/mdi": "^1.2.48",
     "@iconify/iconify": "^3.1.1",
     "@iconify/react": "^5.2.0",
@@ -31,9 +34,12 @@
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
     "angular-tabler-icons": "^2.7.0",
+    "@ckeditor/ckeditor5-angular": "^5.0.0",
+    "@ckeditor/ckeditor5-build-classic": "^39.0.1",
     "apexcharts": "^3.40.0",
-    "bootstrap": "^5.3.3",
+    "font-awesome": "^4.7.0",
     "iconify": "^1.4.0",
+    "ngx-quill": "^27.0.1",
     "material-icons": "^1.13.14",
     "ng-apexcharts": "^1.7.6",
     "ngx-quill": "^27.0.1",
@@ -41,15 +47,19 @@
     "parchment": "^3.0.0",
     "quill": "^2.0.3",
     "quill-delta": "^5.1.0",
+    "parchment": "^3.0.0",
+    "quill": "^2.0.3",
+    "quill-delta": "^5.1.0",
     "rxjs": "~7.5.0",
+    "swiper": "^11.2.6",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
+    "@angular-builders/custom-webpack": "^19.0.0",
     "@angular-devkit/build-angular": "^19.0.6",
     "@angular/cli": "~19.0.6",
     "@angular/compiler-cli": "^19.0.5",
-    "@tailwindcss/postcss": "^4.0.14",
     "@types/chance": "^1.1.6",
     "@types/date-fns": "^2.6.0",
     "@types/jasmine": "~4.3.0",
@@ -62,7 +72,7 @@
     "karma-jasmine-html-reporter": "~2.0.0",
     "postcss": "^8.5.3",
     "sass": "^1.86.0",
-    "tailwindcss": "^4.0.14",
+    "tailwindcss": "^3.4.17",
     "typescript": "~5.6.3"
   }
 }
