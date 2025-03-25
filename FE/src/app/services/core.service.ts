@@ -1,6 +1,7 @@
 import { Injectable, signal, effect, afterNextRender } from '@angular/core';
 import { AppSettings, defaults } from '../config';
 import Swiper from 'swiper';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Injectable({
     providedIn: 'root',
@@ -16,8 +17,9 @@ export class CoreService {
     ]);
     private currentCommentIndex = signal(0);
     private swiperInstance: Swiper | null = null;
+    private scrollHandler: (() => void) | null = null;
 
-    constructor() {
+    constructor(private router: Router) {
         // Khởi tạo các hiệu ứng sau khi render
         afterNextRender(() => {
             this.initCommentSlider();
@@ -25,8 +27,15 @@ export class CoreService {
             this.initMenuToggle();
             this.initScrollEffect();
             this.initBusAnimation();
+            this.initToggleButton();
         });
 
+        // Lắng nghe sự kiện thay đổi route
+        this.router.events.subscribe(event => {
+            if (event instanceof NavigationEnd) {
+                this.handleRouteChange();
+            }
+        });
     }
 
     getOptions() {
@@ -40,14 +49,23 @@ export class CoreService {
         }));
     }
 
-    // 1. Comment slide
+    private handleRouteChange() {
+        // Gỡ bỏ scroll handler cũ nếu có
+        if (this.scrollHandler) {
+            window.removeEventListener('scroll', this.scrollHandler);
+            this.scrollHandler = null;
+        }
+        
+        // Thiết lập lại hiệu ứng scroll
+        this.initScrollEffect();
+    }
+
+    // 1. Comment slider
     private initCommentSlider() {
         const commentContainer = document.getElementById("comment-container");
         if (!commentContainer) return;
 
-
         this.updateComment(commentContainer);
-
 
         setInterval(() => {
             this.currentCommentIndex.update(current => (current + 1) % this.comments().length);
@@ -77,7 +95,6 @@ export class CoreService {
                     disableOnInteraction: false,
                 },
             });
-
         }
     }
 
@@ -93,15 +110,19 @@ export class CoreService {
         }
     }
 
-    // 4. bg khi scoll chuột
+    // 4. Scroll effect
     private initScrollEffect() {
         const menu = document.getElementById("menu");
         const main = document.querySelector("main");
 
         if (!menu || !main) return;
 
+        // Mặc định có background
+        menu.classList.remove("bg-transparent");
+        menu.classList.add("bg-[#043175]");
+
         if (main.id === "home") {
-            window.addEventListener("scroll", () => {
+            this.scrollHandler = () => {
                 if (window.scrollY > 50) {
                     menu.classList.remove("bg-transparent");
                     menu.classList.add("bg-[#043175]");
@@ -109,14 +130,17 @@ export class CoreService {
                     menu.classList.remove("bg-[#043175]");
                     menu.classList.add("bg-transparent");
                 }
-            });
-        } else {
-            menu.classList.remove("bg-transparent");
-            menu.classList.add("bg-[#043175]");
+            };
+
+            // Áp dụng ngay trạng thái ban đầu
+            this.scrollHandler();
+            
+            // Đăng ký sự kiện scroll
+            window.addEventListener("scroll", this.scrollHandler);
         }
     }
 
-    // 5. Bus chuyển đôngông
+    // 5. Bus animation
     private initBusAnimation() {
         const bus = document.getElementById("bus");
         if (!bus) return;
@@ -132,7 +156,7 @@ export class CoreService {
         observer.observe(bus);
     }
 
-    // 6.  form Cancel
+    // 6. Cancel modal
     openCancelModal() {
         document.getElementById("cancelModal")?.classList.remove("hidden");
     }
@@ -152,7 +176,7 @@ export class CoreService {
         }
     }
 
-    // 7. busDetail 
+    // 7. Toggle button
     private initToggleButton() {
         const toggleBtn = document.getElementById("toggleBtn");
         const content = document.getElementById("content");
@@ -164,7 +188,4 @@ export class CoreService {
             });
         }
     }
-   
-    
 }
-

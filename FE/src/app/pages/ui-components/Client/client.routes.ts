@@ -5,6 +5,8 @@ import { BlogComponent } from "./blog/blog.component";
 import { TimetableComponent } from "./timetable/timetable.component";
 import { ContactComponent } from "./contact/contact.component";
 import { TicketHistoryComponent } from "./ticket-history/ticket-history.component";
+import { AuthenticationRoutes } from "../../authentication/authentication.routes";
+
 
 export const ClientRoutes: Routes = [
   {
@@ -12,6 +14,7 @@ export const ClientRoutes: Routes = [
     redirectTo: 'home',  
     pathMatch: 'full',
   },
+  //  ...AuthenticationRoutes,
   {
     path: 'home',
     component: HomeComponent,
