@@ -26,6 +26,7 @@ export class CoreService {
             this.initScrollEffect();
             this.initBusAnimation();
         });
+
     }
 
     getOptions() {
@@ -39,15 +40,15 @@ export class CoreService {
         }));
     }
 
-    // 1. Comment slider
+    // 1. Comment slide
     private initCommentSlider() {
         const commentContainer = document.getElementById("comment-container");
         if (!commentContainer) return;
 
-        // Cập nhật comment ban đầu
+
         this.updateComment(commentContainer);
 
-        // Tự động chuyển comment mỗi 3 giây
+
         setInterval(() => {
             this.currentCommentIndex.update(current => (current + 1) % this.comments().length);
             this.updateComment(commentContainer);
@@ -59,7 +60,7 @@ export class CoreService {
         container.style.width = "auto";
     }
 
-    // 2. Swiper initialization
+    // 2. Swiper blog
     private initSwiper() {
         const swiperEl = document.querySelector('.mySwiper');
         if (swiperEl) {
@@ -76,10 +77,11 @@ export class CoreService {
                     disableOnInteraction: false,
                 },
             });
+
         }
     }
 
-    // 3. Menu toggle
+    // 3. Menu mobile
     private initMenuToggle() {
         const menuToggle = document.getElementById("menu-toggle");
         const mobileDropdownMenu = document.getElementById("mobileDropdownMenu");
@@ -91,7 +93,7 @@ export class CoreService {
         }
     }
 
-    // 4. Scroll effect
+    // 4. bg khi scoll chuột
     private initScrollEffect() {
         const menu = document.getElementById("menu");
         const main = document.querySelector("main");
@@ -114,7 +116,7 @@ export class CoreService {
         }
     }
 
-    // 5. Bus animation
+    // 5. Bus chuyển đôngông
     private initBusAnimation() {
         const bus = document.getElementById("bus");
         if (!bus) return;
@@ -130,7 +132,7 @@ export class CoreService {
         observer.observe(bus);
     }
 
-    // 6. Modal functions
+    // 6.  form Cancel
     openCancelModal() {
         document.getElementById("cancelModal")?.classList.remove("hidden");
     }
@@ -149,4 +151,20 @@ export class CoreService {
             otherTextarea.classList.add("hidden");
         }
     }
+
+    // 7. busDetail 
+    private initToggleButton() {
+        const toggleBtn = document.getElementById("toggleBtn");
+        const content = document.getElementById("content");
+
+        if (toggleBtn && content) {
+            toggleBtn.addEventListener("click", (event) => {
+                event.preventDefault();
+                content.classList.toggle("hidden");
+            });
+        }
+    }
+   
+    
 }
+
