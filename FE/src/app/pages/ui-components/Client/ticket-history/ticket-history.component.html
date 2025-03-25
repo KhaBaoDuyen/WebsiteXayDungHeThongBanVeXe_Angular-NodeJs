@@ -1,1 +1,221 @@
-<p>ticket-history works!</p>
+<main class="history mt-[11%] mb-[1%] ">
+    <div class="flex w-[80%] mx-auto">
+        <div class="w-[20%] bg-gray-100 p-10 rounded-md border border-gray-200">
+            <ul class="space-y-4">
+                <li class="border border-gray-200 rounded-md"><a href="#"
+                        class="block hover:bg-gray-300 p-10 rounded-md"><i class="fas fa-user mr-2"></i> Thông tin cá
+                        nhân</a></li>
+                <li class="border border-gray-200 rounded-md"><a href="#"
+                        class="block hover:bg-gray-300 p-10 rounded-md"><i class="fas fa-history mr-2"></i> Lịch sử đặt
+                        vé</a></li>
+                <li class="border border-gray-200 rounded-md"><a href="#"
+                        class="block hover:bg-gray-300 p-10 rounded-md"><i class="fas fa-sign-out-alt mr-2"></i> Đăng
+                        xuất</a></li>
+            </ul>
+        </div>
+        <div class="w-[80%] bg-white p-10 rounded-md ml-4">
+            <h1 class="text-3xl font-bold">Lịch sử đặt vé</h1>
+            <p class="text-gray-600">Theo dõi và quản lý quá trình lịch sử mua vé của bạn.</p>
+
+            <div class="p-2 mt-1">
+                <div class="bg-white  shadow-lg rounded-lg m-y-20 m-auto flex  border border-gray-300">
+                    <div class="w-2/3  border-r border-dashed border-gray-400">
+                        <div class="text-white font-mono rounded-tl-lg text-lg font-bold bg-[#043175] px-3 py-3">Mã vé:
+                            098765
+                        </div>
+                        <div class="text-gray-800 font-mono text-lg font-bold px-3">PRICE <span
+                                class="float-right">TRAIN</span>
+                        </div>
+                        <div class="text-xl font-bold text-gray-900 px-3">$100 <span class="float-right">1234</span>
+                        </div>
+
+                        <div class="mt-2 flex justify-between px-3">
+                            <div>
+                                <p class="text-gray-700 font-mono text-sm">FROM</p>
+                                <p class="text-lg font-bold">NEW YORK</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-700 font-mono text-sm">DEPARTURE</p>
+                                <p class="text-lg font-bold">07:00AM</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-2 flex justify-between px-3">
+                            <div>
+                                <p class="text-gray-700 font-mono text-sm">TO</p>
+                                <p class="text-lg font-bold">LOS ANGELES</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-700 font-mono text-sm">ARRIVE</p>
+                                <p class="text-lg font-bold">10:00AM</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-2 flex justify-between p-3">
+                            <div>
+                                <p class="text-gray-700 font-mono text-sm">DATE</p>
+                                <p class="text-lg font-bold">20 AUGUST 2022</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-700 font-mono text-sm">SEAT</p>
+                                <p class="text-lg font-bold">A3</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-1/3 p-6 text-center">
+                        <div class="flex justify-between align-items-center">
+                            <b>Chưa khởi hành</b>
+                            <button class="bg-red-400 text-white px-4 py-2 font-mono rounded-md hover:bg-red-600"
+                                onclick="openCancelModal()">Hủy vé</button>
+                        </div>
+                        <div class="border-b border-gray-400 my-4"></div>
+
+                        <div class="flex justify-between">
+                            <p class="text-gray-700 font-mono text-sm">NAME</p>
+                            <p class="text-lg font-bold">BENJAMIN SHAH</p>
+                        </div>
+
+                        <div class="flex justify-between mt-4">
+                            <p class="text-gray-700 font-mono text-sm">FROM</p>
+                            <p class="text-lg font-bold">NEW YORK</p>
+                        </div>
+
+                        <div class="flex justify-between mt-4">
+                            <p class="text-gray-700 font-mono text-sm">TO</p>
+                            <p class="text-lg font-bold">LOS ANGELES</p>
+                        </div>
+
+                        <div class="flex justify-between mt-4">
+                            <p class="text-gray-700 font-mono text-sm">TRAIN</p>
+                            <p class="text-lg font-bold">1234</p>
+                        </div>
+
+                        <div class="flex justify-between mt-4">
+                            <p class="text-gray-700 font-mono text-sm">SEAT</p>
+                            <p class="text-lg font-bold">A3</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white   shadow-lg rounded-lg m-y-15 m-auto flex  border border-gray-300">
+                    <div class="w-2/3  border-r border-dashed border-gray-400">
+                        <div class="text-white font-mono rounded-tl-lg text-lg font-bold bg-[#043175] px-3 py-3">Mã vé:
+                            098765
+                        </div>
+                        <div class="text-gray-800 font-mono text-lg font-bold px-3">PRICE <span
+                                class="float-right">TRAIN</span>
+                        </div>
+                        <div class="text-xl font-bold text-gray-900 px-3">$100 <span class="float-right">1234</span>
+                        </div>
+
+                        <div class="mt-2 flex justify-between px-3">
+                            <div>
+                                <p class="text-gray-700 font-mono text-sm">FROM</p>
+                                <p class="text-lg font-bold">NEW YORK</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-700 font-mono text-sm">DEPARTURE</p>
+                                <p class="text-lg font-bold">07:00AM</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-2 flex justify-between px-3">
+                            <div>
+                                <p class="text-gray-700 font-mono text-sm">TO</p>
+                                <p class="text-lg font-bold">LOS ANGELES</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-700 font-mono text-sm">ARRIVE</p>
+                                <p class="text-lg font-bold">10:00AM</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-2 flex justify-between p-3">
+                            <div>
+                                <p class="text-gray-700 font-mono text-sm">DATE</p>
+                                <p class="text-lg font-bold">15 AUGUST 2022</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-700 font-mono text-sm">SEAT</p>
+                                <p class="text-lg font-bold">A3</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-1/3 p-6 text-center">
+                        <div class="flex justify-between align-items-center py-2">
+                            <b>Chưa khởi hành</b>
+                            <!-- <button class="bg-red-400 text-white px-4 py-2 font-mono rounded-md hover:bg-red-600"
+                                onclick="openCancelModal()">Hủy vé</button> -->
+                        </div>
+                        <div class="border-b border-gray-400 my-4"></div>
+
+                        <div class="flex justify-between">
+                            <p class="text-gray-700 font-mono text-sm">NAME</p>
+                            <p class="text-lg font-bold">BENJAMIN SHAH</p>
+                        </div>
+
+                        <div class="flex justify-between mt-4">
+                            <p class="text-gray-700 font-mono text-sm">FROM</p>
+                            <p class="text-lg font-bold">NEW YORK</p>
+                        </div>
+
+                        <div class="flex justify-between mt-4">
+                            <p class="text-gray-700 font-mono text-sm">TO</p>
+                            <p class="text-lg font-bold">LOS ANGELES</p>
+                        </div>
+
+                        <div class="flex justify-between mt-4">
+                            <p class="text-gray-700 font-mono text-sm">TRAIN</p>
+                            <p class="text-lg font-bold">1234</p>
+                        </div>
+
+                        <div class="flex justify-between mt-4">
+                            <p class="text-gray-700 font-mono text-sm">SEAT</p>
+                            <p class="text-lg font-bold">A3</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+
+
+        </div>
+    </div>
+</main>
+<!-- Modal Hủy Vé -->
+<div id="cancelModal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
+    <div class="absolute inset-0 bg-black opacity-50"></div>
+
+    <div class="relative bg-white p-6 rounded-lg shadow-lg w-96 z-10">
+        <h2 class="text-lg font-bold mb-4 text-center">Xác nhận hủy vé</h2>
+
+        <p class="font-medium mb-2">Chọn lý do hủy:</p>
+        <div class="space-y-2">
+            <label class="flex items-center space-x-2">
+                <input type="radio" name="cancel_reason" value="Không thể đi" onclick="toggleTextarea(true)">
+                <span>Không thể đi</span>
+            </label>
+            <label class="flex items-center space-x-2">
+                <input type="radio" name="cancel_reason" value="Đổi kế hoạch" onclick="toggleTextarea(false)">
+                <span>Đổi kế hoạch</span>
+            </label>
+            <label class="flex items-center space-x-2">
+                <input type="radio" name="cancel_reason" value="Khác" id="otherReasonRadio"
+                    onclick="toggleTextarea(false)">
+                <span>Khác</span>
+            </label>
+        </div>
+
+        <textarea id="otherReason" class="w-full p-2 mt-3 border border-gray-300 rounded-md hidden"
+            placeholder="Nhập lý do khác..."></textarea>
+
+        <div class="flex justify-end mt-4">
+            <button class="bg-gray-300 text-black px-4 py-2 rounded-md mr-2" onclick="closeCancelModal()">Hủy</button>
+            <button class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700">Xác nhận</button>
+        </div>
+    </div>
+</div>
