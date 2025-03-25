@@ -6,15 +6,16 @@
          </div>
          <div class="menu-top-right flex p-2">
             <ul class="flex flex-wrap md:flex-row gap-4 justify-between list-none items-center text-white">
-               <li class="hover:bg-black/10 px-4 py-2 cursor-pointer rounded-md"><a href="#">Hỗ trợ</a></li>
-               <li class="hover:bg-black/10 px-4 py-2 cursor-pointer rounded-md"><a href="#">Đặt chỗ của
+               <li class="hover:bg-black/10 px-4 py-2 cursor-pointer rounded-md"><a routerLink="/contact">Hỗ trợ</a>
+               </li>
+               <li class="hover:bg-black/10 px-4 py-2 cursor-pointer rounded-md"><a routerLink="/history">Đặt chỗ của
                      tôi</a></li>
                <li class="border border-white rounded-lg px-4 py-2 hover:bg-black/10 cursor-pointer"><a
-                     href="login.html" class="no-underline"><i class="fas fa-user mr-2"></i> Đăng
+                     routerLink="/register" class="no-underline"><i class="fas fa-user mr-2"></i> Đăng
                      ký</a></li>
                <li
                   class="rounded-lg px-4 py-2 bg-sky-500 hover:text-white transition duration-300 font-bold hover:bg-sky-600/50">
-                  <a href="register.html" class="no-underline">Đăng nhập</a>
+                  <a routerLink="/login" class="no-underline">Đăng nhập</a>
                </li>
             </ul>
          </div>
@@ -22,16 +23,21 @@
       <hr class="border-gray-500 opacity-50">
       <div class="menu-bottom flex justify-start w-[80%] lg:w-[80%] mx-auto items-center py-1">
          <ul class="flex flex-wrap gap-4 justify-center md:justify-start list-none items-center font-bold">
-            <li class="hover:bg-black/10 px-4 py-2 cursor-pointer rounded-md">Đặt
-               vé xe</li>
-            <li class="hover:bg-black/10 px-4 py-2 cursor-pointer rounded-md">Về
-               chúng tôi</li>
-            <li class="hover:bg-black/10 px-4 py-2 cursor-pointer rounded-md"><a href="./bus.html">Lịch trình</a>
+            <li class="hover:bg-black/10 px-4 py-2 cursor-pointer rounded-md">
+               <a routerLink="/home">Đặt vé xe</a>
             </li>
-            <li class="hover:bg-black/10 px-4 py-2 cursor-pointer rounded-md">Tin
-               tức</li>
-            <li class="hover:bg-black/10 px-4 py-2 cursor-pointer rounded-md">Liên
-               hệ</li>
+            <li class="hover:bg-black/10 px-4 py-2 cursor-pointer rounded-md">
+               <a routerLink="/about">Về chúng tôi</a>
+            </li>
+            <li class="hover:bg-black/10 px-4 py-2 cursor-pointer rounded-md">
+               <a routerLink="/timetable">Lịch trình</a>
+            </li>
+            <li class="hover:bg-black/10 px-4 py-2 cursor-pointer rounded-md">
+               <a routerLink="/blog">Tin tức</a>
+            </li>
+            <li class="hover:bg-black/10 px-4 py-2 cursor-pointer rounded-md">
+               <a routerLink="/contact">Liên hệ</a>
+            </li>
          </ul>
       </div>
       <hr class="border-gray-500 opacity-50">
@@ -69,14 +75,16 @@
          </ul>
       </div>
    </div>
-   <div class="w-full h-[300px] md:h-[500px] bg-cover bg-center relative text-white flex justify-center items-center">
+
+   <div id="homeHeader"
+      class="w-full h-[300px] md:h-[500px] bg-cover bg-center relative text-white flex justify-center items-center hidden">
       <div class="absolute w-full md:w-3/4 max-w-[1000px] text-center mt-[13%] px-4 header-content">
-         <h1 class="text-2xl md:text-4xl font-bold mb-8">Khám Phá
-            Việt Nam, Theo Cách Của Bạn</h1>
-         <div class="w-full flex justify-center items-center rounded-[16px]  border-[6px] border-gray-100/10">
-            <form action method class="w-full bg-white shadow-md rounded-lg py-5 px-5 flex flex-row md:flex-row  items-end gap-4">
+         <h1 class="text-2xl md:text-4xl font-bold mb-8">Khám Phá Việt Nam, Theo Cách Của Bạn</h1>
+         <div class="w-full flex justify-center items-center rounded-[16px] border-[6px] border-gray-100/10">
+            <form action method
+               class="w-full bg-white shadow-md rounded-lg py-5 px-5 flex flex-row md:flex-row items-end gap-4">
                <div class="flex flex-col w-[30%] md:w-[30%]">
-                  <label class="text-blue-950 text-sm text-left py-2 ">Từ</label>
+                  <label class="text-blue-950 text-sm text-left py-2">Từ</label>
                   <div class="flex items-center p-2 rounded">
                      <i class="fas fa-bus text-lg text-sky-700"></i>
                      <input type="text" placeholder="Nhập điểm đi"
@@ -87,7 +95,7 @@
                   <i class="fas fa-exchange-alt text-sky-700 text-lg cursor-pointer hover:text-gray-700"></i>
                </div>
                <div class="flex flex-col w-[30%] md:w-[30%]">
-                  <label class="text-blue-950 text-sm text-left py-2 ">Đến</label>
+                  <label class="text-blue-950 text-sm text-left py-2">Đến</label>
                   <div class="flex items-center bg-white p-2 rounded">
                      <i class="fas fa-bus text-lg text-sky-700"></i>
                      <input type="text" placeholder="Nhập điểm đến"
@@ -95,15 +103,12 @@
                   </div>
                </div>
                <div class="flex flex-col w-[30%]">
-                  <label class="text-blue-950 text-sm text-left py-2 ">Ngày
-                     khởi
-                     hành</label>
+                  <label class="text-blue-950 text-sm text-left py-2">Ngày khởi hành</label>
                   <div class="flex items-center bg-white p-2 rounded relative">
                      <i class="fas fa-calendar-alt text-lg text-sky-700 cursor-pointer absolute left-2"
                         onclick="document.getElementById('departure-date').showPicker()"></i>
-
-                     <input type="date" id="departure-date" class="outline-none w-full bg-transparent pl-8 text-blue-950 cursor-pointer 
-                    appearance-none [&::-webkit-calendar-picker-indicator]:hidden">
+                     <input type="date" id="departure-date"
+                        class="outline-none w-full bg-transparent pl-8 text-blue-950 cursor-pointer appearance-none [&::-webkit-calendar-picker-indicator]:hidden">
                   </div>
                </div>
                <button
@@ -114,19 +119,13 @@
          </div>
          <div class="w-full md:w-[80%] flex flex-wrap items-center gap-2 mt-4 text-white justify-start">
             <span class="font-bold me-5">Tìm kiếm</span>
-            <a href="#" class="flex items-center gap-1 bg-gray-500 text-white px-3 py-1 rounded-[6px] text-sm">Khám
-               phá ý tưởng chuyến đi</a>
+            <a href="#" class="flex items-center gap-1 bg-gray-500 text-white px-3 py-1 rounded-[6px] text-sm">Khám phá
+               ý tưởng chuyến đi</a>
             <a href="#" class="flex items-center gap-1 bg-gray-500 text-white px-3 py-1 rounded-[6px] text-sm">Tin
                tức</a>
          </div>
       </div>
    </div>
 
-   <div class="w-full text-center mb-7">
-      <div id="comment-container" class="inline-block bg-gray-100 p-3 rounded-lg text-sm text-gray-700 italic">
-         <p>“Tuyến Sài Gòn - Đà Lạt dịch vụ tốt, tài xế vui vẻ, xe
-            sạch sẽ! ⭐⭐⭐⭐⭐”</p>
-      </div>
-   </div>
 
 </header>

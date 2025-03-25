@@ -19,6 +19,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 padding: 10px !important;
 }
 
+header #homeHeader{
+   display: none;
+}
 body:has(#home) header,
 body:has(#booktickets) header,
 body:has(#busDetail) header {
@@ -26,11 +29,17 @@ body:has(#busDetail) header {
     min-height: 35rem;
     background-size: cover;
     color: white !important;
+
+}
+
+body:has(#home) header #homeHeader,
+body:has(#booktickets) header #homeHeader,
+body:has(#busDetail) header #homeHeader{
+   display: flex;
 }
 
 header{
   color: white !important;
-
 }
 #home {
 
