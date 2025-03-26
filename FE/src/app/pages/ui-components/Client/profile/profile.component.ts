@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from 'src/app/layouts/Client/navbar/navbar.component';
 @Component({
-  selector: 'app-ticket-history',
+  selector: 'app-profile',
   imports: [NavbarComponent],
-  templateUrl: './ticket-history.component.html',
-  styleUrl: './ticket-history.component.scss'
+  templateUrl: './profile.component.html',
+  styleUrl: './profile.component.scss'
 })
-export class TicketHistoryComponent {
+export class ProfileComponent {
 
 }

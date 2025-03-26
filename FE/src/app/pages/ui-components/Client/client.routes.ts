@@ -7,6 +7,7 @@ import { ContactComponent } from "./contact/contact.component";
 import { TicketHistoryComponent } from "./ticket-history/ticket-history.component";
 import { AuthenticationRoutes } from "../../authentication/authentication.routes";
  import { BookticketsComponent } from "./timetable/booktickets/booktickets.component";
+import { ProfileComponent } from "./profile/profile.component";
 
 
 export const ClientRoutes: Routes = [
@@ -43,6 +44,10 @@ export const ClientRoutes: Routes = [
   {
     path: 'history',
     component: TicketHistoryComponent,
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
   },
   {
     path: '**',
