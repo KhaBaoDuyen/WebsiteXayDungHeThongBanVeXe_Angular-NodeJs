@@ -6,12 +6,13 @@ import { TimetableComponent } from "./timetable/timetable.component";
 import { ContactComponent } from "./contact/contact.component";
 import { TicketHistoryComponent } from "./ticket-history/ticket-history.component";
 import { AuthenticationRoutes } from "../../authentication/authentication.routes";
+ import { BookticketsComponent } from "./timetable/booktickets/booktickets.component";
 
 
 export const ClientRoutes: Routes = [
   {
     path: '',
-    redirectTo: 'home',  
+    redirectTo: 'home',
     pathMatch: 'full',
   },
   //  ...AuthenticationRoutes,
@@ -30,6 +31,10 @@ export const ClientRoutes: Routes = [
   {
     path: 'timetable',
     component: TimetableComponent,
+  },
+  {
+    path: 'booktickets',
+    component: BookticketsComponent
   },
   {
     path: 'contact',

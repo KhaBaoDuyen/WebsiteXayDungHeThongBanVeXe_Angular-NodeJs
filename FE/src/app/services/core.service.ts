@@ -27,7 +27,6 @@ export class CoreService {
             this.initMenuToggle();
             this.initScrollEffect();
             this.initBusAnimation();
-            this.initToggleButton();
         });
 
         // Lắng nghe sự kiện thay đổi route
@@ -117,7 +116,6 @@ export class CoreService {
 
         if (!menu || !main) return;
 
-        // Mặc định có background
         menu.classList.remove("bg-transparent");
         menu.classList.add("bg-[#043175]");
 
@@ -132,10 +130,8 @@ export class CoreService {
                 }
             };
 
-            // Áp dụng ngay trạng thái ban đầu
             this.scrollHandler();
             
-            // Đăng ký sự kiện scroll
             window.addEventListener("scroll", this.scrollHandler);
         }
     }
@@ -176,16 +172,5 @@ export class CoreService {
         }
     }
 
-    // 7. Toggle button
-    private initToggleButton() {
-        const toggleBtn = document.getElementById("toggleBtn");
-        const content = document.getElementById("content");
-
-        if (toggleBtn && content) {
-            toggleBtn.addEventListener("click", (event) => {
-                event.preventDefault();
-                content.classList.toggle("hidden");
-            });
-        }
-    }
+ 
 }
