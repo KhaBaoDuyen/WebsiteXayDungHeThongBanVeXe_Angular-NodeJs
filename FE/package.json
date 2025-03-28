@@ -55,6 +55,7 @@
     "@angular/cli": "~19.0.6",
     "@angular/compiler-cli": "^19.0.5",
     "@types/chance": "^1.1.6",
+    "@types/ckeditor__ckeditor5-watchdog": "^29.0.1",
     "@types/date-fns": "^2.6.0",
     "@types/jasmine": "~4.3.0",
     "autoprefixer": "^10.4.21",
