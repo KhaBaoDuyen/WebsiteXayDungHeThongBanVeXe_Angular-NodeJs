@@ -4,8 +4,8 @@
       <mat-card class="cardWithShadow boxed-auth">
         <mat-card-content class="p-32">
           <div class="text-center">
-            <a [routerLink]="['/admin/dashboard']">
-              <img src="./assets/images/logos/logo.png" class="align-middle m-2" alt="logo"  width="70%"/>
+            <a [routerLink]="['/']">
+              <img src="./assets/images/logos/logo.png" class="align-middle m-2 h-20" alt="logo"  width="70%"/>
             </a>
           </div>
 
@@ -46,21 +46,14 @@
             <small class="text-red-500" *ngIf="f.password.invalid && f.password.touched">
               Mật khẩu phải có ít nhất 6 ký tự.
             </small>
-          
-            <div class="d-flex align-items-center m-b-12">
-              <mat-checkbox color="primary" formControlName="remember">Ghi nhớ thiết bị này</mat-checkbox>
-              <a [routerLink]="['/forgot-password']" class="text-primary f-w-600 text-decoration-none m-l-auto f-s-14">
-                Quên mật khẩu?
-              </a>
-            </div>
-          
+
             <button type="submit" mat-flat-button color="primary" class="w-100" >
               Đăng Nhập
             </button>
           </form>
           
           <span class="d-block f-w-500 text-center m-t-24">Bạn mới biết Bụi Đường?
-            <a [routerLink]="['/authentication/register']" class="text-decoration-none text-primary f-w-500 f-s-14">
+            <a [routerLink]="['/auth/register']" class="text-decoration-none text-primary f-w-500 f-s-14">
               Tạo một tài khoản</a>
           </span>
         </mat-card-content>

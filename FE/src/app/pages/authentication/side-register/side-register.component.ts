@@ -13,7 +13,7 @@ import { MaterialModule } from 'src/app/material.module';
   templateUrl: './side-register.component.html',
 })
 export class AppSideRegisterComponent {
-  options = this.settings.getOptions();
+  options = this.settings['getOptions']();
 
   constructor(private settings: CoreService, private router: Router) {}
 
