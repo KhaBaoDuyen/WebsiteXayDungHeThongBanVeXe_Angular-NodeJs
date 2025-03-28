@@ -18,21 +18,19 @@ export class CoreService {
     private currentCommentIndex = signal(0);
     private swiperInstance: Swiper | null = null;
     private scrollHandler: (() => void) | null = null;
+    private commentInterval: any = null; 
 
     constructor(private router: Router) {
-        // Khởi tạo các hiệu ứng sau khi render
+        // Khởi tạo lần đầu sau khi render
         afterNextRender(() => {
-            this.initCommentSlider();
-            this.initSwiper();
-            this.initMenuToggle();
-            this.initScrollEffect();
-            this.initBusAnimation();
+            this.initAllEffects();
         });
 
         // Lắng nghe sự kiện thay đổi route
         this.router.events.subscribe(event => {
             if (event instanceof NavigationEnd) {
-                this.handleRouteChange();
+                this.cleanup(); // Dọn dẹp trước khi khởi tạo lại
+                this.initAllEffects(); // Khởi tạo lại các hiệu ứng
             }
         });
     }
@@ -48,15 +46,29 @@ export class CoreService {
         }));
     }
 
-    private handleRouteChange() {
-        // Gỡ bỏ scroll handler cũ nếu có
+    // Hàm tổng hợp để khởi tạo tất cả hiệu ứng
+    private initAllEffects() {
+        this.initCommentSlider();
+        this.initSwiper();
+        this.initMenuToggle();
+        this.initScrollEffect();
+        this.initBusAnimation();
+    }
+
+    // Dọn dẹp các listener và instance cũ
+    private cleanup() {
+        if (this.swiperInstance) {
+            this.swiperInstance.destroy();
+            this.swiperInstance = null;
+        }
         if (this.scrollHandler) {
             window.removeEventListener('scroll', this.scrollHandler);
             this.scrollHandler = null;
         }
-        
-        // Thiết lập lại hiệu ứng scroll
-        this.initScrollEffect();
+        if (this.commentInterval) {
+            clearInterval(this.commentInterval);
+            this.commentInterval = null;
+        }
     }
 
     // 1. Comment slider
@@ -66,7 +78,7 @@ export class CoreService {
 
         this.updateComment(commentContainer);
 
-        setInterval(() => {
+        this.commentInterval = setInterval(() => {
             this.currentCommentIndex.update(current => (current + 1) % this.comments().length);
             this.updateComment(commentContainer);
         }, 3000);
@@ -119,7 +131,7 @@ export class CoreService {
         menu.classList.remove("bg-transparent");
         menu.classList.add("bg-[#043175]");
 
-        if (main.id === "home") {
+        if (main.id === "home" || main.id === "busDetail") {
             this.scrollHandler = () => {
                 if (window.scrollY > 50) {
                     menu.classList.remove("bg-transparent");
@@ -131,7 +143,6 @@ export class CoreService {
             };
 
             this.scrollHandler();
-            
             window.addEventListener("scroll", this.scrollHandler);
         }
     }
@@ -171,6 +182,4 @@ export class CoreService {
             otherTextarea.classList.add("hidden");
         }
     }
-
- 
 }

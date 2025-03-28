@@ -2,6 +2,9 @@ import { Routes } from '@angular/router';
 import { BlankComponent } from './layouts/blank/blank.component';
 import { FullComponent } from './layouts/full/full.component';
 import { ClientLayoutComponent } from './layouts/Client/client-layout.component';
+import { AuthenticationRoutes } from './pages/authentication/authentication.routes';
+import { AppSideLoginComponent } from '../app/pages/authentication/side-login/side-login.component';
+import { AppSideRegisterComponent } from '../app/pages/authentication/side-register/side-register.component';
 
 export const routes: Routes = [
   {
@@ -33,6 +36,11 @@ export const routes: Routes = [
     ],
   },
   {
+    path: 'auth',
+    component: BlankComponent, 
+    children: AuthenticationRoutes 
+  },
+  {
     path: '',
     component: ClientLayoutComponent,
     children: [
@@ -45,8 +53,9 @@ export const routes: Routes = [
       }
     ],
   },
+  ...AuthenticationRoutes,
   {
     path: '**',
-    redirectTo: 'authentication/error',
+    redirectTo: 'home',
   },
 ];

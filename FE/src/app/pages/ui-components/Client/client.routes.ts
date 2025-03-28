@@ -16,7 +16,6 @@ export const ClientRoutes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full',
   },
-  //  ...AuthenticationRoutes,
   {
     path: 'home',
     component: HomeComponent,
