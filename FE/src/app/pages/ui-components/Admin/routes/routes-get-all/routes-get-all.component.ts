@@ -27,7 +27,7 @@ displayedColumns: string[] = ['id', 'startPoint', 'endPoint', 'distance','action
       distance: 2000
     },
     {
-      id: 2,
+      id: 6,
       startPoint: "An Giang",
       endPoint: "Bà Rịa - Vũng Tàu",
       distance: 140

@@ -5,6 +5,7 @@ import {
 } from '@angular/core';
 import {
   provideHttpClient,
+  withFetch,
   withInterceptorsFromDi,
 } from '@angular/common/http';
 import { routes } from './app.routes';
@@ -14,7 +15,7 @@ import {
   withInMemoryScrolling,
 } from '@angular/router';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideClientHydration } from '@angular/platform-browser';
+import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 
 // icons
 import { TablerIconsModule } from 'angular-tabler-icons';
@@ -38,8 +39,8 @@ export const appConfig: ApplicationConfig = {
       }),
       withComponentInputBinding()
     ),
-    provideHttpClient(withInterceptorsFromDi()),
-    provideClientHydration(),
+    provideHttpClient(withInterceptorsFromDi(),withFetch()),
+    provideClientHydration(withEventReplay()),
     provideAnimationsAsync(),
     importProvidersFrom(
       FormsModule,

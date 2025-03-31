@@ -20,7 +20,7 @@ export class BlogGetAllComponent implements AfterViewInit {
   dataSource = new MatTableDataSource<blogInterface>([]);
   posts: blogInterface[] = [
     { id: 1, title: 'Bài viết 1', content: 'Nội dung bài viết 1', image: 'https://source.unsplash.com/random/150x100?sig=1', status: 'Hiện bài viết', createAt: '2024-03-18' },
-    { id: 2, title: 'Bài viết 2', content: 'Nội dung bài viết 2', image: 'https://source.unsplash.com/random/150x100?sig=2', status: 'Hiện bài viết', createAt: '2024-03-17' },
+    { id: 6, title: 'Bài viết 2', content: 'Nội dung bài viết 2', image: 'https://source.unsplash.com/random/150x100?sig=2', status: 'Hiện bài viết', createAt: '2024-03-17' },
     { id: 3, title: 'Bài viết 3', content: 'Nội dung bài viết 3', image: 'https://source.unsplash.com/random/150x100?sig=3', status: 'Ẩn bài viết', createAt: '2024-03-16' },
     { id: 4, title: 'Bài viết 4', content: 'Nội dung bài viết 4', image: 'https://source.unsplash.com/random/150x100?sig=4', status: 'Hiện bài viết', createAt: '2024-03-15' },
     { id: 5, title: 'Bài viết 5', content: 'Nội dung bài viết 5', image: 'https://source.unsplash.com/random/150x100?sig=5', status: 'Ẩn bài viết', createAt: '2024-03-14' },
