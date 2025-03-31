@@ -21,7 +21,7 @@
               "apexcharts",
               "bezier-easing"
             ],
-           "outputPath": "dist/Matdash",
+            "outputPath": "dist/Matdash",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -40,13 +40,12 @@
               "src/assets/scss/style.scss",
               "node_modules/material-icons/iconfont/material-icons.css",
               "node_modules/swiper/swiper-bundle.min.css",
-             "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
+              "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
             ],
             "scripts": [
-               "node_modules/@iconify/iconify/dist/iconify.min.js",
-               "node_modules/swiper/swiper-bundle.min.js"
+              "node_modules/@iconify/iconify/dist/iconify.min.js",
+              "node_modules/swiper/swiper-bundle.min.js"
             ]
-          
           },
           "configurations": {
             "production": {
