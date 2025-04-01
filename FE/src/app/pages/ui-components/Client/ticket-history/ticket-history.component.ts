@@ -6,7 +6,6 @@ import { NavbarComponent } from 'src/app/layouts/Client/navbar/navbar.component'
   selector: 'app-ticket-history',
   imports: [CommonModule,NavbarComponent, FormCancelComponent],
   templateUrl: './ticket-history.component.html',
-  styleUrl: './ticket-history.component.scss'
 })
 export class TicketHistoryComponent {
   @ViewChild('cancelModal') cancelModal!: FormCancelComponent;

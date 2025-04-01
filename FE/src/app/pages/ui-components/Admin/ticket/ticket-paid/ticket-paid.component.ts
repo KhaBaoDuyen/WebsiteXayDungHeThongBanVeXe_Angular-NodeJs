@@ -18,7 +18,6 @@ import { MatSortModule } from '@angular/material/sort';
     MatSortModule
   ],
   templateUrl: './ticket-paid.component.html',
-  styleUrls: ['./ticket-paid.component.scss']
 })
 export class TicketPaidComponent {
   displayedColumns: string[] = ['id', 'userName', 'phone', 'tripID', 'seatID', 'finalPrice', 'actions'];

@@ -17,7 +17,6 @@ interface Payment {
   selector: 'app-admin-pay',
   imports: [MatTableModule, MatButtonModule, MatIconModule, CommonModule, MatPaginatorModule, RouterModule],
   templateUrl: './admin-pay.component.html',
-  styleUrl: './admin-pay.component.scss'
 })
 export class AdminPayComponent {
   displayedColumns: string[] = ['id', 'userName', 'amount', 'paymentMethod', 'status', 'actions'];

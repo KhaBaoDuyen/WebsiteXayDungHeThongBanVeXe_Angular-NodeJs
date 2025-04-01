@@ -4,7 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-blog',
   imports: [],
   templateUrl: './blog.component.html',
-  styleUrl: './blog.component.scss'
 })
 export class BlogComponent {
 

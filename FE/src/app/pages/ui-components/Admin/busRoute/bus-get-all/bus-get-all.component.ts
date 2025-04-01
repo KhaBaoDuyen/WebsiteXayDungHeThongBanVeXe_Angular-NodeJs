@@ -11,7 +11,6 @@ import { BusRoute } from 'src/app/interface/bus-route.interface';
 @Component({
   selector: 'app-bus-get-all',
   templateUrl: './bus-get-all.component.html',
-  styleUrls: ['./bus-get-all.component.scss'],  
   standalone: true,
   imports: [
     MatTableModule, 
@@ -21,7 +20,7 @@ import { BusRoute } from 'src/app/interface/bus-route.interface';
     MatPaginatorModule, 
     RouterModule,
     FormDeleteComponent,
-  ],
+  ]
 })
 export class BusGetAllComponent implements AfterViewInit {
   displayedColumns: string[] = ['id', 'route', 'departure', 'arrival', 'price', 'status', 'actions'];

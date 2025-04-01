@@ -8,7 +8,6 @@ import { userInterface } from 'src/app/interface/user.interface';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule], // Thêm ReactiveFormsModule
   templateUrl: './user-edit.component.html',
-  styleUrl: './user-edit.component.scss'
 })
 export class UserEditComponent {
   users: userInterface = {

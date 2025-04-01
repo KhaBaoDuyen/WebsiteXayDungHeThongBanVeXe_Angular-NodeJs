@@ -10,7 +10,6 @@ import ClassicEditorBuild from '@ckeditor/ckeditor5-build-classic';
 @Component({
   selector: 'app-edit-blogs',
   templateUrl: './edit-blogs.component.html',
-  styleUrls: ['./edit-blogs.component.scss'],
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, CKEditorModule],
 })

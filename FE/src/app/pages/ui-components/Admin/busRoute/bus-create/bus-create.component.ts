@@ -8,7 +8,6 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-bus-create',
   imports: [MaterialModule, CommonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './bus-create.component.html',
-  styleUrl: './bus-create.component.scss'
 })
 export class BusCreateComponent {
   route = new FormControl('', [Validators.required,  Validators.minLength(5)]);

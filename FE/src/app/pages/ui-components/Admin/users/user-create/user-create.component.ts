@@ -7,7 +7,6 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-user-create',
   templateUrl: './user-create.component.html',
-  styleUrls: ['./user-create.component.scss'],
   imports: [CommonModule, ReactiveFormsModule, FormsModule],
 })
 export class UserCreateComponent {

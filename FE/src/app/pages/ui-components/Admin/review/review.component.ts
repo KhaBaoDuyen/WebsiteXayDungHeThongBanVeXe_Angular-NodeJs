@@ -21,7 +21,6 @@ export class CustomPaginatorIntl extends MatPaginatorIntl {
   standalone: true,
   imports: [CommonModule, MatTableModule, MatPaginatorModule, MatSortModule, MatIconModule,RouterModule],
   templateUrl: './review.component.html',
-  styleUrls: ['./review.component.scss'],
   providers: [{ provide: MatPaginatorIntl, useClass: CustomPaginatorIntl }]
 })
 export class ReviewComponent {

@@ -14,7 +14,6 @@ import ClassicEditorBuild from '@ckeditor/ckeditor5-build-classic';
 @Component({
   selector: 'app-blog-create',
   templateUrl: './blog-create.component.html',
-  styleUrls: ['./blog-create.component.scss'],
   standalone: true,
   imports: [
     CommonModule,

@@ -11,7 +11,6 @@ import { blogInterface } from 'src/app/interface/blogInterface';
 @Component({
   selector: 'app-blog-get-all',
   templateUrl: './blog-get-all.component.html',
-  styleUrls: ['./blog-get-all.component.scss'],
   standalone: true,
   imports: [MatTableModule, MatButtonModule, MatIconModule, CommonModule, MatPaginatorModule, RouterModule],
 })

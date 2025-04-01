@@ -6,7 +6,6 @@ import { CommonModule } from '@angular/common';
   selector: 'app-ticket-edit',
   imports: [CommonModule],
   templateUrl: './ticket-edit.component.html',
-  styleUrl: './ticket-edit.component.scss'
 })
 export class TicketEditComponent {
   ticket: ticketInterface = {

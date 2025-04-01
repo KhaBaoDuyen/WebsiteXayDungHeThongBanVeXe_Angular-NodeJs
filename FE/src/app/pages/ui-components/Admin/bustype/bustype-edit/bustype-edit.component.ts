@@ -8,7 +8,6 @@ import { BusTypeInterface } from 'src/app/interface/bus-type.interface';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],  
   templateUrl: './bustype-edit.component.html',
-  styleUrl: './bustype-edit.component.scss'
 })
 export class BustypeEditComponent {
   bustype: BusTypeInterface = {

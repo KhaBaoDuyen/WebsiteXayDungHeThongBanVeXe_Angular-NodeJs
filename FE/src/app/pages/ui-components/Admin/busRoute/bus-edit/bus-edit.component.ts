@@ -8,7 +8,6 @@ import { BusRoute } from 'src/app/interface/bus-route.interface';
   selector: 'app-bus-edit',
   imports: [ ReactiveFormsModule, FormsModule, CommonModule],
   templateUrl: './bus-edit.component.html',
-  styleUrl: './bus-edit.component.scss'
 })
 export class BusEditComponent {
 busRoute: BusRoute = {

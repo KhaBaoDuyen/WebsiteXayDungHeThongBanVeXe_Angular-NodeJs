@@ -11,7 +11,6 @@ import { ViewChild, AfterViewInit } from '@angular/core';
 @Component({
   selector: 'app-ticket-canceled',
   templateUrl: './ticket-canceled.component.html',
-  styleUrls: ['./ticket-canceled.component.scss'],
   standalone: true,
   imports: [
     CommonModule,

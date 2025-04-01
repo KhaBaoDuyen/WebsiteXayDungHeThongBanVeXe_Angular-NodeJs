@@ -8,7 +8,6 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormControl } 
   standalone: true,
   imports: [MaterialModule, CommonModule, ReactiveFormsModule],
   templateUrl: './routes-create.component.html',
-  styleUrls: ['./routes-create.component.scss']
 })
 export class RoutesCreateComponent {
   routesForm: FormGroup;

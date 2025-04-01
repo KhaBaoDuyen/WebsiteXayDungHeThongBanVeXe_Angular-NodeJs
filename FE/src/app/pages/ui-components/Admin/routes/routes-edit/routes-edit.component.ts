@@ -8,7 +8,6 @@ import { routesInterface } from 'src/app/interface/routes.interface';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './routes-edit.component.html',
-  styleUrls: ['./routes-edit.component.scss']
 })
 export class RoutesEditComponent implements OnInit {
   routesForm: FormGroup;

@@ -15,7 +15,6 @@ import { routesInterface } from 'src/app/interface/routes.interface';
   imports: [RouterModule, MatTableModule, MatButtonModule, MatIconModule, 
 CommonModule, MatPaginatorModule, FormDeleteComponent],
   templateUrl: './routes-get-all.component.html',
-  styleUrl: './routes-get-all.component.scss'
 })
 export class RoutesGetAllComponent {
 displayedColumns: string[] = ['id', 'startPoint', 'endPoint', 'distance','actions'];

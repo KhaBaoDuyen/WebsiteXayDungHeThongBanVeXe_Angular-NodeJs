@@ -6,7 +6,6 @@ import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormControl, A
   selector: 'app-driver-create',
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './driver-create.component.html',
-  styleUrls: ['./driver-create.component.scss'],
   standalone: true
 })
 export class DriverCreateComponent {

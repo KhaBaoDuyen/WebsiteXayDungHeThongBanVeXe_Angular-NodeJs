@@ -20,7 +20,6 @@ import { contactInterface } from 'src/app/interface/contactInterface';
     MatIconModule
   ],
   templateUrl: './contact-reply.component.html',
-  styleUrls: ['./contact-reply.component.scss']
 })
 export class ContactReplyComponent {
   replyForm: FormGroup;

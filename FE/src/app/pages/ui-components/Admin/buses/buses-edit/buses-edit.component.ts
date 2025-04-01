@@ -8,7 +8,6 @@ import { busesInterface } from 'src/app/interface/buses.interface';
   selector: 'app-buses-edit',
   imports: [ ReactiveFormsModule, FormsModule, CommonModule],
   templateUrl: './buses-edit.component.html',
-  styleUrl: './buses-edit.component.scss'
 })
 export class BusesEditComponent {
   buses: busesInterface = {

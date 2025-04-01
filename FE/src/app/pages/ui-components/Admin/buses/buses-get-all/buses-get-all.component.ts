@@ -22,7 +22,6 @@ import { busesInterface } from 'src/app/interface/buses.interface';
 
   ],
   templateUrl: './buses-get-all.component.html',
-  styleUrl: './buses-get-all.component.scss'
 })
 export class BusesGetAllComponent implements AfterViewInit {
 displayedColumns: string[] = ['id', 'plateNumber', 'busTypeID', 'driverId','totalSeats','status','actions'];

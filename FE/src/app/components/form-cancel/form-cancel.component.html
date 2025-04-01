@@ -1,13 +1,13 @@
 <div *ngIf="isModalOpen" class="fixed inset-0 flex items-center justify-center z-50">
     <div class="absolute inset-0 bg-black opacity-50" (click)="closeCancelModal()"></div>
   
-    <form (ngSubmit)="onSubmit()" class="relative bg-white p-10 rounded-lg shadow-lg w-96 z-10">
+    <form (ngSubmit)="onSubmit()" action="" class="relative bg-white p-10 rounded-lg shadow-lg w-96 z-10">
       <h2 class="text-lg font-bold mb-4 text-center">Xác nhận hủy vé</h2>
   
       <p class=" mb-2 font-bold">Chọn lý do hủy:</p>
       <div class="space-y-2">
         <label class="flex items-center space-x-2">
-          <input type="radio" name="cancel_reason" value="Không thể đi" (click)="toggleTextarea(true)">
+          <input type="radio" name="cancel_reason" value="Không thể đi" (click)="toggleTextarea(true) " checked>
           <span>Không thể đi</span>
         </label>
         <label class="flex items-center space-x-2">

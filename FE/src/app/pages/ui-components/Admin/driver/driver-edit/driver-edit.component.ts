@@ -7,7 +7,6 @@ import { driveriInterface } from 'src/app/interface/driver.interface';
   selector: 'app-driver-edit',
   imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './driver-edit.component.html',
-  styleUrls: ['./driver-edit.component.scss'],
   standalone: true
 })
 export class DriverEditComponent implements OnInit {

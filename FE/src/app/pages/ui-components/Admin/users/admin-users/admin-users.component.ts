@@ -10,7 +10,6 @@ import { userInterface } from 'src/app/interface/user.interface';
  @Component({
   selector: 'app-admin-users',
   templateUrl: './admin-users.component.html',
-  styleUrl: './admin-users.component.scss',
   imports: [MatTableModule, MatButtonModule, MatIconModule, CommonModule, MatPaginatorModule, RouterModule],
 })
 export class AdminUsersComponent implements AfterViewInit {

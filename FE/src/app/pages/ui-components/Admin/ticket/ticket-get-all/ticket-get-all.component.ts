@@ -14,7 +14,6 @@ import { ticketInterface} from 'src/app/interface/ticket.interface';
 @Component({
   selector: 'app-ticket-get-all',
   templateUrl: './ticket-get-all.component.html',
-  styleUrl: './ticket-get-all.component.scss',
   imports: [
     CommonModule,
     MatTableModule,

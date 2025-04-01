@@ -4,7 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-booktickets',
   imports: [],
   templateUrl: './booktickets.component.html',
-  styleUrl: './booktickets.component.scss'
 })
 export class BookticketsComponent {
 

@@ -4,10 +4,9 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form-cancel',
-    standalone: true,
+  standalone: true,
   imports:[CommonModule],
   templateUrl: './form-cancel.component.html',
-  styleUrls: ['./form-cancel.component.scss']
 })
 export class FormCancelComponent {
   @Input() Id!: number; 

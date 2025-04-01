@@ -12,7 +12,6 @@ import { FormDeleteComponent } from 'src/app/components/form-delete/form-delete.
   selector: 'app-bustype-get-all',
   standalone: true,
   templateUrl: './bustype-get-all.component.html',
-  styleUrls: ['./bustype-get-all.component.scss'],
   imports: [
     MatTableModule,
     MatButtonModule,

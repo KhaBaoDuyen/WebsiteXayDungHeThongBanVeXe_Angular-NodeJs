@@ -8,7 +8,6 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './bustype-create.component.html',
-  styleUrl: './bustype-create.component.scss'
 })
 export class BustypeCreateComponent {
   name = new FormControl('', [Validators.required, Validators.minLength(5)]);

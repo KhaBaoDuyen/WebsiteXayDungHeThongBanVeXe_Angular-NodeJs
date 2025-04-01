@@ -7,7 +7,6 @@ import { reviewInterface } from 'src/app/interface/reviewInterface';
   selector: 'app-review-edit',
   imports: [MatIconModule,CommonModule],
   templateUrl: './review-edit.component.html',
-  styleUrl: './review-edit.component.scss'
 })
 export class ReviewEditComponent {
   review: reviewInterface = {

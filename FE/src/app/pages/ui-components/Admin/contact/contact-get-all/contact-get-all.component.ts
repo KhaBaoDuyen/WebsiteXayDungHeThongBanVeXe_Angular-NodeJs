@@ -19,7 +19,6 @@ import { contactInterface } from 'src/app/interface/contactInterface';
     RouterModule
   ],
   templateUrl: './contact-get-all.component.html',
-  styleUrls: ['./contact-get-all.component.scss']
 })
 export class ContactGetAllComponent {
   displayedColumns: string[] = ['stt', 'question', 'email', 'status', 'actions'];

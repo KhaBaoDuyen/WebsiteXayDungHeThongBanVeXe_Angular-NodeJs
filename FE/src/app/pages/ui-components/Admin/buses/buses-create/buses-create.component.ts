@@ -7,7 +7,6 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-buses-create',
   imports: [MaterialModule, CommonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './buses-create.component.html',
-  styleUrl: './buses-create.component.scss'
 })
 export class BusesCreateComponent {
 
