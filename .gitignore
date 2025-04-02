@@ -1,1 +1,3 @@
 BE/.env
+BE/node_modules
+BE/database.js
