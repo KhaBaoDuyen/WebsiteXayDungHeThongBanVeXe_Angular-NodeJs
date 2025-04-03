@@ -7,6 +7,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { FormDeleteComponent } from 'src/app/components/form-delete/form-delete.component';
 import { BusRoute } from 'src/app/interface/bus-route.interface';
+import { FormSearchComponent } from '../../../../../components/form-search/form-search.component';
 
 @Component({
   selector: 'app-bus-get-all',
@@ -20,6 +21,7 @@ import { BusRoute } from 'src/app/interface/bus-route.interface';
     MatPaginatorModule, 
     RouterModule,
     FormDeleteComponent,
+    FormSearchComponent,
   ]
 })
 export class BusGetAllComponent implements AfterViewInit {
@@ -31,6 +33,8 @@ export class BusGetAllComponent implements AfterViewInit {
     { id: 4, route: 'Đà Nẵng - Hải Phòng', departure: '10:00', arrival: '22:00', price: 600000, status: 'Đang điều hành', busID: 2, driverID: 2 },
     { id: 5, route: 'TP.HCM - Hà Nội', departure: '12:00', arrival: '24:00', price: 550000, status: 'Đang điều hành', busID: 2, driverID: 2 },
   ]);
+  searchTerm: string = '';
+
   searchTerm: string = '';
 
 
