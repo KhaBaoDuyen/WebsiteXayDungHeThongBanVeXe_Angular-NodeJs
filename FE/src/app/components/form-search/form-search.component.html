@@ -1,0 +1,14 @@
+<div
+    class="flex items-center border border-gray-300 rounded-md px-3 py-2 w-full max-w-sm">
+    <input
+        type="text"
+        [(ngModel)]="searchTerm"
+        (input)="onSearch()"
+        placeholder="Tìm kiếm..."
+        class="w-full outline-none bg-transparent text-gray-700 placeholder-gray-400" />
+    <button *ngIf="searchTerm" (click)="clearSearch()"
+        class="text-gray-500 hover:text-gray-700">
+        ✖
+    </button>
+    <span class="material-icons text-gray-500">search</span>
+</div>
