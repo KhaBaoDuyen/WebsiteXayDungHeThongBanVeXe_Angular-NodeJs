@@ -10,14 +10,24 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './bus-create.component.html',
 })
 export class BusCreateComponent {
-  route = new FormControl('', [Validators.required,  Validators.minLength(5)]);
+  route = new FormControl('', Validators.required);
   departure = new FormControl('', Validators.required);
   arrival = new FormControl('', Validators.required);
   price = new FormControl('', [Validators.required, Validators.pattern('^[0-9]+$')]);
   status = new FormControl('', Validators.required); 
+  busID = new FormControl('', Validators.required); 
+  driverID = new FormControl('', Validators.required); 
 
   onSave() {
-    const controls = { route: this.route, departure: this.departure, arrival: this.arrival, price: this.price, status: this.status };
+    const controls = { 
+      route: this.route, 
+      departure: this.departure, 
+      arrival: this.arrival, 
+      price: this.price, 
+      status: this.status, 
+      busID: this.busID, 
+      driverID: this.driverID,
+    };
     Object.values(controls).forEach(control =>  control.markAsTouched());
       return;
     }
