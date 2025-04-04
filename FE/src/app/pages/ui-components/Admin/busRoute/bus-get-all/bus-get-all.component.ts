@@ -35,7 +35,6 @@ export class BusGetAllComponent implements AfterViewInit {
   ]);
   searchTerm: string = '';
 
-  searchTerm: string = '';
 
 
 
