@@ -39,6 +39,7 @@ export class AppSideRegisterComponent {
 
 
   constructor(
+    private router: Router,
     private settings: CoreService,
     private notificationService: NotificationService,
     private authService: AuthService,
@@ -77,6 +78,7 @@ export class AppSideRegisterComponent {
       next: (res: any) => {
         if (res.success) {
           this.notificationService.showSuccess(res.message);
+          this.router.navigate(['/auth/login']);
         } else {
           this.notificationService.showError(res.message || 'Đã xảy ra lỗi không xác định');
         }

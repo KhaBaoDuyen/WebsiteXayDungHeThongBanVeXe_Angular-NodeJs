@@ -70,7 +70,7 @@ export class AdminUsersComponent implements AfterViewInit {
       ];
     } else {
       this.dataSource.data = this.dataSource.data.filter(route =>
-        route.fullName.toLowerCase().includes(searchTerm.toLowerCase())
+        (route.fullName ?? '').toLowerCase().includes(searchTerm.toLowerCase())
       );
     }
   }
