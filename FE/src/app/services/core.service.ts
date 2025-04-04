@@ -47,7 +47,8 @@ export class CoreService {
     }
 
     // Hàm tổng hợp để khởi tạo tất cả hiệu ứng
-    private initAllEffects() {
+    public initAllEffects() {
+        this.cleanup();
         this.initCommentSlider();
         this.initSwiper();
         this.initMenuToggle();
@@ -56,15 +57,18 @@ export class CoreService {
     }
 
     // Dọn dẹp các listener và instance cũ
-    private cleanup() {
+    public cleanup() {
+        // Dọn dẹp các hiệu ứng cũ
         if (this.swiperInstance) {
             this.swiperInstance.destroy();
             this.swiperInstance = null;
         }
+    
         if (this.scrollHandler) {
             window.removeEventListener('scroll', this.scrollHandler);
             this.scrollHandler = null;
         }
+    
         if (this.commentInterval) {
             clearInterval(this.commentInterval);
             this.commentInterval = null;
@@ -182,4 +186,5 @@ export class CoreService {
             otherTextarea.classList.add("hidden");
         }
     }
+
 }

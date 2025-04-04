@@ -21,13 +21,14 @@ export class ApiService {
    */
   get<T>(apiUrl: string, parameter: any[] = [], customHeaders?: HttpHeaders): Observable<T> {
     parameter.forEach(p => {
-      apiUrl += ('/' + p);
+      apiUrl += ('/' + p);  // Chuyển đổi parameter thành phần của URL
     });
 
     return this.http.get<T>(
-      apiUrl, { headers: customHeaders ?? this.getHeaders() },
+      apiUrl, { headers: customHeaders ?? this.getHeaders() },  // Thêm header vào đây
     );
   }
+
 
   /**
    * @method POST
@@ -97,7 +98,6 @@ export class ApiService {
       },
     );
   }
-
   getToken(): string | null {
     if (typeof window !== 'undefined' && localStorage) {
       return localStorage.getItem('token');

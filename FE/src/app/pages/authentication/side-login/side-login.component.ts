@@ -38,7 +38,7 @@ export class AppSideLoginComponent {
     return this.form.controls;
   }
 
-  submit() {
+  login() {
     if (this.form.invalid) {
       return;
     }
