@@ -1,3 +1,35 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@keyframes slideIn {
+    from {
+      transform: translateX(120%);
+      opacity: 0;
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+  
+    to {
+      opacity: 0;
+    }
+  }
+  
+  @layer utilities {
+    .animate-slideIn {
+      animation: slideIn 0.5s forwards;
+    }
+  
+    .animate-fadeOut {
+      animation: fadeOut 0.5s 2.5s forwards;
+    }
+  }
+  

@@ -1,15 +1,18 @@
-<main class="blank-layout-container justify-content-center align-items-center bg-light  h-screen">
-  <div class="position-relative row w-100 h-100 bg-gredient justify-content-center">
+<main
+  class="blank-layout-container justify-content-center align-items-center bg-light  h-screen">
+  <div
+    class="position-relative row w-100 h-100 bg-gredient justify-content-center">
     <div class="col-lg-4 d-flex align-items-center">
       <mat-card class="cardWithShadow boxed-auth">
         <mat-card-content class="p-32">
           <div class="text-center">
             <a [routerLink]="['/']">
-              <img src="./assets/images/logos/logo.png" class="align-middle m-2 h-20" alt="logo" />
+              <img src="./assets/images/logos/logo.png"
+                class="align-middle m-2 h-20" alt="logo" />
             </a>
           </div>
 
-          <div class="row m-t-24 custom-row">
+          <!-- <div class="row m-t-24 custom-row">
             <div class="col-6">
               <button mat-stroked-button class="w-100">
                 <div class="d-flex align-items-center">
@@ -28,45 +31,69 @@
             </div>
           </div>
 
-          <div class="or-border m-t-30">Đăng Nhập Bằng</div>
+          <div class="or-border m-t-30">Đăng Nhập Bằng</div> -->
 
-          <form class="m-t-30" [formGroup]="form" (ngSubmit)="submit()">
-            <!-- Tên -->
-            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Tên</mat-label>
+          <form method="post" class="m-t-30" [formGroup]="form"
+            (ngSubmit)="submit()">
+
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Họ
+              và tên</mat-label>
             <mat-form-field appearance="outline" class="w-100" color="primary">
-              <input matInput formControlName="uname" />
-            </mat-form-field>
-            <small class="text-red-500" *ngIf="f.uname.invalid && f.uname.touched">
+              <input matInput formControlName="fullName" />
+
+            </mat-form-field> <small class="text-red-500"
+              *ngIf="f.fullName.invalid && f.fullName.touched">
               Tên không được để trống và phải có ít nhất 6 ký tự.
             </small>
-          
-            <!-- Email -->
-            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Địa Chỉ Email</mat-label>
+
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Địa
+              Chỉ Email</mat-label>
             <mat-form-field appearance="outline" class="w-100" color="primary">
               <input matInput type="email" formControlName="email" />
-            </mat-form-field>
-            <small class="text-red-500" *ngIf="f.email.invalid && f.email.touched">
+            </mat-form-field><small class="text-red-500"
+              *ngIf="f.email.invalid && f.email.touched">
               Vui lòng nhập đúng định dạng email.
             </small>
-          
-            <!-- Mật khẩu -->
-            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Mật Khẩu</mat-label>
+
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Số
+              điện thoại</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput formControlName="phone" />
+            </mat-form-field><small class="text-red-500"
+              *ngIf="f.phone.invalid && f.phone.touched">
+              Số điện thoại phải có 10 chữ số và bắt đầu bằng 0.
+            </small>
+
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Mật
+              Khẩu</mat-label>
             <mat-form-field appearance="outline" class="w-100" color="primary">
               <input matInput type="password" formControlName="password" />
-            </mat-form-field>
-            <small class="text-red-500" *ngIf="f.password.invalid && f.password.touched">
+
+            </mat-form-field> <small class="text-red-500"
+              *ngIf="f.password.invalid && f.password.touched">
               Mật khẩu phải có ít nhất 6 ký tự.
             </small>
-          
-            <!-- Nút Đăng Ký -->
-            <button type="submit" mat-flat-button color="primary" class="w-100">
+
+            <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">Xác nhận mật khẩu</mat-label>
+            <mat-form-field appearance="outline" class="w-100" color="primary">
+              <input matInput type="password"
+                formControlName="confirmPassword" />
+            </mat-form-field> 
+            
+            <small class="text-red-500"
+              *ngIf="form.hasError('passwordMismatch') && f.confirmPassword.touched">
+              Mật khẩu và xác nhận mật khẩu không khớp.
+            </small>
+
+            <button type="submit" mat-flat-button color="primary" class="w-100"
+              [disabled]="form.invalid">
               Đăng Ký
             </button>
           </form>
-          
-          <span class="d-block f-w-500 text-center m-t-24">Bạn đã có tài khoản?
 
-            <a [routerLink]="['/auth/login']" class="text-decoration-none text-primary f-w-500 f-s-14">
+          <span class="d-block f-w-500 text-center m-t-24">Bạn đã có tài khoản?
+            <a [routerLink]="['/auth/login']"
+              class="text-decoration-none text-primary f-w-500 f-s-14">
               Đăng Nhập</a>
           </span>
         </mat-card-content>

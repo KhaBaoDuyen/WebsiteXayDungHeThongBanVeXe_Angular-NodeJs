@@ -1,1 +1,28 @@
+<ng-container *ngIf="successMessage">
+    <div class="fixed top-5 right-5 z-50 max-w-max py-5 px-10 bg-white text-green-500 border-l-4 border-green-500 rounded-lg shadow-lg animate-slideIn animate-fadeOut"
+         role="alert" id="flash-success">
+      <div class="flex justify-between items-center">
+        <span class="font-bold">{{ successMessage }}</span>
+        <button type="button" class="text-green-500" (click)="successMessage = ''">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </ng-container>
+  
+  <ng-container *ngIf="errorMessage">
+    <div class="fixed top-5 right-5 z-50 max-w-max py-5 px-10 bg-white text-red-500 border-l-4 border-red-500 rounded-lg shadow-lg animate-slideIn animate-fadeOut"
+         role="alert" id="flash-error">
+      <div class="flex justify-between items-center">
+        <span class="font-bold">{{ errorMessage }}</span>
+        <button type="button" class="text-red-500" (click)="errorMessage = ''">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </ng-container>
 <router-outlet></router-outlet>

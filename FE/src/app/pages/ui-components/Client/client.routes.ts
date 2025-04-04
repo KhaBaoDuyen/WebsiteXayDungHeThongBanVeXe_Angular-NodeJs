@@ -9,7 +9,6 @@ import { AuthenticationRoutes } from "../../authentication/authentication.routes
  import { BookticketsComponent } from "./timetable/booktickets/booktickets.component";
 import { ProfileComponent } from "./profile/profile.component";
 
-
 export const ClientRoutes: Routes = [
   {
     path: '',

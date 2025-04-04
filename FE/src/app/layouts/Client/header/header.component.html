@@ -10,12 +10,35 @@
                </li>
                <li class="hover:bg-black/10 px-4 py-2 cursor-pointer rounded-md"><a routerLink="/history">Đặt chỗ của
                      tôi</a></li>
-               <li class="border border-white rounded-lg px-4 py-2 hover:bg-black/10 cursor-pointer"><a
-                     routerLink="/auth/register" class="no-underline"><i class="fas fa-user mr-2"></i> Đăng
-                     ký</a></li>
-               <li
+
+               <li *ngIf="!isLoggedIn"
+                  class="border border-white rounded-lg px-4 py-2 hover:bg-black/10 cursor-pointer">
+                  <a routerLink="/auth/register" class="no-underline"><i class="fas fa-user mr-2"></i> Đăng ký</a>
+               </li>
+               <li *ngIf="!isLoggedIn"
                   class="rounded-lg px-4 py-2 bg-sky-500 hover:text-white transition duration-300 font-bold hover:bg-sky-600/50">
                   <a routerLink="/auth/login" class="no-underline">Đăng nhập</a>
+               </li>
+               <li *ngIf="isLoggedIn">
+                  <button mat-icon-button [matMenuTriggerFor]="menu" class="flex justify-center align-items-center bg-black/10 px-4 py-2 cursor-pointer rounded-md" aria-label="Example icon-button with a menu">
+                     <mat-icon>account_circle</mat-icon>
+                     <span class="mx-1">{{ fullName }}</span>
+                     <mat-icon class="ml-1">arrow_drop_down</mat-icon>
+                  </button>
+                  <mat-menu #menu="matMenu" class="mt-1">
+                     <button mat-menu-item routerLink="/profile">
+                        <mat-icon>person</mat-icon>
+                        <span>Trang cá nhân</span>
+                     </button>
+                     <button mat-menu-item routerLink="/history">
+                        <mat-icon>history</mat-icon>
+                        <span>Lịch sử đặt vé</span>
+                     </button>
+                     <button mat-menu-item (click)="logout()">
+                        <mat-icon>logout</mat-icon>
+                        <span>Đăng xuất</span>
+                     </button>
+                  </mat-menu>
                </li>
             </ul>
          </div>
