@@ -7,6 +7,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
  import { RouterModule } from '@angular/router';
 import { FormDeleteComponent } from 'src/app/components/form-delete/form-delete.component';
 import { busesInterface } from 'src/app/interface/buses.interface';
+import { FormSearchComponent } from '../../../../../components/form-search/form-search.component';
 
 
 @Component({
@@ -19,7 +20,7 @@ import { busesInterface } from 'src/app/interface/buses.interface';
     CommonModule, 
     MatPaginatorModule,
     FormDeleteComponent,
-
+    FormSearchComponent,
   ],
   templateUrl: './buses-get-all.component.html',
 })
@@ -51,6 +52,7 @@ displayedColumns: string[] = ['id', 'plateNumber', 'busTypeID', 'driverId','tota
       totalSeats: 30
     },
   ]);
+  searchTerm: string = '';
 
   showDeleteConfirmation = false; 
   selectedBusesId: number | null = null; 
@@ -79,5 +81,42 @@ displayedColumns: string[] = ['id', 'plateNumber', 'busTypeID', 'driverId','tota
 
   handleCancel() {
     this.showDeleteConfirmation = false; 
+  }
+
+  handleSearch(searchTerm: string) {
+    this.searchTerm = searchTerm; 
+
+    if (!searchTerm.trim()) {
+      this.dataSource.data = [
+        {
+          id: 1,
+          plateNumber: "51A-12345",
+          busTypeID: 1, //hiển thị tên loại xe
+          driverId: 1,   //hiển thị tên tài xế
+          status: 'active',
+          totalSeats: 40   
+        },
+        {
+          id: 2,
+          plateNumber: "51A-12346",
+          busTypeID: 2,
+          driverId: 2,
+          status: 'inactive',
+          totalSeats: 30
+        },
+        {
+          id: 3,
+          plateNumber: "51A-12334",
+          busTypeID: 3,
+          driverId: 3,
+          status: 'inactive',
+          totalSeats: 30
+        },
+      ];
+    } else {
+      this.dataSource.data = this.dataSource.data.filter(route =>
+        route.plateNumber.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
   }
 }

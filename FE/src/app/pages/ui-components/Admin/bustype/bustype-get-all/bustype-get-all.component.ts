@@ -7,6 +7,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { BusTypeInterface } from 'src/app/interface/bus-type.interface';
 import { FormDeleteComponent } from 'src/app/components/form-delete/form-delete.component';
+import { FormSearchComponent } from '../../../../../components/form-search/form-search.component';
 
 @Component({
   selector: 'app-bustype-get-all',
@@ -20,6 +21,7 @@ import { FormDeleteComponent } from 'src/app/components/form-delete/form-delete.
     MatPaginatorModule,
     RouterModule,
     FormDeleteComponent, 
+    FormSearchComponent,
   ],
 })
 export class BustypeGetAllComponent {
@@ -28,6 +30,7 @@ export class BustypeGetAllComponent {
     { id: 1, name: 'Xe Buýt Thành Phố', status: 'active' },
     { id: 2, name: 'Xe Buýt Cao Cấp', status: 'inactive' },
   ]);
+  searchTerm: string = '';
 
   showFormDelete = false; 
   busTypeId: number | null = null;
@@ -48,5 +51,20 @@ export class BustypeGetAllComponent {
 
   handleCancel() {
     this.showFormDelete = false;
+  }
+
+  handleSearch(searchTerm: string) {
+    this.searchTerm = searchTerm; 
+
+    if (!searchTerm.trim()) {
+      this.dataSource.data = [
+        { id: 1, name: 'Xe Buýt Thành Phố', status: 'active' },
+        { id: 2, name: 'Xe Buýt Cao Cấp', status: 'inactive' },
+      ];
+    } else {
+      this.dataSource.data = this.dataSource.data.filter(route =>
+        route.name.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
   }
 }

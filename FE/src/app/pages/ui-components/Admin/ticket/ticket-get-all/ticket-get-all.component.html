@@ -1,6 +1,7 @@
 <div class="mat-elevation-z8 mt-5">
-    <div class="flex justify-between items-center mb-4">
-        <h1 class="text-2xl font-bold text-gray-500 font-bold">Danh Sách Vé</h1>
+  <div class="flex gap-2 justify-between mb-2">
+    <h3 class="font-bold text-2xl  m-b-10 text-gray-500">Danh sách </h3>
+    <app-form-search (search)="handleSearch($event)"></app-form-search>
   </div>
 
   <table mat-table [dataSource]="dataSource" class="w-full">

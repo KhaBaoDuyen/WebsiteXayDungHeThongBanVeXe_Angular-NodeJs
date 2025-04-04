@@ -9,6 +9,7 @@ import { ViewChild, AfterViewInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormDeleteComponent } from 'src/app/components/form-delete/form-delete.component';
 import { ticketInterface} from 'src/app/interface/ticket.interface';
+import { FormSearchComponent } from '../../../../../components/form-search/form-search.component';
 
 
 @Component({
@@ -22,7 +23,8 @@ import { ticketInterface} from 'src/app/interface/ticket.interface';
     MatPaginatorModule,
     MatSortModule,
     RouterModule,
-    FormDeleteComponent
+    FormDeleteComponent,
+    FormSearchComponent,
   ],
 })
 export class TicketGetAllComponent implements AfterViewInit {
@@ -36,6 +38,7 @@ export class TicketGetAllComponent implements AfterViewInit {
       { id: 5, userName: 'Trần Thị B', phone: '0987654321', tripID: 102, seatID: 'B3', finalPrice: 250000, status: 'Pending', userID: 1, createdAt: new Date },
     ]
   );
+  searchTerm: string = '';
 
 
   showDeleteConfirmation = false; 
@@ -65,5 +68,25 @@ export class TicketGetAllComponent implements AfterViewInit {
   
     handleCancel() {
       this.showDeleteConfirmation = false; 
+    }
+
+    handleSearch(searchTerm: string) {
+      this.searchTerm = searchTerm; 
+  
+      if (!searchTerm.trim()) {
+        this.dataSource.data = [
+          { id: 1, userName: 'Nguyễn Văn A', phone: '0123456789', tripID: 101, seatID: 'A1', finalPrice: 200000, status: 'Confirmed', userID: 1, createdAt: new Date},
+          { id: 2, userName: 'Trần Thị B', phone: '0987654321', tripID: 102, seatID: 'B3', finalPrice: 250000, status: 'Pending', userID: 1, createdAt: new Date },
+          { id: 3, userName: 'Lê Văn C', phone: '0345678912', tripID: 103, seatID: 'C5', finalPrice: 180000, status: 'Canceled', userID: 1, createdAt: new Date },
+          { id: 4, userName: 'Nguyễn Văn A', phone: '0123456789', tripID: 101, seatID: 'A1', finalPrice: 200000, status: 'Confirmed', userID: 1, createdAt: new Date },
+          { id: 5, userName: 'Trần Thị B', phone: '0987654321', tripID: 102, seatID: 'B3', finalPrice: 250000, status: 'Pending', userID: 1, createdAt: new Date },
+        ];
+      } else {
+        this.dataSource.data = this.dataSource.data.filter(route =>
+          route.userName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          route.phone.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          route.tripID.toString().includes(searchTerm.toLowerCase())
+        );
+      }
     }
 }

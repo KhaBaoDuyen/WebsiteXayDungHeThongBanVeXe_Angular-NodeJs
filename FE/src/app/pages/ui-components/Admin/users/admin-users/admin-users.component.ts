@@ -6,34 +6,46 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { userInterface } from 'src/app/interface/user.interface';
+import { FormDeleteComponent } from 'src/app/components/form-delete/form-delete.component';
+import { FormSearchComponent } from '../../../../../components/form-search/form-search.component';
 
- @Component({
+@Component({
   selector: 'app-admin-users',
   templateUrl: './admin-users.component.html',
-  imports: [MatTableModule, MatButtonModule, MatIconModule, CommonModule, MatPaginatorModule, RouterModule],
+  imports: [
+    MatTableModule,
+    MatButtonModule,
+    MatIconModule,
+    CommonModule,
+    MatPaginatorModule,
+    RouterModule,
+    FormDeleteComponent,
+    FormSearchComponent,
+  ],
 })
 export class AdminUsersComponent implements AfterViewInit {
-displayedColumns: string[] = ['id', 'image', 'fullName', 'email', 'phone', 'role', 'status', 'actions'];
+  displayedColumns: string[] = ['id', 'image', 'fullName', 'email', 'phone', 'role', 'status', 'actions'];
   dataSource = new MatTableDataSource<userInterface>([]);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   users: userInterface[] = [
-  { id: 1, image: 'user-1.jpg', fullName: 'Nguyễn Minh Hoàng', email: 'hoang.nguyen@gmail.com', phone: '0901234567', role: 'Admin', status: 'Hoạt động' },
-  { id: 2, image: 'user-2.jpg', fullName: 'Trần Thị Lan', email: 'lan.tran@gmail.com', phone: '0987654321', role: 'User', status: 'Bị khóa' },
-  { id: 3, image: 'user-3.jpg', fullName: 'Phạm Quang Huy', email: 'huy.pham@gmail.com', phone: '0911223344', role: 'User', status: 'Hoạt động' },
-  { id: 4, image: 'user-4.jpg', fullName: 'Lê Thị Thanh', email: 'thanh.le@gmail.com', phone: '0933445566', role: 'Admin', status: 'Hoạt động' },
-  { id: 5, image: 'user-5.jpg', fullName: 'Võ Đức Tài', email: 'tai.vo@gmail.com', phone: '0977553322', role: 'User', status: 'Hoạt động' },
-  { id: 6, image: 'user-6.jpg', fullName: 'Đặng Thị Mai', email: 'mai.dang@gmail.com', phone: '0955667788', role: 'User', status: 'Hoạt động' }
+    { id: 1, image: 'user-1.jpg', fullName: 'Nguyễn Minh Hoàng', email: 'hoang.nguyen@gmail.com', phone: '0901234567', role: 'Admin', status: 'Hoạt động' },
+    { id: 2, image: 'user-2.jpg', fullName: 'Trần Thị Lan', email: 'lan.tran@gmail.com', phone: '0987654321', role: 'User', status: 'Bị khóa' },
+    { id: 3, image: 'user-3.jpg', fullName: 'Phạm Quang Huy', email: 'huy.pham@gmail.com', phone: '0911223344', role: 'User', status: 'Hoạt động' },
+    { id: 4, image: 'user-4.jpg', fullName: 'Lê Thị Thanh', email: 'thanh.le@gmail.com', phone: '0933445566', role: 'Admin', status: 'Hoạt động' },
+    { id: 5, image: 'user-5.jpg', fullName: 'Võ Đức Tài', email: 'tai.vo@gmail.com', phone: '0977553322', role: 'User', status: 'Hoạt động' },
+    { id: 6, image: 'user-6.jpg', fullName: 'Đặng Thị Mai', email: 'mai.dang@gmail.com', phone: '0955667788', role: 'User', status: 'Hoạt động' }
   ];
+  searchTerm: string = '';
 
   constructor() {
     this.dataSource.data = this.users;
   }
 
-ngAfterViewInit() {
-  this.dataSource.paginator = this.paginator;
-}
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
+  }
 
   editUser(user: userInterface) {
     console.log('Chỉnh sửa người dùng:', user);
@@ -42,6 +54,25 @@ ngAfterViewInit() {
   deleteUser(id: number) {
     this.users = this.users.filter(user => user.id !== id);
     this.dataSource.data = this.users;
+  }
+
+  handleSearch(searchTerm: string) {
+    this.searchTerm = searchTerm;
+
+    if (!searchTerm.trim()) {
+      this.dataSource.data = [
+        { id: 1, image: 'user-1.jpg', fullName: 'Nguyễn Minh Hoàng', email: 'hoang.nguyen@gmail.com', phone: '0901234567', role: 'Admin', status: 'Hoạt động' },
+        { id: 2, image: 'user-2.jpg', fullName: 'Trần Thị Lan', email: 'lan.tran@gmail.com', phone: '0987654321', role: 'User', status: 'Bị khóa' },
+        { id: 3, image: 'user-3.jpg', fullName: 'Phạm Quang Huy', email: 'huy.pham@gmail.com', phone: '0911223344', role: 'User', status: 'Hoạt động' },
+        { id: 4, image: 'user-4.jpg', fullName: 'Lê Thị Thanh', email: 'thanh.le@gmail.com', phone: '0933445566', role: 'Admin', status: 'Hoạt động' },
+        { id: 5, image: 'user-5.jpg', fullName: 'Võ Đức Tài', email: 'tai.vo@gmail.com', phone: '0977553322', role: 'User', status: 'Hoạt động' },
+        { id: 6, image: 'user-6.jpg', fullName: 'Đặng Thị Mai', email: 'mai.dang@gmail.com', phone: '0955667788', role: 'User', status: 'Hoạt động' }
+      ];
+    } else {
+      this.dataSource.data = this.dataSource.data.filter(route =>
+        route.fullName.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
   }
 }
 

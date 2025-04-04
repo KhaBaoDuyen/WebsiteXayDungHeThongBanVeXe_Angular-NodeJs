@@ -1,7 +1,7 @@
 <div class="bg-white shadow-lg rounded-lg overflow-hidden w-full border-collapse">
-  <div class="flex justify-between items-center mb-4 mt-5 px-4">
-    <h3 class="font-bold text-2xl text-gray-500">Danh Sách Bài Viết</h3>
-    
+  <div class="flex gap-2 justify-between mb-2 p-10">
+    <h3 class="font-bold text-2xl  m-b-10 text-gray-500">Danh sách </h3>
+    <app-form-search (search)="handleSearch($event)"></app-form-search>
   </div>
 
   <table mat-table [dataSource]="dataSource" class="w-full border-collapse text-center">

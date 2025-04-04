@@ -7,12 +7,21 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 
 import { blogInterface } from 'src/app/interface/blogInterface';
+import { FormSearchComponent } from '../../../../../components/form-search/form-search.component';
 
 @Component({
   selector: 'app-blog-get-all',
   templateUrl: './blog-get-all.component.html',
   standalone: true,
-  imports: [MatTableModule, MatButtonModule, MatIconModule, CommonModule, MatPaginatorModule, RouterModule],
+  imports: [
+    MatTableModule, 
+    MatButtonModule, 
+    MatIconModule, 
+    CommonModule, 
+    MatPaginatorModule, 
+    RouterModule,
+    FormSearchComponent,
+  ],
 })
 export class BlogGetAllComponent implements AfterViewInit {
   displayedColumns: string[] = ['id', 'title', 'content', 'image', 'status', 'createAt', 'actions'];
@@ -24,6 +33,7 @@ export class BlogGetAllComponent implements AfterViewInit {
     { id: 4, title: 'Bài viết 4', content: 'Nội dung bài viết 4', image: 'https://source.unsplash.com/random/150x100?sig=4', status: 'Hiện bài viết', createAt: '2024-03-15' },
     { id: 5, title: 'Bài viết 5', content: 'Nội dung bài viết 5', image: 'https://source.unsplash.com/random/150x100?sig=5', status: 'Ẩn bài viết', createAt: '2024-03-14' },
   ];
+  searchTerm: string = '';
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -43,5 +53,16 @@ export class BlogGetAllComponent implements AfterViewInit {
   deletePost(id: number) {
     this.posts = this.posts.filter(post => post.id !== id);
     this.dataSource.data = this.posts;
+  }
+
+  handleSearch(searchTerm: string) {
+    this.searchTerm = searchTerm;
+    if (!searchTerm.trim()) {
+      this.dataSource.data = [...this.posts];
+    } else {
+      this.dataSource.data = this.posts.filter(post => 
+        post.title.toLowerCase().includes(searchTerm.toLowerCase())
+      );
+    }
   }
 }

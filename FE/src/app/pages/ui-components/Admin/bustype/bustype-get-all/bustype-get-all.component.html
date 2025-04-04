@@ -1,4 +1,7 @@
-<h3 class="font-bold text-2xl m-b-10 text-gray-500">Danh sách Loại Xe</h3>
+<div class="flex gap-2 justify-between mb-2">
+   <h3 class="font-bold text-2xl  m-b-10 text-gray-500">Danh sách </h3>
+   <app-form-search (search)="handleSearch($event)"></app-form-search>
+ </div>
 <div class="bg-white shadow-lg rounded-lg overflow-hidden w-full border-collapse">
    <table mat-table [dataSource]="dataSource" class="w-full border-collapse text-center">
       <ng-container matColumnDef="id">
