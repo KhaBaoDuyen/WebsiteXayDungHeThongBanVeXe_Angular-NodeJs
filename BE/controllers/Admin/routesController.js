@@ -28,7 +28,8 @@ class RoutesController {
 
             res.status(200).json({
                 "status": 200,
-                "message": "Lấy nguoi dung thành công",
+                "success": true,
+                "message": "Lấy tuyen duong thành công",
                 "data": routes
             });
         } catch (error) {
@@ -43,14 +44,26 @@ class RoutesController {
                 startPoint,
                 endPoint,
                 distance,
-                time
+                time,
+                startProvinceID,
+                startDistrictID,
+                startWardID,
+                endProvinceID,
+                endDistrictID,
+                endWardID
             } = req.body;
 
             const routes = await RoutesModel.create({
                 startPoint,
                 endPoint,
                 distance,
-                time
+                time,
+                startProvinceID,
+                startDistrictID,
+                startWardID,
+                endProvinceID,
+                endDistrictID,
+                endWardID
             });
 
             res.status(201).json({
@@ -63,15 +76,23 @@ class RoutesController {
         }
     }
 
+
     //------------------[ UPDATE ]------------------
     static async update(req, res) {
         try {
             const { id } = req.params;
+
             const {
                 startPoint,
                 endPoint,
                 distance,
-                time
+                time,
+                startProvinceID,
+                startDistrictID,
+                startWardID,
+                endProvinceID,
+                endDistrictID,
+                endWardID
             } = req.body;
 
             const routes = await RoutesModel.findByPk(id);
@@ -82,33 +103,50 @@ class RoutesController {
             routes.startPoint = startPoint;
             routes.endPoint = endPoint;
             routes.distance = distance;
+            routes.startProvinceID = startProvinceID;
+            routes.startDistrictID = startDistrictID;
+            routes.startWardID = startWardID;
+            routes.endProvinceID = endProvinceID;
+            routes.endDistrictID = endDistrictID;
+            routes.endWardID = endWardID;
             routes.time = time;
 
             await routes.save();
 
             res.status(200).json({
+                success: true,
                 message: "Cập nhật tuyen duong thành công",
                 routes
             });
         } catch (error) {
-            res.status(500).json({ error: error.message });
+            res.status(500).json({
+                success:false,
+                message: "Cập nhật không thành công",
+                error: error.message });
         }
     }
     //------------------[ DELETE ]------------------
     static async delete(req, res) {
         try {
             const { id } = req.params;
-
-            const category = await RoutesModel.findByPk(id);
-            if (!category) {
+            const routes = await RoutesModel.findByPk(id);
+            if (!routes) {
                 return res.status(404).json({ message: "Id không tồn tại" });
             }
 
-            await category.destroy();
+            await routes.destroy();
 
-            res.status(200).json({ message: "Xóa thành công" });
+            res.status(200).json({
+                success: true,
+                message: "Xóa thành công"
+            });
         } catch (error) {
-            res.status(500).json({ error: error.message });
+            res.status(500).json({
+                status: status,
+                success: false,
+                message: "Xóa không thành công",
+                error: error.message
+            });
         }
     }
 }

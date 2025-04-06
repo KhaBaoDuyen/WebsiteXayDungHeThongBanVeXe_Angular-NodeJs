@@ -1,55 +1,139 @@
-<form (ngSubmit)="onSave()" action="">
-    <main class="flex-1 p-[2rem] bg-white shadow-xl rounded-xl">
-        <h2 class="text-2xl font-bold text-gray-800 mb-8">Thông tin tuyến đường</h2>
+<main class="flex-1 bg-white p-[1rem] rounded-xl shadow-xl">
+    <h2 class="text-2xl text-gray-800 font-bold mb-3 mt-3">Chỉnh sửa thông tin tuyến đường</h2>
 
-        <div class="space-y-8 p-[20px] ">
-            <div class="grid grid-cols-1 gap-6 mt-5">
-                <div>
-                    <label class="block font-medium text-gray-700 mb-2">Điểm xuất phát</label>
-                    <input type="text" [formControl]="startPoint" placeholder="Vui lòng nhập điểm xuất phát"
-                        [ngClass]="{ 'border-red-500': startPoint.invalid && startPoint.touched }"
-                        class="border border-gray-300 rounded-lg w-full px-4 py-3 focus:border-transparent focus:ring-2 focus:ring-orange-500 transition">
-                    <div *ngIf="startPoint.invalid && startPoint.touched" class="text-red-500 mt-2">
-                        <span *ngIf="startPoint.errors?.['required']">Không được bỏ trống.</span>
-                        <span *ngIf="startPoint.errors?.['minlength']">Phải có ít nhất 5 ký tự.</span>
+    <form [formGroup]="routesForm" (ngSubmit)="onUpdate()" class="p-[20px] space-y-8">
+
+        <div>
+            <label class="text-gray-700 block font-bold text-xl">Điểm xuất phát</label>
+            <div class="flex gap-6 mt-2">
+                <div class="flex-1">
+                    <label class="text-gray-700 block font-medium mb-2">Tỉnh/Thành phố</label>
+                    <select formControlName="startProvince" (change)="onStartProvinceChange()" id="startProvince"
+                    [ngClass]="{ 'border-red-500': startProvince.invalid && startProvince.touched }"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition duration-200">
+                    <option value="">Chọn Tỉnh/Thành phố</option>
+                    <option *ngFor="let province of provinces" [value]="province.ProvinceID">
+                      {{ province.ProvinceName }}
+                    </option>
+                </select>
+                
+                    <div *ngIf="startProvince.invalid && startProvince.touched" class="text-red-500 mt-2">
+                        <span *ngIf="startProvince.errors?.['required']">Vui lòng chọn tỉnh thành.</span>
                     </div>
                 </div>
-            </div>
 
-            <div class="grid grid-cols-1 gap-6 mt-5">
-                <div>
-                    <label class="block font-medium text-gray-700 mb-2">Điểm đến</label>
-                    <input type="text" [formControl]="endPoint" placeholder="Vui lòng nhập điểm đến"
-                        [ngClass]="{ 'border-red-500': endPoint.invalid && endPoint.touched }"
-                        class="border border-gray-300 rounded-lg w-full px-4 py-3 focus:border-transparent focus:ring-2 focus:ring-orange-500 transition">
-                    <div *ngIf="endPoint.invalid && endPoint.touched" class="text-red-500 mt-2">
-                        <span *ngIf="endPoint.errors?.['required']">Không được bỏ trống.</span>
-                        <span *ngIf="endPoint.errors?.['minlength']">Phải có ít nhất 5 ký tự.</span>
+                <div class="flex-1">
+                    <label class="text-gray-700 block font-medium mb-2">Quận/Huyện</label>
+                    <select formControlName="startDistrict" (change)="onStartDistrictChange()"
+                        [ngClass]="{ 'border-red-500': startDistrict.invalid && startDistrict.touched }"
+                        class="border border-gray-300 rounded-lg w-full px-4 py-3">
+                        <option value="">Chọn Quận/Huyện</option>
+                        <option *ngFor="let district of startDistricts" [value]="district.DistrictID"
+                            [selected]="district.DistrictID === routesForm.value.startDistrict">
+                            {{ district.DistrictName }}
+                        </option>
+                    </select>
+                    <div *ngIf="startDistrict.invalid && startDistrict.touched" class="text-red-500 mt-2">
+                        <span *ngIf="startDistrict.errors?.['required']">Vui lòng chọn quận huyện.</span>
                     </div>
                 </div>
-            </div>
 
-            <div class="grid grid-cols-1 gap-6 mt-5">
-                <div>
-                    <label class="block font-medium text-gray-700 mb-2">Quãng đường (km)</label>
-                    <input type="text" [formControl]="distance" placeholder="Vui lòng nhập quãng đường"
-                        [ngClass]="{ 'border-red-500': distance.invalid && distance.touched }"
-                        class="border border-gray-300 rounded-lg w-full px-4 py-3 focus:border-transparent focus:ring-2 focus:ring-orange-500 transition">
-                    <div *ngIf="distance.invalid && distance.touched" class="text-red-500 mt-2">
-                        <span *ngIf="distance.errors?.['required']">Không được bỏ trống.</span>
-                        <span *ngIf="distance.errors?.['pattern']">Phải nhập số.</span>
+                <div class="flex-1">
+                    <label class="text-gray-700 block font-medium mb-2">Xã/Phường</label>
+                    <select formControlName="startWard"
+                        [ngClass]="{ 'border-red-500': startWard.invalid && startWard.touched }"
+                        class="border border-gray-300 rounded-lg w-full px-4 py-3">
+                        <option value="">Chọn Xã/Phường</option>
+                        <option *ngFor="let ward of startWards" [value]="ward.WardCode"
+                            [selected]="ward.WardCode === routesForm.value.startWard">
+                            {{ ward.WardName }}
+                        </option>
+                    </select>
+                    <div *ngIf="startWard.invalid && startWard.touched" class="text-red-500 mt-2">
+                        <span *ngIf="startWard.errors?.['required']">Vui lòng chọn xã phường.</span>
                     </div>
                 </div>
-            </div>
-
-            <div class="flex justify-end space-x-4">
-                <button type="submit" [disabled]="routesForm.invalid && routesForm.touched" [ngClass]="{
-    'bg-orange-500 text-white hover:bg-orange-600': !(routesForm.invalid && routesForm.touched),
-    'bg-gray-300 text-gray-500 cursor-not-allowed': routesForm.invalid && routesForm.touched
-  }" class="px-6 py-3 rounded-lg font-semibold transition duration-200">
-                    Lưu thay đổi
-                </button>
             </div>
         </div>
-    </main>
-</form>
+
+        <div>
+            <label class="text-gray-700 block font-bold text-xl">Điểm đến</label>
+            <div class="flex gap-6 mt-2">
+                <div class="flex-1">
+                    <label class="text-gray-700 block font-medium mb-2">Tỉnh/Thành phố</label>
+                    <select formControlName="endProvince" (change)="onEndProvinceChange()"
+                        [ngClass]="{ 'border-red-500': endProvince.invalid && endProvince.touched }"
+                        class="border border-gray-300 rounded-lg w-full px-4 py-3">
+                        <option value="">Chọn Tỉnh/Thành phố</option>
+                        <option *ngFor="let province of provinces" [value]="province.ProvinceID"
+                            [selected]="province.ProvinceID === routesForm.value.endProvince">
+                            {{ province.ProvinceName }}
+                        </option>
+                    </select>
+                    <div *ngIf="endProvince.invalid && endProvince.touched" class="text-red-500 mt-2">
+                        <span *ngIf="endProvince.errors?.['required']">Vui lòng chọn tỉnh thành.</span>
+                    </div>
+                </div>
+
+                <div class="flex-1">
+                    <label class="text-gray-700 block font-medium mb-2">Quận/Huyện</label>
+                    <select formControlName="endDistrict" (change)="onEndDistrictChange()"
+                        [ngClass]="{ 'border-red-500': endDistrict.invalid && endDistrict.touched }"
+                        class="border border-gray-300 rounded-lg w-full px-4 py-3">
+                        <option value="">Chọn Quận/Huyện</option>
+                        <option *ngFor="let district of endDistricts" [value]="district.DistrictID"
+                            [selected]="district.DistrictID === routesForm.value.endDistrict">
+                            {{ district.DistrictName }}
+                        </option>
+                    </select>
+                    <div *ngIf="endDistrict.invalid && endDistrict.touched" class="text-red-500 mt-2">
+                        <span *ngIf="endDistrict.errors?.['required']">Vui lòng chọn quận huyện.</span>
+                    </div>
+                </div>
+
+                <div class="flex-1">
+                    <label class="text-gray-700 block font-medium mb-2">Xã/Phường</label>
+                    <select formControlName="endWard" (change)="calculateRouteDistance()"
+                        [disabled]="!routesForm.value.endDistrict"
+                        [ngClass]="{ 'border-red-500': endWard.invalid && endWard.touched }"
+                        class="border border-gray-300 rounded-lg w-full px-4 py-3">
+                        <option value="">Chọn Xã/Phường</option>
+                        <option *ngFor="let ward of endWards" [value]="ward.WardCode"
+                            [selected]="ward.WardCode === routesForm.value.endWard">
+                            {{ ward.WardName }}
+                        </option>
+                    </select>
+                    <div *ngIf="endWard.invalid && endWard.touched" class="text-red-500 mt-2">
+                        <span *ngIf="endWard.errors?.['required']">Vui lòng chọn xã phường.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-6 mt-5">
+            <div>
+                <label class="text-gray-700 block font-medium mb-2">Quảng đường (km)</label>
+                <input type="text" formControlName="distance" placeholder="Quảng đường dự kiến km"
+                    class="border border-gray-300 rounded-lg w-full duration-200 focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
+                    [value]="routesForm.value.distance">
+            </div>
+            <div>
+                <label class="text-gray-700 block font-medium mb-2">Thời gian dự kiến (giờ)</label>
+                <input type="text" formControlName="time" placeholder="Thời gian dự kiến "
+                    class="border border-gray-300 rounded-lg w-full duration-200 focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
+                    [value]="routesForm.value.time">
+            </div>
+        </div>
+
+        <div class="flex justify-end space-x-4">
+            <button type="submit" [disabled]="!routesForm.valid" [ngClass]="{
+                'bg-orange-500 text-white hover:bg-orange-600': routesForm.valid,
+                'bg-gray-300 text-gray-500 cursor-not-allowed': !routesForm.valid
+            }" class="px-6 py-3 rounded-lg font-semibold transition duration-200">
+                Lưu thay đổi
+            </button>
+
+        </div>
+
+    </form>
+</main>

@@ -167,13 +167,21 @@ export class RoutesCreateComponent implements OnInit {
       startPoint: startPoint.trim(),
       endPoint: endPoint.trim(),
       distance: this.Distance,
-      time: this.Time
+      time: this.Time,
+      startProvinceID: startProvince?.ProvinceID,
+      startDistrictID: startDistrict?.DistrictID,
+      startWardID: Number(startWard?.WardCode),
+      endProvinceID: endProvince?.ProvinceID,
+      endDistrictID: endDistrict?.DistrictID,
+      endWardID: Number(endWard?.WardCode),
     };
+    
 
     this.routesService.Create(routeData).subscribe({
       next: (res: any) => {
         if (res.success) {
           this.notificationService.showSuccess(res.message);
+          this.router.navigate(['/admin/routesGetAll']);
         } else {
           this.notificationService.showError(res.message || 'Đã xảy ra lỗi không xác định');
         }

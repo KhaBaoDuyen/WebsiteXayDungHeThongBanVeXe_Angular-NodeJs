@@ -68,8 +68,7 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-  <app-form-delete *ngIf="showDeleteConfirmation" (deleteConfirmed)="handleDeleteConfirmed()"
-      (cancel)="handleCancel()"></app-form-delete>
+  
 
   <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Chọn trang"></mat-paginator>
 </div>

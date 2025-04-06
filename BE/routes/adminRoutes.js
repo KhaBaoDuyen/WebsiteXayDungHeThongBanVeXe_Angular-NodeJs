@@ -6,7 +6,7 @@ const { route } = require('./clientRoutes');
 
 //------------------[ ROUTES ]------------
 router.get('/routes/list',RoutesController.get);
-router.get('/routes/:id',RoutesController.getById);
+router.get('/routes/getId/:id',RoutesController.getById);
 router.post('/routes/add',RoutesController.create);
 router.patch('/routes/update/:id',RoutesController.update);
 router.delete('/routes/delete/:id',RoutesController.delete);

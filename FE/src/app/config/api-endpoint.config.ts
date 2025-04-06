@@ -18,5 +18,8 @@ export const API_ENDPOINT = {
     base: API_BASE_URL + '/admin'+ '/routes',
     getRoutes: '/list',
     createRoutes: '/add',
+    getRoutesById: '/getId',
+    updateRoutes: '/update',
+    deleteRoutes: '/delete',
   },
 };
