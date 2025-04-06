@@ -7,5 +7,16 @@ export const API_ENDPOINT = {
     base: API_BASE_URL ,
     register: '/register',
     login: '/login',
-  }
+  },
+  apiRoutes: {
+    base: API_BASE_URL + '/apiRoutes',
+    getProvinces: '/provinces',
+    getDistricts: '/districts',
+    getWards: '/wards',
+  },
+  routes: {
+    base: API_BASE_URL + '/admin'+ '/routes',
+    getRoutes: '/list',
+    createRoutes: '/add',
+  },
 };

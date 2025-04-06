@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { routesInterface } from 'src/app/interface/routes.interface';
+import { BrowserModule } from '@angular/platform-browser';
  
 @Component({
   selector: 'app-routes-edit',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, BrowserModule, ReactiveFormsModule],
   templateUrl: './routes-edit.component.html',
 })
 export class RoutesEditComponent implements OnInit {

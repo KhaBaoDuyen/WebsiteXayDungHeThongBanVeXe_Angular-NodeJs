@@ -60,9 +60,7 @@ export class DriverCreateComponent {
   onSave() {
     this.driverForm.markAllAsTouched();
 
-    if (this.driverForm.invalid) {
-      return;
-    }
+   
 
     const driverData = { ...this.driverForm.value, image: this.selectedFile };
   }
