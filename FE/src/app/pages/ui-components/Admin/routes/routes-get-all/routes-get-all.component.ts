@@ -32,7 +32,7 @@ export class RoutesGetAllComponent implements OnInit {
   showFormDelete = false;
   driverId: number | null = null;
 
-  editForm: FormGroup;
+  // editForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
@@ -42,11 +42,11 @@ export class RoutesGetAllComponent implements OnInit {
     private routesService: RoutesService,
     
   ) {
-    this.editForm = this.fb.group({
-      id: [null],
-      name: ['', Validators.required],
-      description: ['', Validators.required]
-    });
+    // this.editForm = this.fb.group({
+    //   id: [null],
+    //   name: ['', Validators.required],
+    //   description: ['', Validators.required]
+    // });
     this.getList();
   }
 
@@ -84,18 +84,18 @@ export class RoutesGetAllComponent implements OnInit {
     this.router.navigate([`/routes/list/`, routeId]);
   }
 
-  openDeleteDialog(routeId: number): void {
-    const dialogRef = this.dialog.open(FormDeleteComponent, {
-      data: { id: routeId }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      if (result) {
-        console.log('Deleted category:', result);
-      }
-      this.getList();
-    });
-  }
+   openDeleteDialog(id: Number): void {
+      const dialogRef = this.dialog.open(FormDeleteComponent, {
+        data: { id: id,
+           service: (id: number) =>this.routesService.Delete(Number(id)), }
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
+        if (result) {
+          console.log('Deleted category:', result);
+        }
+        this.getList();
+      });
+    }
 
 }

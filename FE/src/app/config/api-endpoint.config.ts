@@ -14,12 +14,8 @@ export const API_ENDPOINT = {
     getDistricts: '/districts',
     getWards: '/wards',
   },
-  routes: {
-    base: API_BASE_URL + '/admin'+ '/routes',
-    getRoutes: '/list',
-    createRoutes: '/add',
-    getRoutesById: '/getId',
-    updateRoutes: '/update',
-    deleteRoutes: '/delete',
-  },
+  contact:{
+    base: API_BASE_URL + '/contact',
+    question: '/question',
+  }
 };

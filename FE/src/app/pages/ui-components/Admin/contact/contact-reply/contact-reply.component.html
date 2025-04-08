@@ -1,7 +1,4 @@
-<div class="container mx-auto px-4 py-8">
-  <div class="flex justify-between items-center mb-6">
-  </div>
-
+<form [formGroup]="replyForm" (ngSubmit)="onUpdate()" class="container mx-auto px-4 py-8">
   <div class="bg-white shadow-xl rounded-xl p-8 w-full max-w-3xl mx-auto border border-gray-100">
     <div class="space-y-6">
       <div>
@@ -16,22 +13,24 @@
           {{ questionData?.email }}
         </p>
       </div>
-      <div>
-        <label class="block text-sm font-semibold text-gray-700 mb-2">Trả lời:</label>
-        <textarea
-          class="w-full p-4 text-gray-900 border border-gray-300 rounded-lg"
-          rows="6"
-          placeholder="Nhập câu trả lời của bạn tại đây..."
-        ></textarea>
+      <textarea class="w-full p-4 text-gray-900 border border-gray-300 rounded-lg" rows="6" formControlName="reply"
+        [ngClass]="{ 'border-red-500': reply?.invalid && reply?.touched }"
+        placeholder="Nhập câu trả lời của bạn tại đây..."></textarea>
+      <div *ngIf="reply?.invalid && reply?.touched" class="text-red-500 ">
+        <span *ngIf="reply?.errors?.['required']">Vui lòng nhập câu trả lời.</span>
       </div>
-      <div class="flex justify-end gap-4">
-      <button
-         type="button"
-         class="px-6 py-2 bg-orange-600 w-1/4 text-white font-medium rounded-lg flex items-center justify-center"
-      >
-         Gửi <mat-icon class="ml-4">send</mat-icon>
-      </button>
+
+      <div class="flex justify-end gap-4 pt-4">
+        <button type="button" class="px-6 py-2 bg-gray-500 text-white rounded-lg" (click)="onBack()">
+          Quay lại
+        </button>
+
+        <button type="submit"
+          class="px-6 py-2 bg-orange-600 w-1/4 text-white font-medium rounded-lg flex items-center justify-center"
+          *ngIf="!questionData?.reply?.trim()">
+          Gửi <mat-icon class="ml-4">send</mat-icon>
+        </button>
       </div>
     </div>
   </div>
-</div>
+</form>

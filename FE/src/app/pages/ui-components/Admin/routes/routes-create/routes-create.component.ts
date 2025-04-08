@@ -112,35 +112,35 @@ export class RoutesCreateComponent implements OnInit {
     const startProvince = this.provinces.find(p => p.ProvinceID == this.routesForm.value.startProvince);
     const startDistrict = this.startDistricts.find(d => d.DistrictID == this.routesForm.value.startDistrict);
     const startWard = this.startWards.find(w => w.WardCode == this.routesForm.value.startWard);
-  
+
     const endProvince = this.provinces.find(p => p.ProvinceID == this.routesForm.value.endProvince);
     const endDistrict = this.endDistricts.find(d => d.DistrictID == this.routesForm.value.endDistrict);
     const endWard = this.endWards.find(w => w.WardCode == this.routesForm.value.endWard);
-  
+
     if (!startProvince || !startDistrict || !startWard || !endProvince || !endDistrict || !endWard) return;
-  
+
     const startPoint = `${startProvince.ProvinceName},${startDistrict.DistrictName},${startWard.WardName}`;
     const endPoint = `${endProvince.ProvinceName},${endDistrict.DistrictName},${endWard.WardName}`;
-  
+
     this.mapboxService.getDistance(startPoint, endPoint).subscribe(distance => {
-      
+
       this.routesForm.patchValue({
         distance: distance.km + ' km',
         time: distance.hours + ' giờ'
       });
-  
+
       this.Distance = Number(distance.km);
       this.Time = Number(distance.hours);
-  
+
       console.log("Khoảng cách:", this.Distance);
       console.log("Thời gian:", this.Time);
     });
   }
 
-  
+
   onSave() {
     this.routesForm.markAllAsTouched();
-    if (this.routesForm.invalid) return;
+    if (this.routesForm.invalid) { return; };
 
     const startProvince = this.provinces.find(p => p.ProvinceID == this.routesForm.value.startProvince);
     const startDistrict = this.startDistricts.find(d => d.DistrictID == this.routesForm.value.startDistrict);
@@ -175,7 +175,7 @@ export class RoutesCreateComponent implements OnInit {
       endDistrictID: endDistrict?.DistrictID,
       endWardID: Number(endWard?.WardCode),
     };
-    
+
 
     this.routesService.Create(routeData).subscribe({
       next: (res: any) => {

@@ -14,10 +14,12 @@ import {
   MatDialogRef,
   MatDialogTitle,
 } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
 
 export interface DialogData {
   id:number, 
   name: string;
+  service: (id: number) => Observable<any>;
 }
 @Component({
   selector: 'form-delete',
@@ -46,8 +48,8 @@ export class FormDeleteComponent {
   onNoClick(): void {
     this.dialogRef.close();
   }
-  delete(id: number): void {
-    this.routesService.Delete(id).subscribe({
+  delete(): void {
+    this.data.service(this.data.id).subscribe({
       next: (res: any) => {
         if (res.success) {
           this.notificationService.showSuccess(res.message || 'Xóa thành công');

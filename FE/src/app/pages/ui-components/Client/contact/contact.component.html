@@ -1,4 +1,4 @@
-<main class="max-w-6xl mx-auto p-8 bg-white shadow-lg rounded-lg my-[20px] mt-[11%]" >
+<main class="max-w-6xl mx-auto p-8 bg-white shadow-lg rounded-lg my-[20px] mt-[11%]">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <section class="py-3">
             <h2 class="px-3 text-3xl font-bold text-blue-950 mb-6 border-b border-gray-300 pb-2">Câu hỏi thường gặp</h2>
@@ -34,35 +34,50 @@
             </div>
         </section>
 
-        
+
         <section class="py-3">
             <h2 class="text-3xl font-bold text-blue-950 mb-6 border-b border-gray-300 pb-2">Liên hệ hỗ trợ</h2>
-            <form class="space-y-6">
+            <form [formGroup]="fromContact" (ngSubmit)="create()" class="space-y-6">
                 <div>
                     <label class="block text-gray-800 font-semibold">Tên của bạn</label>
-                    <input type="text"
-                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                        required>
+                    <input type="text" formControlName="fullName"
+                        class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                        [ngClass]="{ 'border-red-500': fullName?.invalid && fullName?.touched }">
+                    <div *ngIf="fullName?.invalid && fullName?.touched" class="text-red-500 mt-1">
+                        <span *ngIf="fullName?.errors?.['required']">Vui lòng nhập họ tên.</span>
+                    </div>
                 </div>
+
                 <div>
                     <label class="block text-gray-800 font-semibold">Email</label>
-                    <input type="email"
-                        class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                        required>
-
+                    <input type="email" formControlName="email"
+                        class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                        [ngClass]="{ 'border-red-500': email?.invalid && email?.touched }">
+                    <div *ngIf="email?.invalid && email?.touched" class="text-red-500 mt-1">
+                        <span *ngIf="email?.errors?.['required']">Vui lòng nhập email.</span>
+                        <span *ngIf="email?.errors?.['email']">Email không hợp lệ.</span>
+                    </div>
                 </div>
+
                 <div>
                     <label class="block text-gray-800 font-semibold">Nội dung hỗ trợ</label>
-                    <textarea class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
-                        rows="4" required></textarea>
+                    <textarea rows="4" formControlName="question"
+                        class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                        [ngClass]="{ 'border-red-500': question?.invalid && question?.touched }"></textarea>
+                    <div *ngIf="question?.invalid && question?.touched" class="text-red-500 mt-1">
+                        <span *ngIf="question?.errors?.['required']">Vui lòng nhập nội dung hỗ trợ.</span>
+                        <span *ngIf="question?.errors?.['minlength']">Nội dung phải có ít nhất 20 ký tự.</span>
+                    </div>
                 </div>
-                <button class="w-full bg-[#043175] text-white py-3 rounded-lg hover:bg-blue-950 font-semibold">Gửi
-                    yêu
-                    cầu</button>
+
+                <button type="submit"
+                    class="w-full bg-[#043175] text-white py-3 rounded-lg hover:bg-blue-950 font-semibold">
+                    Gửi yêu cầu
+                </button>
             </form>
         </section>
     </div>
-    
+
     <section class="mt-8 text-gray-800 text-center border-t border-gray-300">
         <h2 class="text-3xl font-bold text-blue-950 mb-6 mt-8 pb-2">Thông tin liên hệ</h2>
         <iframe
