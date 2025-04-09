@@ -9,6 +9,10 @@ const ContacController = require('../controllers/Client/contactController');
 router.post('/register',AuthController.register);
 router.post("/login", AuthController.login);
 
+router.post("/resetPassword", AuthController.resetPasswod);
+router.patch('/resetPassword/reset/:id/:token', AuthController.updatePassword)
+
+
 //------------------[ CONTACT ]------------------
 router.post('/contact/question', ContacController.create);
 

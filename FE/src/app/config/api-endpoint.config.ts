@@ -7,6 +7,8 @@ export const API_ENDPOINT = {
     base: API_BASE_URL ,
     register: '/register',
     login: '/login',
+    resetPassword:'/resetPassword',
+    resetNewPassword:'/resetPassword/reset'
   },
   apiRoutes: {
     base: API_BASE_URL + '/apiRoutes',

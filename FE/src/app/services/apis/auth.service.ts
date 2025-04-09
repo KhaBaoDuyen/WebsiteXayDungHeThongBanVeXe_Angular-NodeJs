@@ -1,3 +1,5 @@
+import { API_BASE_URL } from './../../config/api-endpoint-Admin.config';
+import { ResetPasswordComponent } from './../../pages/authentication/reset-password/reset-password.component';
 import { userInterface } from './../../interface/user.interface';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -25,4 +27,20 @@ export class AuthService extends ApiService {
       login
     );
   }
+
+  ResetPassword(userData: { email: string }): Observable<userInterface> {
+    return this.post<userInterface>(
+      API_ENDPOINT.auth.base + API_ENDPOINT.auth.resetPassword,
+      userData
+    );
+  }
+  resetNewPassword(data: { id: string, token: string, password: string }): Observable<any> {
+    return this.patch(
+      `${API_ENDPOINT.auth.base}${API_ENDPOINT.auth.resetNewPassword}/${data.id}/${data.token}`,
+      { password: data.password }
+    );
+  }
+  
+  
+  
 }
