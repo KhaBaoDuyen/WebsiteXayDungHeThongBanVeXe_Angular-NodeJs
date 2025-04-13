@@ -5,6 +5,8 @@ const { checkJWT, isAdmin } = require('../services/authCheck');
 const { route } = require('./clientRoutes');
 const ContacController = require('../controllers/Admin/contactController');
 const TripsController = require('../controllers/Admin/tripsController');
+const BusesController = require('../controllers/Admin/busesController');
+const DriversController = require('../controllers/Admin/driversController');
 
 //------------------[ ROUTES ]------------
 router.get('/routes/list',RoutesController.get);
@@ -27,4 +29,12 @@ router.get('/trips/getById/:id', TripsController.getById);
 router.post('/trips/add', TripsController.create);
 router.patch('/trips/update/:id', TripsController.update);
 router.delete('/trips/:id', TripsController.delete);
+
+
+//-----------------[ BUSES ]-----------------
+router.get('/buses/list', BusesController.get);
+
+
+//-----------------[ DRIVERs ]-----------------
+router.get('/drivers/list', DriversController.get);
 module.exports = router;

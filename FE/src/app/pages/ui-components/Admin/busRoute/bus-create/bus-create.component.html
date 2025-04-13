@@ -1,114 +1,112 @@
 <form (ngSubmit)="onSave()">
-    <main class="flex-1 bg-white p-[2rem] rounded-xl shadow-xl">
-        <h2 class="text-2xl text-gray-800 font-bold mb-8">Thêm mới xe</h2>
-    
-        <div class="space-y-8">
-          <div class="grid grid-cols-2 gap-6">
-            <div>
-                <label class="text-gray-700 block font-medium mb-2">Tuyến đường</label>
-                <select  [formControl]="route"
-                class="border border-gray-300 rounded-lg w-full duration-200 
-                focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
-                [ngClass]="{ 'border-red-500': route.invalid && route.touched }">
-                <option value="">------ Chọn tuyến đường --------</option>
-                <option value="1">TP.HCM - Hà Nội</option>
-                <option value="2">Đà Nẵng - Hải Phòng</option>
-                <option value="3">Cần Thơ - Nha Trang</option>
-              </select>
-              <div *ngIf="route.invalid && route.touched" class="text-red-500 mt-2">
-                <span *ngIf="route.errors?.['required']">Tuyến đường không được bỏ trống.</span>
-              </div>
-            </div>
-            <div>
-              <label class="text-gray-700 block font-medium mb-2">Xe</label>
-              <select  [formControl]="busID"
-                class="border border-gray-300 rounded-lg w-full duration-200 
-                focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
-                [ngClass]="{ 'border-red-500': busID.invalid && busID.touched }">
-                <option value="">------ Chọn xe --------</option>
-                <option value="1">A-1234</option>
-                <option value="2">B-1234</option>
-                <option value="3">C-1234</option>
-              </select>
-              <div *ngIf="busID.invalid && busID.touched" class="text-red-500 mt-2">
-                <span *ngIf="busID.errors?.['required']">Xe không được bỏ trống.</span>
-              </div>
-            </div>
-          </div>
-    
-          <div class="grid grid-cols-3 gap-6">
-            <div>
-              <label class="text-gray-700 block font-medium mb-2">Giờ khởi hành</label>
-              <input type="datetime-local" [formControl]="departure"
-                class="border border-gray-300 rounded-lg w-full duration-200 focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
-                [ngClass]="{ 'border-red-500': departure.invalid && departure.touched }">
-                <div *ngIf="departure.invalid && departure.touched" class="text-red-500 mt-2">
-                  <span *ngIf="departure.errors?.['required']">Giờ đi không được bỏ trống.</span>
-                </div>
-            </div>
-            <div>
-              <label class="text-gray-700 block font-medium mb-2">Giờ đến</label>
-              <input type="datetime-local" [formControl]="arrival"
-                class="border border-gray-300 rounded-lg w-full duration-200 focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
-                [ngClass]="{ 'border-red-500': arrival.invalid && arrival.touched }">
-                <div *ngIf="arrival.invalid && arrival.touched" class="text-red-500 mt-2">
-                  <span *ngIf="arrival.errors?.['required']">Giờ đến không được bỏ trống.</span>
-                </div>
-            </div>
+  <main class="flex-1 bg-white p-[2rem] rounded-xl shadow-xl">
+    <h2 class="text-2xl text-gray-800 font-bold mb-8">Thêm mới chuyến xe</h2>
 
-            <div>
-              <label class="text-gray-700 block font-medium mb-2">Tài xế</label>
-              <select  [formControl]="driverID"
-                class="border border-gray-300 rounded-lg w-full duration-200 
-                focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
-                [ngClass]="{ 'border-red-500': driverID.invalid && driverID.touched }">
-                <option value="">------ Chọn tài xế --------</option>
-                <option value="1">Nguyen Van A</option>
-                <option value="2">Cao Quynh</option>
-                <option value="3">Le Van Teo</option>
-              </select>
-              <div *ngIf="driverID.invalid && driverID.touched" class="text-red-500 mt-2">
-                <span *ngIf="driverID.errors?.['required']">Tài xế không được bỏ trống.</span>
-              </div>
-            </div>
-
-          </div>
-    
-          <div class="grid grid-cols-2 gap-6">
-            <div>
-                <label class="text-gray-700 block font-medium mb-2">Giá vé</label>
-                <input type="text" [formControl]="price" placeholder="Vui lòng nhập giá vé"
-                  class="border border-gray-300 rounded-lg w-full duration-200 focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition" 
-                  [ngClass]="{ 'border-red-500': price.invalid && price.touched }">
-                  <div *ngIf="price.invalid && price.touched" class="text-red-500 mt-2">
-                    <span *ngIf="price.errors?.['required']">Giá vé không được bỏ trống.</span>
-                    <span *ngIf="price.errors?.['pattern']">Giá vé phải là số.</span>
-                  </div>
-              </div>
-            <div>
-              <label class="text-gray-700 block font-medium mb-2">Trạng Thái</label>
-              <select  [formControl]="status"
-                class="border border-gray-300 rounded-lg w-full duration-200 
-                focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
-                [ngClass]="{ 'border-red-500': status.invalid && status.touched }">
-                <option value="">------ Chọn loại xe --------</option>
-                <option value="active">Sắp khởi hành</option>
-                <option value="inactive">Đang chạy</option>
-                <option value="inactive">Hủy</option>
-              </select>
-              <div *ngIf="status.invalid && status.touched" class="text-red-500 mt-2">
-                <span *ngIf="status.errors?.['required']">Trạng thái không được bỏ trống.</span>
-              </div>
-            </div>
-          </div>
-    
-          <div class="flex justify-end space-x-4">
-    
-            <button type="submit"
-              class="bg-orange-500 rounded-lg text-white duration-200 font-semibold hover:bg-orange-600 px-6 py-3 transition">
-              Thêm mới chuyến xe
-            </button>
+    <div class="space-y-8">
+      <div class="grid grid-cols-2 gap-6">
+        <div>
+          <label class="text-gray-700 block font-medium mb-2">Tuyến đường</label>
+          <select [formControl]="route"
+            class="border border-gray-300 rounded-lg w-full duration-200 
+            focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
+            [ngClass]="{ 'border-red-500': route.invalid && route.touched }">
+            <option value="">------ Chọn tuyến đường --------</option>
+            <option *ngFor="let route of routeOptions" [value]="route.id">
+              {{route.startPoint}} → {{route.endPoint}} ({{route.distance}}km)
+            </option>
+          </select>
+          <div *ngIf="route.invalid && route.touched" class="text-red-500 mt-2">
+            <span *ngIf="route.errors?.['required']">Tuyến đường không được bỏ trống.</span>
           </div>
         </div>
-      </main>
+        <div>
+          <label class="text-gray-700 block font-medium mb-2">Xe</label>
+          <select [formControl]="busID"
+            class="border border-gray-300 rounded-lg w-full duration-200 
+            focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
+            [ngClass]="{ 'border-red-500': busID.invalid && busID.touched }">
+            <option value="">------ Chọn xe --------</option>
+            <option *ngFor="let bus of busesOption" [value]="bus.id" >
+              {{bus.plateNumber}}
+            </option>
+          </select>
+          <div *ngIf="busID.invalid && busID.touched" class="text-red-500 mt-2">
+            <span *ngIf="busID.errors?.['required']">Xe không được bỏ trống.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-3 gap-6">
+        <div>
+          <label class="text-gray-700 block font-medium mb-2">Giờ khởi hành</label>
+          <input type="datetime-local" [formControl]="departure"
+            class="border border-gray-300 rounded-lg w-full duration-200 focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
+            [ngClass]="{ 'border-red-500': departure.invalid && departure.touched }">
+          <div *ngIf="departure.invalid && departure.touched" class="text-red-500 mt-2">
+            <span *ngIf="departure.errors?.['required']">Giờ đi không được bỏ trống.</span>
+          </div>
+        </div>
+        <div>
+          <label class="text-gray-700 block font-medium mb-2">Giờ đến</label>
+          <input type="datetime-local" [formControl]="arrival"
+            class="border border-gray-300 rounded-lg w-full duration-200 focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
+            [ngClass]="{ 'border-red-500': arrival.invalid && arrival.touched }">
+          <div *ngIf="arrival.invalid && arrival.touched" class="text-red-500 mt-2">
+            <span *ngIf="arrival.errors?.['required']">Giờ đến không được bỏ trống.</span>
+          </div>
+        </div>
+
+        <div>
+          <label class="text-gray-700 block font-medium mb-2">Tài xế</label>
+          <select [formControl]="driverID"
+            class="border border-gray-300 rounded-lg w-full duration-200 
+            focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
+            [ngClass]="{ 'border-red-500': driverID.invalid && driverID.touched }">
+            <option value="">------ Chọn tài xế --------</option>
+            <option *ngFor="let drivers of driversOption" [value]="drivers.id">
+              {{drivers.fullName}}
+            </option>
+          </select>
+          <div *ngIf="driverID.invalid && driverID.touched" class="text-red-500 mt-2">
+            <span *ngIf="driverID.errors?.['required']">Tài xế không được bỏ trống.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-6">
+        <div>
+          <label class="text-gray-700 block font-medium mb-2">Giá vé</label>
+          <input type="text" [formControl]="price" placeholder="Vui lòng nhập giá vé"
+            class="border border-gray-300 rounded-lg w-full duration-200 focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition" 
+            [ngClass]="{ 'border-red-500': price.invalid && price.touched }">
+          <div *ngIf="price.invalid && price.touched" class="text-red-500 mt-2">
+            <span *ngIf="price.errors?.['required']">Giá vé không được bỏ trống.</span>
+            <span *ngIf="price.errors?.['pattern']">Giá vé phải là số.</span>
+          </div>
+        </div>
+        <div>
+          <label class="text-gray-700 block font-medium mb-2">Trạng Thái</label>
+          <select [formControl]="status"
+            class="border border-gray-300 rounded-lg w-full duration-200 
+            focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
+            [ngClass]="{ 'border-red-500': status.invalid && status.touched }">
+            <option value="">------ Chọn trạng thái --------</option>
+            <option value="scheduled">Sắp khởi hành</option>
+            <option value="completed">Đang chạy</option>
+            <option value="canceled">Hủy</option>
+          </select>
+          <div *ngIf="status.invalid && status.touched" class="text-red-500 mt-2">
+            <span *ngIf="status.errors?.['required']">Trạng thái không được bỏ trống.</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-end space-x-4">
+        <button type="submit"
+          class="bg-orange-500 rounded-lg text-white duration-200 font-semibold hover:bg-orange-600 px-6 py-3 transition">
+          Thêm mới chuyến xe
+        </button>
+      </div>
+    </div>
+  </main>
 </form>

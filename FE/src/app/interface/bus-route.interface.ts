@@ -1,10 +1,29 @@
-export interface BusRoute {
-    id: number;
-    route: string | number;
-    departure: string;
-    arrival: string;
+export interface busRouteInterface {
+    id?: number;
+    routeId: number;
+    busID: number;
+    driverId: number;
+    departureTime: string;
+    arrivalTime: string;
     price: number;
     status: string;
-    busID: number;
-    driverID: number;
+    routes?: {
+        id: number;
+        startPoint: string;
+        endPoint: string;
+        distance: number;
+    };
+    drivers?: {
+        id: number;
+        fullName: string;
+    };
+    buses?: {
+        id: number;
+        plateNumber: string;
+        seats: {
+            id: number;
+            seatNumber: string;
+            status: string;
+        }[];
+    }
 }

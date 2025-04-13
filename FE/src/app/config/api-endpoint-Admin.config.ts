@@ -16,5 +16,22 @@ export const API_ENDPOINT_AD = {
     getList:'/list',
     getById:'/getById',
     update:'/update'
-  }
+  },
+  trips: {
+    base: API_BASE_URL + '/admin'+'/trips',
+    getList:'/list',
+    create: '/add',
+    getById:'/getById',
+    update:'/update',
+  },
+  buses: {
+    base: API_BASE_URL + '/admin'+'/buses',
+    getList:'/list',
+
+  },
+  drivers: {
+    base: API_BASE_URL + '/admin'+'/drivers',
+    getList:'/list',
+
+  },
 };

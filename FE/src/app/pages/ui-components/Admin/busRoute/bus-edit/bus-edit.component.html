@@ -1,4 +1,4 @@
-<form action="">
+<form action="" (ngSubmit)="onSave()">
   <main class="flex-1 p-[2rem] bg-white shadow-xl rounded-xl">
     <h2 class="text-2xl font-bold text-gray-800 mb-8">Cập nhật chuyến xe</h2>
 
@@ -6,13 +6,13 @@
       <div class="grid grid-cols-2 gap-6">
         <div>
             <label class="text-gray-700 block font-medium mb-2">Tuyến đường</label>
-            <select  [formControl]="route"
+            <select  [formControl]="routeId"
             class="border border-gray-300 rounded-lg w-full duration-200 
             focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
-            [ngClass]="{ 'border-red-500': route.invalid && route.touched }">
-            <option value="1">TP.HCM - Hà Nội</option>
-            <option value="2">Đà Nẵng - Hải Phòng</option>
-            <option value="3">Cần Thơ - Nha Trang</option>
+            [ngClass]="{ 'border-red-500': routeId.invalid && routeId.touched }">
+            <option *ngFor="let route of routeOptions" [value]="route.id">
+                {{route.startPoint}} → {{route.endPoint}} ({{route.distance}}km)
+              </option>
           </select>
         </div>
         <div>
@@ -21,41 +21,45 @@
             class="border border-gray-300 rounded-lg w-full duration-200 
             focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
             [ngClass]="{ 'border-red-500': busID.invalid && busID.touched }">
-            <option value="1">A-1234</option>
-            <option value="2">B-1234</option>
-            <option value="3">C-1234</option>
+            <option *ngFor="let bus of busesOption" [value]="bus.id" >
+                {{bus.plateNumber}}
+              </option>
           </select>
         </div>
       </div>
 
       <div class="grid grid-cols-3 gap-6">
         <div>
-          <label class="text-gray-700 block font-medium mb-2">Giờ khởi hành</label>
-          <input type="datetime-local" [formControl]="departure"
-            class="border border-gray-300 rounded-lg w-full duration-200 focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
-            [ngClass]="{ 'border-red-500': departure.invalid && departure.touched }">
-          <div *ngIf="departure.invalid && departure.touched" class="text-red-500 mt-2">
-            <span *ngIf="departure.errors?.['required']">Giờ đi không được bỏ trống.</span>
+            <label class="text-gray-700 block font-medium mb-2">Giờ khởi hành</label>
+            <input type="datetime-local" [formControl]="departureTime"
+              class="border border-gray-300 rounded-lg w-full duration-200 focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
+              [ngClass]="{ 'border-red-500': departureTime.invalid && departureTime.touched }"
+              [value]="departureTime.value ? departureTime.value.replace(' ', 'T').substring(0, 16) : ''">
+            <div *ngIf="departureTime.invalid && departureTime.touched" class="text-red-500 mt-2">
+              <span *ngIf="departureTime.errors?.['required']">Giờ đi không được bỏ trống.</span>
+            </div>
           </div>
-        </div>
-        <div>
-          <label class="text-gray-700 block font-medium mb-2">Giờ đến</label>
-          <input type="datetime-local" [formControl]="arrival"
-            class="border border-gray-300 rounded-lg w-full duration-200 focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
-            [ngClass]="{ 'border-red-500': arrival.invalid && arrival.touched }">
-          <div *ngIf="arrival.invalid && arrival.touched" class="text-red-500 mt-2">
-            <span *ngIf="arrival.errors?.['required']">Giờ đến không được bỏ trống.</span>
+          
+          <div>
+            <label class="text-gray-700 block font-medium mb-2">Giờ đến</label>
+            <input type="datetime-local" [formControl]="arrivalTime"
+              class="border border-gray-300 rounded-lg w-full duration-200 focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
+              [ngClass]="{ 'border-red-500': arrivalTime.invalid && arrivalTime.touched }"
+              [value]="arrivalTime.value ? arrivalTime.value.replace(' ', 'T').substring(0, 16) : ''">
+            <div *ngIf="arrivalTime.invalid && arrivalTime.touched" class="text-red-500 mt-2">
+              <span *ngIf="arrivalTime.errors?.['required']">Giờ đến không được bỏ trống.</span>
+            </div>
           </div>
-        </div>
+          
         <div>
           <label class="text-gray-700 block font-medium mb-2">Tài xế</label>
-          <select  [formControl]="driverID"
+          <select  [formControl]="driverId"
             class="border border-gray-300 rounded-lg w-full duration-200 
             focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
-            [ngClass]="{ 'border-red-500': driverID.invalid && driverID.touched }">
-            <option value="1">Nguyen Van A</option>
-            <option value="2">Cao Quynh</option>
-            <option value="3">Le Van Teo</option>
+            [ngClass]="{ 'border-red-500': driverId.invalid && driverId.touched }">
+            <option *ngFor="let drivers of driversOption" [value]="drivers.id">
+                {{drivers.fullName}}
+              </option>
           </select>
         </div>
       </div>
@@ -63,7 +67,7 @@
       <div class="grid grid-cols-2 gap-6">
         <div>
           <label class="text-gray-700 block font-medium mb-2">Giá vé</label>
-          <input type="text" [formControl]="price"
+          <input type="number" [formControl]="price"
             class="border border-gray-300 rounded-lg w-full duration-200 focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
             [ngClass]="{ 'border-red-500': price.invalid && price.touched }">
           <div *ngIf="price.invalid && price.touched" class="text-red-500 mt-2">
@@ -76,532 +80,76 @@
           <select [formControl]="status" class="border border-gray-300 rounded-lg w-full duration-200 
                   focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
             [ngClass]="{ 'border-red-500': status.invalid && status.touched }">
-            <option value="active" >Sắp khởi hành</option>
-            <option value="inactive">Đang chạy</option>
-            <option value="cancel">Hủy</option>
+            <option value="scheduled" >Sắp khởi hành</option>
+            <option value="completed">Đã hoàn thành</option>
+            <option value="canceled">Hủy</option>
           </select>
         </div>
       </div>
 
-      <div class="grid grid-cols-2 gap-6">
+      <!-- <div class="grid grid-cols-2 gap-6">
         <div>
           <label class="text-gray-700 block font-medium mb-2">Mã ghế</label>
-          <select  [formControl]="route"
+          <select  [formControl]="seatNumber"
             class="border border-gray-300 rounded-lg w-full duration-200 
             focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
-            [ngClass]="{ 'border-red-500': route.invalid && route.touched }">
-            <option value="1">A01</option>
-            <option value="2">A02</option>
-            <option value="3">A03</option>
+            >
+            <option *ngFor="let seat of busRoute?.buses?.seats" [value]="seat.seatNumber">
+                {{ seat.seatNumber }}
+              </option>
           </select>
         </div>
 
         <div>
           <label class="text-gray-700 block font-medium mb-2">Trạng thái ghế</label>
-          <select  [formControl]="route"
+          <select  [formControl]="seatStatus"
             class="border border-gray-300 rounded-lg w-full duration-200 
             focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
-            [ngClass]="{ 'border-red-500': route.invalid && route.touched }">
-            <option value="1">Đang hoạt động</option>
-            <option value="2">Đang bảo trì</option>
+            >
+            <option value="empty">Còn trống</option>
+            <option value="sold">Đã bán </option>
+            <option value="maintenance">Đang bảo trì</option>
           </select>
         </div>
-      </div>
+      </div> -->
 
-        <div class="w-full bg-white p-10 rounded-t-lg rounded-b-none shadow-md flex gap-2">
-        <div class="flex flex-row space-x-12">
-            <!-- Tầng 1 - Mã A -->
-            <div class="flex-1">
-                <h3 class="text-xl font-semibold mb-4 text-center">Tầng 1 - Mã A</h3>
-                <table class="w-full border-collapse">
-                    <tbody>
-                        <tr>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        A01
-                                    </span>
-                                </label>
-                            </td>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        A02
-                                    </span>
-                                </label>
-                            </td>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        A03
-                                    </span>
-                                </label>
-                            </td>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        A04
-                                    </span>
-                                </label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        A05
-                                    </span>
-                                </label>
-                            </td>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        A06
-                                    </span>
-                                </label>
-                            </td>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        A07
-                                    </span>
-                                </label>
-                            </td>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        A08
-                                    </span>
-                                </label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        A09
-                                    </span>
-                                </label>
-                            </td>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        A10
-                                    </span>
-                                </label>
-                            </td>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        A11
-                                    </span>
-                                </label>
-                            </td>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        A12
-                                    </span>
-                                </label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        A13
-                                    </span>
-                                </label>
-                            </td>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        A14
-                                    </span>
-                                </label>
-                            </td>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        A15
-                                    </span>
-                                </label>
-                            </td>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        A16
-                                    </span>
-                                </label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        A17
-                                    </span>
-                                </label>
-                            </td>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        A18
-                                    </span>
-                                </label>
-                            </td>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        A19
-                                    </span>
-                                </label>
-                            </td>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        A20
-                                    </span>
-                                </label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        A21
-                                    </span>
-                                </label>
-                            </td>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        A22
-                                    </span>
-                                </label>
-                            </td>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        A23
-                                    </span>
-                                </label>
-                            </td>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        A24
-                                    </span>
-                                </label>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+      <div class="w-full bg-white p-10 rounded-t-lg rounded-b-none shadow-md">
+        <div class="flex gap-2">
+          <div class="flex-1 w-[50%] p-[50px]">
+            <h3 class="text-xl font-semibold mb-4 text-center">Sơ đồ ghế</h3>
+
+            <div class="flex flex-wrap">
+              <div class="w-1/4 p-1" *ngFor="let seat of busRoute?.buses?.seats">
+                <label 
+                class="max-w-[50px] flex justify-center cursor-pointer 
+                px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200 block text-center">
+                  <input type="checkbox" class="sr-only peer " />
+                  <span>
+                    {{ seat.seatNumber }}
+                  </span>
+                </label>
+              </div>
             </div>
-  
-            <!-- Tầng 2 - Mã B -->
-            <div class="flex-1">
-                <h3 class="text-xl font-semibold mb-4 text-center">Tầng 2 - Mã B</h3>
-                <table class="w-full border-collapse">
-                    <tbody>
-                        <tr>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        B01
-                                    </span>
-                                </label>
-                            </td>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        B02
-                                    </span>
-                                </label>
-                            </td>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        B03
-                                    </span>
-                                </label>
-                            </td>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        B04
-                                    </span>
-                                </label>
-                            </td>
-                        </tr>
-                      
-                        <tr>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        B05
-                                    </span>
-                                </label>
-                            </td>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        B06
-                                    </span>
-                                </label>
-                            </td>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        B07
-                                    </span>
-                                </label>
-                            </td>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        B08
-                                    </span>
-                                </label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        B09
-                                    </span>
-                                </label>
-                            </td>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        B10
-                                    </span>
-                                </label>
-                            </td>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        B11
-                                    </span>
-                                </label>
-                            </td>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        B12
-                                    </span>
-                                </label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        B13
-                                    </span>
-                                </label>
-                            </td>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        B14
-                                    </span>
-                                </label>
-                            </td>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        B15
-                                    </span>
-                                </label>
-                            </td>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        B16
-                                    </span>
-                                </label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        B17
-                                    </span>
-                                </label>
-                            </td>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        B18
-                                    </span>
-                                </label>
-                            </td>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        B19
-                                    </span>
-                                </label>
-                            </td>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        B20
-                                    </span>
-                                </label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        B21
-                                    </span>
-                                </label>
-                            </td>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        B22
-                                    </span>
-                                </label>
-                            </td>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        B23
-                                    </span>
-                                </label>
-                            </td>
-                            <td class="p-1">
-                                <label class="flex justify-center cursor-pointer">
-                                    <input type="checkbox" class="sr-only peer" />
-                                    <span
-                                        class="px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200">
-                                        B24
-                                    </span>
-                                </label>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+
+          </div>
+      
+          <div class="ml-12 mt-10 flex flex-col gap-4 w-[50%]">
+            <div class="flex items-center gap-2">
+              <div class="w-[20px] h-[20px] bg-gray-200 border border-gray-600 rounded-md"></div>
+              <span>Đã bán</span>
             </div>
+            <div class="flex items-center gap-2">
+              <div class="w-[20px] h-[20px] bg-sky-100 border border-sky-600 rounded-md"></div>
+              <span>Còn trống</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <div class="w-[20px] h-[20px] bg-orange-100 border border-orange-600 rounded-md"></div>
+              <span>Đang bảo trì</span>
+            </div>
+          </div>
         </div>
-  
-        <div class="ml-[3rem] mt-[5rem]">
-            <div class="flex m-4">
-                <div class="w-[20px] h-[20px] bg-gray-200 mr-2 mt-1 border border-gray-600 rounded-[4px]"></div>
-                <span>Đã bán</span>
-            </div>
-            <div class="flex m-4">
-                <div class="w-[20px] h-[20px] bg-sky-100 mr-2 mt-1 border border-sky-600 rounded-[4px]"></div>
-                <span>Còn trống</span>
-            </div>
-            <div class="flex m-4">
-                <div class="w-[20px] h-[20px] bg-orange-100 mr-2 mt-1 border border-orange-600 rounded-[4px]"></div>
-                <span>Đang bảo trì</span>
-            </div>
-        
-        </div>
-        </div>
+      </div>
+      
 
 
       <div class="flex justify-end space-x-4">

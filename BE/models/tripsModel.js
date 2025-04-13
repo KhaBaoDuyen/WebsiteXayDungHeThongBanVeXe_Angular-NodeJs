@@ -20,11 +20,11 @@ const TripsModel = connection.define('Trips',{
         allowNull: true,
     },
     departureTime: {
-        type: DataTypes.TIME,
+        type: DataTypes.DATE,
         allowNull: true,
     },
     arrivalTime: {
-        type: DataTypes.TIME,
+        type: DataTypes.DATE,
         allowNull: true,
     },
     price: {
