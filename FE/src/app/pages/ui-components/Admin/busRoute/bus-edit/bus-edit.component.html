@@ -1,65 +1,71 @@
-<form action="" (ngSubmit)="onSave()">
+<form action (ngSubmit)="onSave()">
   <main class="flex-1 p-[2rem] bg-white shadow-xl rounded-xl">
     <h2 class="text-2xl font-bold text-gray-800 mb-8">Cập nhật chuyến xe</h2>
 
     <div class="space-y-8 ">
       <div class="grid grid-cols-2 gap-6">
         <div>
-            <label class="text-gray-700 block font-medium mb-2">Tuyến đường</label>
-            <select  [formControl]="routeId"
+          <label class="text-gray-700 block font-medium mb-2">Tuyến
+            đường</label>
+          <select [formControl]="routeId"
             class="border border-gray-300 rounded-lg w-full duration-200 
             focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
             [ngClass]="{ 'border-red-500': routeId.invalid && routeId.touched }">
             <option *ngFor="let route of routeOptions" [value]="route.id">
-                {{route.startPoint}} → {{route.endPoint}} ({{route.distance}}km)
-              </option>
+              {{route.startPoint}} → {{route.endPoint}} ({{route.distance}}km)
+            </option>
           </select>
         </div>
         <div>
           <label class="text-gray-700 block font-medium mb-2">Xe</label>
-          <select  [formControl]="busID"
+          <select [formControl]="busID"
             class="border border-gray-300 rounded-lg w-full duration-200 
             focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
             [ngClass]="{ 'border-red-500': busID.invalid && busID.touched }">
-            <option *ngFor="let bus of busesOption" [value]="bus.id" >
-                {{bus.plateNumber}}
-              </option>
+            <option *ngFor="let bus of busesOption" [value]="bus.id">
+              {{bus.plateNumber}}
+            </option>
           </select>
         </div>
       </div>
 
       <div class="grid grid-cols-3 gap-6">
         <div>
-            <label class="text-gray-700 block font-medium mb-2">Giờ khởi hành</label>
-            <input type="datetime-local" [formControl]="departureTime"
-              class="border border-gray-300 rounded-lg w-full duration-200 focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
-              [ngClass]="{ 'border-red-500': departureTime.invalid && departureTime.touched }"
-              [value]="departureTime.value ? departureTime.value.replace(' ', 'T').substring(0, 16) : ''">
-            <div *ngIf="departureTime.invalid && departureTime.touched" class="text-red-500 mt-2">
-              <span *ngIf="departureTime.errors?.['required']">Giờ đi không được bỏ trống.</span>
-            </div>
+          <label class="text-gray-700 block font-medium mb-2">Giờ khởi
+            hành</label>
+          <input type="datetime-local" [formControl]="departureTime"
+            class="border border-gray-300 rounded-lg w-full duration-200 focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
+            [ngClass]="{ 'border-red-500': departureTime.invalid && departureTime.touched }"
+            [value]="departureTime.value ? departureTime.value.replace(' ', 'T').substring(0, 16) : ''">
+          <div *ngIf="departureTime.invalid && departureTime.touched"
+            class="text-red-500 mt-2">
+            <span *ngIf="departureTime.errors?.['required']">Giờ đi không được
+              bỏ trống.</span>
           </div>
-          
-          <div>
-            <label class="text-gray-700 block font-medium mb-2">Giờ đến</label>
-            <input type="datetime-local" [formControl]="arrivalTime"
-              class="border border-gray-300 rounded-lg w-full duration-200 focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
-              [ngClass]="{ 'border-red-500': arrivalTime.invalid && arrivalTime.touched }"
-              [value]="arrivalTime.value ? arrivalTime.value.replace(' ', 'T').substring(0, 16) : ''">
-            <div *ngIf="arrivalTime.invalid && arrivalTime.touched" class="text-red-500 mt-2">
-              <span *ngIf="arrivalTime.errors?.['required']">Giờ đến không được bỏ trống.</span>
-            </div>
+        </div>
+
+        <div>
+          <label class="text-gray-700 block font-medium mb-2">Giờ đến</label>
+          <input type="datetime-local" [formControl]="arrivalTime"
+            class="border border-gray-300 rounded-lg w-full duration-200 focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
+            [ngClass]="{ 'border-red-500': arrivalTime.invalid && arrivalTime.touched }"
+            [value]="arrivalTime.value ? arrivalTime.value.replace(' ', 'T').substring(0, 16) : ''">
+          <div *ngIf="arrivalTime.invalid && arrivalTime.touched"
+            class="text-red-500 mt-2">
+            <span *ngIf="arrivalTime.errors?.['required']">Giờ đến không được bỏ
+              trống.</span>
           </div>
-          
+        </div>
+
         <div>
           <label class="text-gray-700 block font-medium mb-2">Tài xế</label>
-          <select  [formControl]="driverId"
+          <select [formControl]="driverId"
             class="border border-gray-300 rounded-lg w-full duration-200 
             focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
             [ngClass]="{ 'border-red-500': driverId.invalid && driverId.touched }">
             <option *ngFor="let drivers of driversOption" [value]="drivers.id">
-                {{drivers.fullName}}
-              </option>
+              {{drivers.fullName}}
+            </option>
           </select>
         </div>
       </div>
@@ -71,68 +77,78 @@
             class="border border-gray-300 rounded-lg w-full duration-200 focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
             [ngClass]="{ 'border-red-500': price.invalid && price.touched }">
           <div *ngIf="price.invalid && price.touched" class="text-red-500 mt-2">
-            <span *ngIf="price.errors?.['required']">Giá vé không được bỏ trống.</span>
+            <span *ngIf="price.errors?.['required']">Giá vé không được bỏ
+              trống.</span>
             <span *ngIf="price.errors?.['pattern']">Giá vé phải là số.</span>
           </div>
         </div>
         <div>
           <label class="text-gray-700 block font-medium mb-2">Trạng Thái</label>
-          <select [formControl]="status" class="border border-gray-300 rounded-lg w-full duration-200 
+          <select [formControl]="status"
+            class="border border-gray-300 rounded-lg w-full duration-200 
                   focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
             [ngClass]="{ 'border-red-500': status.invalid && status.touched }">
-            <option value="scheduled" >Sắp khởi hành</option>
+            <option value="scheduled">Sắp khởi hành</option>
             <option value="completed">Đã hoàn thành</option>
             <option value="canceled">Hủy</option>
           </select>
         </div>
       </div>
 
-      <!-- <div class="grid grid-cols-2 gap-6">
+      <div class="grid grid-cols-2 gap-6">
         <div>
           <label class="text-gray-700 block font-medium mb-2">Mã ghế</label>
-          <select  [formControl]="seatNumber"
+          <select [formControl]="selectedSeatId"
             class="border border-gray-300 rounded-lg w-full duration-200 
             focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
-            >
-            <option *ngFor="let seat of busRoute?.buses?.seats" [value]="seat.seatNumber">
-                {{ seat.seatNumber }}
-              </option>
+            [ngClass]="{ 'border-red-500': selectedSeatId.invalid && selectedSeatId.touched }">
+            <option value="">-- Chọn ghế --</option>
+            <option *ngFor="let seat of seatsOption" [value]="seat.id">
+              {{ seat.seatNumber }}
+            </option>
           </select>
         </div>
 
         <div>
           <label class="text-gray-700 block font-medium mb-2">Trạng thái ghế</label>
-          <select  [formControl]="seatStatus"
+          <select [formControl]="selectedSeatStatus"
             class="border border-gray-300 rounded-lg w-full duration-200 
             focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
-            >
+            [ngClass]="{ 'border-red-500': selectedSeatStatus.invalid && selectedSeatStatus.touched }">
+            <option value="">-- Chọn trạng thái --</option>
             <option value="empty">Còn trống</option>
-            <option value="sold">Đã bán </option>
+            <option value="sold">Đã bán</option>
             <option value="maintenance">Đang bảo trì</option>
           </select>
         </div>
-      </div> -->
+      </div>
 
-      <div class="w-full bg-white p-10 rounded-t-lg rounded-b-none shadow-md">
+      <div *ngIf="seatsOption?.length" class="w-full bg-white p-10 rounded-t-lg rounded-b-none shadow-md">
         <div class="flex gap-2">
-          <div class="flex-1 w-[50%] p-[50px]">
-            <h3 class="text-xl font-semibold mb-4 text-center">Sơ đồ ghế</h3>
 
-            <div class="flex flex-wrap">
-              <div class="w-1/4 p-1" *ngFor="let seat of busRoute?.buses?.seats">
-                <label 
-                class="max-w-[50px] flex justify-center cursor-pointer 
-                px-3 py-2 text-sm border border-blue-400 bg-blue-100 rounded-md hover:bg-yellow-100 hover:border-yellow-600 peer-checked:bg-orange-100 peer-checked:text-orange-600 peer-checked:border-orange-600 transition-all duration-200 block text-center">
-                  <input type="checkbox" class="sr-only peer " />
-                  <span>
-                    {{ seat.seatNumber }}
-                  </span>
-                </label>
+          <div *ngIf="seatsOption?.length" class="w-full bg-white p-10 rounded-t-lg rounded-b-none shadow-md">
+            <div class="flex gap-2">
+              <div class="flex-1 w-[50%] p-[50px]">
+                <h3 class="text-xl font-semibold mb-4 text-center">Sơ đồ ghế</h3>
+                <div class="flex flex-wrap">
+                  <div class="w-1/4 p-1" *ngFor="let seat of seatsOption">
+                    <div [ngClass]="{
+                          'max-w-[50px] flex justify-center cursor-pointer px-3 py-2 text-sm border rounded-md transition-all duration-200 block text-center': true,
+                          'bg-gray-200 border-gray-600': seat.status === 'sold',
+                          'bg-sky-100 border-sky-600': seat.status === 'empty',
+                          'bg-orange-100 border-orange-600': seat.status === 'maintenance',
+                          'hover:bg-yellow-100 hover:border-yellow-600': true
+                      }" 
+                      (click)="selectSeat(seat)">
+                      {{ seat.seatNumber }}
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-
           </div>
-      
+          
+
           <div class="ml-12 mt-10 flex flex-col gap-4 w-[50%]">
             <div class="flex items-center gap-2">
               <div class="w-[20px] h-[20px] bg-gray-200 border border-gray-600 rounded-md"></div>
@@ -149,17 +165,16 @@
           </div>
         </div>
       </div>
-      
-
 
       <div class="flex justify-end space-x-4">
-        <button type="submit"
+        <button type="submit" (click)="updateSeatStatus()"
           class="px-6 py-3 bg-orange-500 text-white rounded-lg font-semibold hover:bg-orange-600 transition duration-200">
           Cập nhật chuyến xe
         </button>
       </div>
+
+
     </div>
 
-    
   </main>
 </form>

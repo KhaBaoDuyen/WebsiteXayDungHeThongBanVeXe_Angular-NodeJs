@@ -34,4 +34,7 @@ export const API_ENDPOINT_AD = {
     getList:'/list',
 
   },
+  seats: {
+    base: API_BASE_URL + '/admin'+'/seats',
+  }
 };
