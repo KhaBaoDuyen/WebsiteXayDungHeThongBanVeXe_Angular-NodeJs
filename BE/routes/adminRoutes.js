@@ -8,6 +8,7 @@ const TripsController = require('../controllers/Admin/tripsController');
 const BusesController = require('../controllers/Admin/busesController');
 const DriversController = require('../controllers/Admin/driversController');
 const SeatsController = require('../controllers/Admin/seatsController');
+const BlogsController = require('../controllers/Admin/blogsController');
 
 //------------------[ ROUTES ]------------
 router.get('/routes/list',RoutesController.get);
@@ -31,6 +32,12 @@ router.post('/trips/add', TripsController.create);
 router.patch('/trips/update/:id', TripsController.update);
 router.delete('/trips/:id', TripsController.delete);
 
+//-----------------[ BLOGS ]-----------------
+router.get('/blogs/list', BlogsController.get);
+router.get('/blogs/getById/:id', BlogsController.getById);
+router.post('/blogs/add', BlogsController.create);
+router.patch('/blogs/update/:id', BlogsController.update);
+router.delete('/blogs/:id', BlogsController.delete);
 
 //-----------------[ BUSES ]-----------------
 router.get('/buses/list', BusesController.get);
