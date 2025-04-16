@@ -35,7 +35,7 @@ class BlogsController {
 
     static async create(req, res) {
         try {
-            const { userId, title, content, image } = req.body;
+            const { userId, title, content, image, status } = req.body;
             const createAt = new Date();
 
             const blog = await BlogsModel.create({
@@ -43,6 +43,7 @@ class BlogsController {
                 title,
                 content,
                 image,
+                status,
                 createAt
             });
 
@@ -59,7 +60,7 @@ class BlogsController {
     static async update(req, res) {
         try {
             const { id } = req.params;
-            const { title, content, image } = req.body;
+            const { title, content, image, status } = req.body;
 
             const blog = await BlogsModel.findOne({ where: { id } });
             if (!blog) {
@@ -69,6 +70,7 @@ class BlogsController {
             blog.title = title;
             blog.content = content;
             blog.image = image;
+            blog.status = status;
 
             await blog.save();
 
