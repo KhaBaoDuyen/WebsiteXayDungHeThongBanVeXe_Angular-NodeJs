@@ -10,11 +10,14 @@
          <td mat-cell *matCellDef="let i = index" class=" px-4 py-2 text-center"> {{i + 1}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="image">
+      <ng-container matColumnDef="avatar">
          <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2 text-gray-700">Ảnh</th>
          <td mat-cell *matCellDef="let driver" class="px-4 py-2">
-            <img [src]="driver.image" alt="Driver Image" class="h-10 w-10 rounded-full mx-auto">
-         </td>
+            <img 
+            [src]="driver.avatar ? 'http://localhost:3001/upload/drivers/' + driver.avatar : '../../../../../../assets/images/profile/user-2.jpg'" 
+            alt="Driver avatar" 
+            class="h-10 w-10 rounded-full mx-auto">
+                   </td>
       </ng-container>
 
       <ng-container matColumnDef="fullName">
@@ -37,9 +40,9 @@
          <td mat-cell *matCellDef="let driver" class="px-4 py-2">{{ driver.experienceYears }}</td>
       </ng-container>
 
-      <ng-container matColumnDef="birthDate">
+      <ng-container matColumnDef="YearBirthDate">
          <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2 text-gray-700">Ngày Sinh</th>
-         <td mat-cell *matCellDef="let driver" class="px-4 py-2">{{ driver.birthDate | date:'dd/MM/yyyy' }}</td>
+         <td mat-cell *matCellDef="let driver" class="px-4 py-2">{{ driver.YearBirthDate }}</td>
       </ng-container>
 
       <ng-container matColumnDef="status">
@@ -54,15 +57,7 @@
          </td>
       </ng-container>
 
-      <ng-container matColumnDef="createdAt">
-         <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2 text-gray-700">Ngày Tạo</th>
-         <td mat-cell *matCellDef="let driver" class="px-4 py-2">{{ driver.createdAt | date:'dd/MM/yyyy' }}</td>
-      </ng-container>
 
-      <ng-container matColumnDef="age">
-         <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2 text-gray-700">Tuổi</th>
-         <td mat-cell *matCellDef="let driver" class="px-4 py-2">{{ driver.age }}</td>
-      </ng-container>
 
       <ng-container matColumnDef="actions">
          <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2 text-gray-700 text-center">Hành động</th>
@@ -71,7 +66,7 @@
                class="m-1 bg-yellow-100 text-yellow-700 px-2 py-2 rounded flex items-center">
                <mat-icon class="text-yellow-700">edit</mat-icon>
             </a>
-            <button class="m-1 bg-red-100 text-red-700 px-2 py-2 rounded flex items-center" (click)="openDeleteConfirmation(driver.id)">
+            <button class="m-1 bg-red-100 text-red-700 px-2 py-2 rounded flex items-center" (click)="openDeleteDialog(driver.id)">
                <mat-icon class="text-red-700">delete</mat-icon>
             </button>
          </td>

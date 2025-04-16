@@ -3,9 +3,11 @@ import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { NotificationService } from './services/notification.service';
 import { Subscription } from 'rxjs';
+import { ImageUploaderDirective } from "../app/directives/images-upload.directive";
+
 @Component({
     selector: 'app-root',
-    imports: [RouterOutlet,CommonModule ],
+    imports: [RouterOutlet,CommonModule,ImageUploaderDirective ],
     templateUrl: './app.component.html'
 })
 export class AppComponent {

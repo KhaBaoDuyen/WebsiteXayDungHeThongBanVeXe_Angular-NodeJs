@@ -1,3 +1,4 @@
 BE/.env
 BE/node_modules
 BE/config/database.js
+BE/upload/

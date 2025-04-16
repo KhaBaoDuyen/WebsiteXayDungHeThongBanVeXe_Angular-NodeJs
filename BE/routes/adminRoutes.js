@@ -10,6 +10,8 @@ const DriversController = require('../controllers/Admin/driversController');
 const SeatsController = require('../controllers/Admin/seatsController');
 const BlogsController = require('../controllers/Admin/blogsController');
 
+const DriverController = require('../controllers/Admin/driversController');
+const upload = require('../config/multer');
 //------------------[ ROUTES ]------------
 router.get('/routes/list',RoutesController.get);
 router.get('/routes/getId/:id',RoutesController.getById);
@@ -49,6 +51,22 @@ router.get('/drivers/list', DriversController.get);
 //-----------------[ SEATS ]-------------------
 router.get('/seats/:busID', SeatsController.get);
 router.put('/seats/:id', SeatsController.update);
+
+//---------------------[ DRIVER ]-----------------
+router.get('/driver/list', DriverController.get);
+router.get('/driver/getById/:id', DriverController.getById);
+router.post('/driver/add', 
+  upload.fields([
+    { name: 'avatar', maxCount: 1 },
+    { name: 'fileName', maxCount: 5 }
+  ]), DriverController.create
+);
+router.patch('/driver/update/:id',upload.fields([
+  { name: 'avatar', maxCount: 1 },
+  { name: 'fileName', maxCount: 5 }
+]), DriverController.update)
+router.delete('/driver/delete/:id', DriverController.delete);
+
 
 
 module.exports = router;

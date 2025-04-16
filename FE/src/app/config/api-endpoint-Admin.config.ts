@@ -29,11 +29,6 @@ export const API_ENDPOINT_AD = {
     getList:'/list',
 
   },
-  drivers: {
-    base: API_BASE_URL + '/admin'+'/drivers',
-    getList:'/list',
-
-  },
   blogs: {
     base: API_BASE_URL + '/admin'+ '/blogs',
     list: '/list',         // Lấy danh sách tất cả blog
@@ -44,5 +39,13 @@ export const API_ENDPOINT_AD = {
   },
   seats: {
     base: API_BASE_URL + '/admin'+'/seats',
-  }
+  },
+  drivers: {
+    base: API_BASE_URL + '/admin'+ '/driver',
+    get: '/list',
+    create: '/add',
+    getById: '/getById',
+    update: '/update',
+    delete: '/delete',
+  },
 };

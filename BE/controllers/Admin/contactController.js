@@ -1,4 +1,3 @@
-const flash = require('express-flash');
 const ContactModel = require('../../models/contactModel');
 const sendContactReply = require('../../mail/contact/sendmail.js')
 class ContacController {

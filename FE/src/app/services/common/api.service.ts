@@ -36,11 +36,28 @@ export class ApiService {
    * @param body request body
    * @param customHeaders OPTIONAL: another header value you want to customize
    */
-  post<T>(apiUrl: string, body?: T, customHeaders?: HttpHeaders): Observable<T> {
+  // post<T>(apiUrl: string, body?: T, customHeaders?: HttpHeaders): Observable<T> {
+  //   return this.http.post<T>(
+  //     apiUrl,
+  //     body ? JSON.stringify(body) : {},
+  //     { headers: customHeaders ?? this.getHeaders() },
+  //   );
+  // }
+  
+  protected post<T>(apiUrl: string, body?: any, customHeaders?: HttpHeaders): Observable<T> {
+    let headers = customHeaders ?? this.getHeaders();
+    let requestBody = body;
+
+    if (body instanceof FormData) {
+      headers = customHeaders ?? new HttpHeaders(); 
+    } else {
+      requestBody = JSON.stringify(body);
+    }
+
     return this.http.post<T>(
       apiUrl,
-      body ? JSON.stringify(body) : {},
-      { headers: customHeaders ?? this.getHeaders() },
+      requestBody,
+      { headers }
     );
   }
 
@@ -50,11 +67,20 @@ export class ApiService {
    * @param body request body
    * @param customHeaders OPTIONAL: another header value you want to customize
    */
-  patch<T>(apiUrl: string, body?: T, customHeaders?: HttpHeaders): Observable<T> {
+  patch<T>(apiUrl: string, body?: any, customHeaders?: HttpHeaders): Observable<T> {
+    
+    let headers = customHeaders ?? this.getHeaders();
+    let requestBody = body;
+
+    if (body instanceof FormData) {
+      headers = customHeaders ?? new HttpHeaders(); 
+    } else {
+      requestBody = JSON.stringify(body);
+    }
     return this.http.patch<T>(
       apiUrl,
-      body ? JSON.stringify(body) : {},
-      { headers: customHeaders ?? this.getHeaders() },
+      requestBody,
+      { headers }
     );
   }
 
