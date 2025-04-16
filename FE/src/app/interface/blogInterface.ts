@@ -1,8 +1,9 @@
 export interface blogInterface {
-  id: number;
-  title: string;
-  content: string;
-  image: string;
-  status: string;
-  createAt: string;
+  id?: number | string;
+  userId?: number;
+  title?: string;
+  content?: string;
+  image?: string | null;  // image có thể null nếu không có ảnh
+  status?: string;  // 'draft' hoặc 'public'
+  createAt?: Date;
 }

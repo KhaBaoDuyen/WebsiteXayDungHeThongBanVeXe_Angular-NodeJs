@@ -34,6 +34,14 @@ export const API_ENDPOINT_AD = {
     getList:'/list',
 
   },
+  blogs: {
+    base: API_BASE_URL + '/admin'+ '/blogs',
+    list: '/list',         // Lấy danh sách tất cả blog
+    getById: '/blogs/getById/:id', // Lấy blog theo id
+    add: '/add',           // Thêm blog mới
+    update: '/blogs/update/:id', // Cập nhật blog theo id
+    delete: 'delete'        // Xóa blog theo id
+  },
   seats: {
     base: API_BASE_URL + '/admin'+'/seats',
   }

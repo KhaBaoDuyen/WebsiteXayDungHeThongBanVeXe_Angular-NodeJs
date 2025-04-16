@@ -1,58 +1,44 @@
-const API_BASE = "http://localhost:3000/api"; // hoặc URL backend thực tế
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { ApiService } from '../../common/api.service';
+import { Observable } from 'rxjs';
+import { API_ENDPOINT_AD } from 'src/app/config/api-endpoint-Admin.config';
+import { blogInterface } from 'src/app/interface/blogInterface';
 
-export interface Blog {
-    id?: number;
-    userId: number;
-    title: string;
-    content: string;
-    image?: string;
-    createAt?: string;
+@Injectable({
+    providedIn: 'root'
+})
+export class BlogsService extends ApiService {
+
+    constructor(
+        private _http: HttpClient
+    ) {
+        super(_http);
+    }
+
+    // Lấy danh sách tất cả bài viết
+    List(): Observable<blogInterface[]> {
+        return this.get<blogInterface[]>(API_ENDPOINT_AD.blogs.base + API_ENDPOINT_AD.blogs.list);
+    }
+
+    // Lấy bài viết theo ID
+    getById(id: number): Observable<blogInterface> {
+        return this.get<blogInterface>(API_ENDPOINT_AD.blogs.base + API_ENDPOINT_AD.blogs.getById + '/' + id);
+    }
+
+    // Cập nhật bài viết
+    Update(id: number, data: any): Observable<blogInterface> {
+        return this.patch<blogInterface>(API_ENDPOINT_AD.blogs.base + API_ENDPOINT_AD.blogs.update + '/' + id, data);
+    }
+
+    // Xóa bài viết
+    Delete(id: number): Observable<blogInterface> {
+        return this.delete(API_ENDPOINT_AD.blogs.base + '/' + id);
+    }
+      
+
+    // Thêm bài viết mới
+    Create(data: any): Observable<blogInterface> {
+        return this.post<blogInterface>(API_ENDPOINT_AD.blogs.base + API_ENDPOINT_AD.blogs.add, data);
+    }
 }
-
-const blogsService = {
-    async getAll(): Promise<Blog[]> {
-        const response = await fetch(`${API_BASE}/blogs/list`);
-        const data = await response.json();
-        return data.data;
-    },
-
-    async getById(id: number): Promise<Blog> {
-        const response = await fetch(`${API_BASE}/blogs/getById/${id}`);
-        const data = await response.json();
-        return data.data;
-    },
-
-    async create(blog: Blog): Promise<Blog> {
-        const response = await fetch(`${API_BASE}/blogs/add`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(blog),
-        });
-        const data = await response.json();
-        return data.data;
-    },
-
-    async update(id: number, blog: Partial<Blog>): Promise<Blog> {
-        const response = await fetch(`${API_BASE}/blogs/update/${id}`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(blog),
-        });
-        const data = await response.json();
-        return data.data;
-    },
-
-    async delete(id: number): Promise<Blog> {
-        const response = await fetch(`${API_BASE}/blogs/${id}`, {
-            method: 'DELETE',
-        });
-        const data = await response.json();
-        return data.data;
-    },
-};
-
-export default blogsService;
