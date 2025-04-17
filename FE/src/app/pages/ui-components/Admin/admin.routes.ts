@@ -10,10 +10,12 @@ import { contactRoutes } from './contact/contact-route.routes';
 import { userRoutes } from './users/userRoute.routes';
 import { ReviewComponent } from './review/review.component';
 import { ReviewEditComponent } from './review-edit/review-edit.component';
+import {  AdminGuard  } from '../../../guards/admin.guard';
 
 export const AdminRoutes: Routes = [
   {
     path: '',
+    canActivate: [AdminGuard],
     children: [
       ...routesRoutes,
       ...busRoutes,

@@ -5,28 +5,26 @@ import { ClientLayoutComponent } from './layouts/Client/client-layout.component'
 import { AuthenticationRoutes } from './pages/authentication/authentication.routes';
 import { AppSideLoginComponent } from '../app/pages/authentication/side-login/side-login.component';
 import { AppSideRegisterComponent } from '../app/pages/authentication/side-register/side-register.component';
-import { AuthGuard, AdminGuard  } from './guards/auth.guard';
+import { AdminGuard } from './guards/admin.guard';
 
 export const routes: Routes = [
   {
     path: 'admin',
     component: FullComponent,
+    canActivate: [AdminGuard],
     children: [
       {
         path: '',
         redirectTo: '/admin/dashboard',
-        canActivateChild: [AdminGuard],
         pathMatch: 'full',
       },
       {
         path: 'dashboard',
-        canActivateChild: [AdminGuard],
         loadChildren: () =>
           import('./pages/pages.routes').then((m) => m.PagesRoutes),
       },
       {
         path: '',
-        canActivateChild: [AdminGuard],
         loadChildren: () =>
           import('./pages/ui-components/Admin/admin.routes').then(
             (m) => m.AdminRoutes

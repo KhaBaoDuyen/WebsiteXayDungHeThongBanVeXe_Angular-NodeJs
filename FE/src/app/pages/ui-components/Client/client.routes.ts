@@ -8,7 +8,7 @@ import { TicketHistoryComponent } from "./ticket-history/ticket-history.componen
 import { AuthenticationRoutes } from "../../authentication/authentication.routes";
 import { BookticketsComponent } from "./timetable/booktickets/booktickets.component";
 import { ProfileComponent } from "./profile/profile.component";
-import { AuthGuard, AdminGuard  } from '../../../guards/auth.guard';
+import { AuthGuard  } from '../../../guards/auth.guard';
 
 export const ClientRoutes: Routes = [
   {

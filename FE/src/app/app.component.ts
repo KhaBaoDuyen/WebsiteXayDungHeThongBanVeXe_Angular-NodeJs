@@ -40,7 +40,7 @@ export class AppComponent {
 
   ngOnInit() {
     if (this.authService.isLoggedIn()) {
-      this.router.navigate(['/login']); 
+      this.router.navigate(['/auth/login']); 
     }
    this.checkUrl();
   }
@@ -57,7 +57,7 @@ export class AppComponent {
     if (userSession) {
       const basePathRoute = location.pathname;
       if (basePathRoute.includes('/auth/login')) {
-        this.router.navigate(['/categories'], {replaceUrl: true}).then();
+        this.router.navigate(['/'], {replaceUrl: true}).then();
       }
     } else {
       this.router.navigate(['/auth/login']).then();
