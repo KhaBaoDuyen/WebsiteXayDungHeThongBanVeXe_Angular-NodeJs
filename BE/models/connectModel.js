@@ -5,6 +5,7 @@ const RoutesModel = require('./routesModel');
 const SeatsModel = require('./seatsModel');
 const BusTypesModel = require('./busTypesModel');
 
+
 //--------------------- [ Thiết lập quan hệ ]------------------------
 
 // Route - Trip
@@ -34,3 +35,8 @@ BusesModel.belongsTo(DriverModel, { foreignKey: 'driverId', as: 'drivers'  });
   
 
 module.exports = {TripsModel, BusesModel, DriverModel, RoutesModel, SeatsModel};
+// Driver - Buses
+DriverModel.hasOne(BusesModel, { foreignKey: 'driverId', as: 'bus'});
+BusesModel.belongsTo(DriverModel, { foreignKey: 'driverId', as: 'drivers'  });
+
+module.exports = { TripsModel, BusesModel, DriverModel, RoutesModel, SeatsModel, BusTypesModel, };

@@ -1,8 +1,7 @@
 export interface busesInterface {
-    id: number;
+    id?: number;
     plateNumber: string;
-    busTypeID: number;
-    driverId: number;
+    busTypeId: number;
     status: 'active' | 'inactive';
     totalSeats: number;
 }

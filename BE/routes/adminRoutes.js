@@ -45,6 +45,12 @@ router.delete('/blogs/:id', BlogsController.delete);
 
 //-----------------[ BUSES ]-----------------
 router.get('/buses/list', BusesController.get);
+router.get('/buses/getId/:id',BusesController.getById);
+router.post('/buses/add',BusesController.create);
+router.patch('/buses/update/:id',BusesController.update);
+router.delete('/buses/delete/:id',BusesController.delete);
+router.get('/buses/getAllBusByStatusCreate', BusesController.getAllBusByStatusCreate);
+router.get('/buses/getAllByStatusEdit/:tripId', BusesController.getAllByStatusEdit);
 
 //-----------------[ SEATS ]-------------------
 router.get('/seats/:busID', SeatsController.get);
@@ -80,5 +86,12 @@ router.get('/user/getById/:id', UserController.getById);
 router.post('/user/add', upload.single('avatar'), UserController.create);
 router.patch('/user/update/:id', upload.single('avatar'), UserController.update);
 router.delete('/user/:id', UserController.delete);
+
+//-----------------[ BUSTYPES ]-----------------
+router.get('/busType/list',BusTypeController.get);
+router.get('/busType/getId/:id',BusTypeController.getById);
+router.post('/busType/add',BusTypeController.create);
+router.patch('/busType/update/:id',BusTypeController.update);
+router.delete('/busType/delete/:id',BusTypeController.delete);
 
 module.exports = router;

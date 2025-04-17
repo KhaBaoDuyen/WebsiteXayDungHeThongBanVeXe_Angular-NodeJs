@@ -18,13 +18,8 @@
 
     <ng-container matColumnDef="busTypeID">
         <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2 text-gray-700">Loại xe</th>
-        <td mat-cell *matCellDef="let buses" class=" px-4 py-2"> {{ buses.busTypeID }} </td>
+        <td mat-cell *matCellDef="let buses" class=" px-4 py-2"> {{ buses.busType.typeName }} </td>
       </ng-container>
-
-    <ng-container matColumnDef="driverId">
-      <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2 text-gray-700">Tài xế</th>
-      <td mat-cell *matCellDef="let buses" class=" px-4 py-2"> {{ buses.driverId }} </td>
-    </ng-container>
 
     <ng-container matColumnDef="totalSeats">
         <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2 text-gray-700">Tổng số ghế </th>
@@ -51,7 +46,7 @@
               class="m-1 bg-yellow-100 text-yellow-700 px-2 py-2 rounded flex items-center">
               <mat-icon class="text-yellow-700">edit</mat-icon>
            </a>
-           <button (click)="openDeleteConfirmation(buses.id)" class="m-1 bg-red-100 text-red-700 px-2 py-2 rounded flex items-center">
+           <button (click)="openDeleteDialog(buses.id)" class="m-1 bg-red-100 text-red-700 px-2 py-2 rounded flex items-center">
               <mat-icon class="text-red-700">delete</mat-icon>
            </button>
         </td>
