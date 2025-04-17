@@ -44,10 +44,6 @@ router.delete('/blogs/:id', BlogsController.delete);
 //-----------------[ BUSES ]-----------------
 router.get('/buses/list', BusesController.get);
 
-
-//-----------------[ DRIVERs ]-----------------
-router.get('/drivers/list', DriversController.get);
-
 //-----------------[ SEATS ]-------------------
 router.get('/seats/:busID', SeatsController.get);
 router.put('/seats/:id', SeatsController.update);

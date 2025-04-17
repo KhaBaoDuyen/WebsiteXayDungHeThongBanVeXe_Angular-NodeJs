@@ -16,7 +16,7 @@ export class DriversService extends ApiService {
     }
 
     List(): Observable<driveriInterface[]> {
-        return this.get<driveriInterface[]>(API_ENDPOINT_AD.drivers.base + API_ENDPOINT_AD.drivers.getList);
+        return this.get<driveriInterface[]>(API_ENDPOINT_AD.drivers.base + API_ENDPOINT_AD.drivers.get);
     }
 
 }

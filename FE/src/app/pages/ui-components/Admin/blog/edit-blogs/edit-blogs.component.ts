@@ -22,7 +22,7 @@ export class EditBlogsComponent {
     content: 'Bài viết này hướng dẫn cách học Angular từ cơ bản đến nâng cao.',
     image: 'assets/images/blog-1.jpg',
     status: 'active',
-    createAt: '2024-03-21'
+    createAt: new Date('2024-03-21') 
   };
 
   constructor(private fb: FormBuilder) {

@@ -75,7 +75,6 @@ export class BusGetAllComponent implements OnInit {
       next: (res: any) => {
         this.dataSource.data = res?.data ?? [];
         this.dataSource._updateChangeSubscription();
-       
         console.log(this.dataSource.data);
       },
       error: (err: any) => {

@@ -24,7 +24,7 @@
 
     <ng-container matColumnDef="driverId">
       <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2 text-gray-700">Tài xế</th>
-      <td mat-cell *matCellDef="let route" class=" px-4 py-2"> {{ route.drivers.fullName }} </td>
+      <td mat-cell *matCellDef="let route" class=" px-4 py-2"> {{ route.drivers?.fullName }} </td>
     </ng-container>
 
     <ng-container matColumnDef="departureTime">

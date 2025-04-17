@@ -26,7 +26,7 @@ const BlogsModel = connection.define('Blogs', {
     status: {
         type: DataTypes.STRING,
         allowNull: false,
-        defaultValue: 'draft' // hoặc 'public' tùy mặc định bạn muốn
+        defaultValue: 'draft' 
     },
     createAt: {
         type: DataTypes.DATE,
