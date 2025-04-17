@@ -6,8 +6,9 @@ import { TimetableComponent } from "./timetable/timetable.component";
 import { ContactComponent } from "./contact/contact.component";
 import { TicketHistoryComponent } from "./ticket-history/ticket-history.component";
 import { AuthenticationRoutes } from "../../authentication/authentication.routes";
- import { BookticketsComponent } from "./timetable/booktickets/booktickets.component";
+import { BookticketsComponent } from "./timetable/booktickets/booktickets.component";
 import { ProfileComponent } from "./profile/profile.component";
+import { AuthGuard, AdminGuard  } from '../../../guards/auth.guard';
 
 export const ClientRoutes: Routes = [
   {
@@ -33,6 +34,7 @@ export const ClientRoutes: Routes = [
   },
   {
     path: 'booktickets',
+    canActivate: [AuthGuard],
     component: BookticketsComponent
   },
   {
@@ -41,10 +43,12 @@ export const ClientRoutes: Routes = [
   },
   {
     path: 'history',
+    canActivate: [AuthGuard],
     component: TicketHistoryComponent,
   },
   {
     path: 'profile',
+    canActivate: [AuthGuard],
     component: ProfileComponent,
   },
   {

@@ -19,7 +19,7 @@ export const AuthenticationRoutes: Routes = [
     component: ResetPasswordComponent,
   },
   {
-    path: 'resetPassword/:id/:token',
+    path: 'resetPassword/:token',
     component: ResetComponent
   }
   

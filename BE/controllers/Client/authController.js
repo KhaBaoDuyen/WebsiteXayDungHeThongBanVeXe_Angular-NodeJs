@@ -73,7 +73,7 @@ class AuthController {
             const token = jwt.sign(
                 { id: user.id, fullName: user.fullName, email: user.email, role: user.role },
                 process.env.JWT_SECRET,
-                { expiresIn: "2h" }
+                { expiresIn: "3h" }
             );
 
             return res.status(200).json({
@@ -95,64 +95,67 @@ class AuthController {
     static async resetPasswod(req, res) {
         const { email } = req.body;
         try {
-            const user = await UserModel.findOne({
-                where: { email }
-            });
+            const user = await UserModel.findOne({ where: { email } });
             if (!user) {
-                res.status(404).json({
+                return res.status(404).json({
                     success: false,
-                    message: "Email không tồn tại"
+                    message: "Email không tồn tại",
                 });
-                return;
             }
-            const secret = process.env.JWT_SECRET + user.password;
-            const token = jwt.sign({ email: user.email, id: user.id }, secret, {
+            const token = jwt.sign({ email: user.email, id: user.id }, JWT_SECRET, {
                 expiresIn: "5m",
             });
-            const link = `http://localhost:4200/auth/resetPassword/${user.id}/${token}`;
+            const link = `http://localhost:4200/auth/resetPassword/${token}`;
             await sendResetPassword(email, link);
-            res.status(200).json({
+            return res.status(200).json({
                 success: true,
-                message: "Kiểm tra mail để đặt lại mật khẩu"
+                message: "Kiểm tra email để đặt lại mật khẩu",
             });
         } catch (error) {
             console.error("Lỗi xảy ra khi reset password:", error);
-            res.status(500).json({
+            return res.status(500).json({
                 success: false,
-                message: "Lỗi khi tạo link reset"
-
+                message: "Lỗi khi tạo link reset",
             });
         }
     }
 
     static async updatePassword(req, res) {
-        const { id, token } = req.params;
+        const token = req.params.token;
         const { password } = req.body;
 
         try {
-            const user = await UserModel.findOne({ where: { id } });
+            const decoded = jwt.verify(token, JWT_SECRET);
+            const userId = decoded.id;
+
+            const user = await UserModel.findOne({ where: { id: userId } });
             if (!user) {
                 return res.status(404).json({ message: "Tài khoản không tồn tại." });
             }
-            const secret = process.env.JWT_SECRET + user.password;
-            jwt.verify(token, secret);
-            const encryptedPassword = await bcrypt.hash(password, 10);
-            await user.update({ password: encryptedPassword });
+
+            const enPassword = await bcrypt.hash(password, 10);
+            await user.update({ password: enPassword });
 
             return res.status(200).json({
                 success: true,
                 message: "Cập nhật mật khẩu thành công",
             });
         } catch (error) {
+            console.error("Error in updatePassword:", error);
             if (error.name === "TokenExpiredError") {
-                return res.status(401).json({ message: "Liên kết đã hết hạn. Vui lòng gửi lại yêu cầu đặt lại mật khẩu." });
+                return res.status(401).json({
+                    message: "Liên kết đặt lại mật khẩu đã hết hạn. Vui lòng yêu cầu lại."
+                });
             }
-
             if (error.name === "JsonWebTokenError") {
-                return res.status(401).json({ message: "Token không hợp lệ." });
+                return res.status(401).json({
+                    message: "Liên kết không hợp lệ. Vui lòng kiểm tra lại hoặc yêu cầu mới."
+                });
             }
-
-            return res.status(500).json({ message: "Lỗi máy chủ", error: error.message });
+            return res.status(500).json({
+                message: "Lỗi máy chủ. Vui lòng thử lại sau.",
+                error: error.message
+            });
         }
     }
 

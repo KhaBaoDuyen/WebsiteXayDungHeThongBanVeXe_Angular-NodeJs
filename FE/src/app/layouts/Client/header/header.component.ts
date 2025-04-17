@@ -8,6 +8,7 @@ import { NgLabelTemplateDirective, NgOptionTemplateDirective, NgSelectComponent,
 import { routesInterface } from 'src/app/interface/routes.interface';
 import { FormsModule } from '@angular/forms';
 import { SearchDataService } from 'src/app/services/apis/Client/search-data.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-header',
@@ -51,22 +52,21 @@ export class HeaderComponent {
   }
   isLoggedIn: boolean = false;
   fullName: string = '';
-
+  private jwtHelper = new JwtHelperService();
   ngOnInit() {
     const token = localStorage.getItem('auth_token');
-    if (token) {
-      this.isLoggedIn = true;
-      const user = JSON.parse(localStorage.getItem('user_info') || '{}');
-      this.fullName = user.fullName;
-    }
 
+    if (token) {
+      const decoded = this.jwtHelper.decodeToken(token);
+      this.isLoggedIn = true;
+      this.fullName = decoded?.fullName || '';
+    }
     this.getDataOptions();
   }
 
 
   logout() {
     localStorage.removeItem('auth_token');
-    localStorage.removeItem('user_info');
     this.isLoggedIn = false;
     this.router.navigate(['/auth/login']);
   }

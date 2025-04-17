@@ -53,11 +53,6 @@ export class AppSideLoginComponent {
         if (res.success) {
           // Lưu thông tin localStorage
           localStorage.setItem('auth_token', res.token);
-          localStorage.setItem('user_info', JSON.stringify({
-            fullName: res.user.fullName,
-            email: res.user.email,
-            role: res.user.role
-          }));
   
           this.notificationService.showSuccess(res.message);
           this.router.navigate(['/home']);

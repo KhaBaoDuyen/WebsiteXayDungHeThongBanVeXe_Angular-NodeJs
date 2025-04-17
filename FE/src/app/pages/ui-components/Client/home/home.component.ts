@@ -35,13 +35,11 @@ export class HomeComponent implements OnInit {
   }
   
   handleSearch(): void {
-    const day = new Date();
-    const travleTime = day.toISOString();  
-  
+    // const day = new Date();
+    // const travleTime = day.toISOString();  
     const body = {
       startPoint: this.selectedStartPoint?.trim(),
       endPoint: this.selectedEndPoint?.trim(),
-      travelTime: travleTime,
     };
   
     this.homeService.Search(body).subscribe({

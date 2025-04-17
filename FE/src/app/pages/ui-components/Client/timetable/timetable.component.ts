@@ -23,14 +23,20 @@ export class TimetableComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.sub = this.searchDataService.tripsData$.subscribe(data => {
-      this.tripsData = data;
+      if (data && data.length > 0) {
+        this.tripsData = data;
+        console.log("✅ Hiển thị dữ liệu từ tìm kiếm:", data);
+      } else {
+        this.getData(); // fallback nếu không có tìm kiếm
+      }
     });
-    this.getData();
   }
+  
 
   ngOnDestroy() {
     this.sub.unsubscribe();
   }
+
   formatTime(dateString: string): string {
     const date = new Date(dateString);
     const hours = date.getHours().toString().padStart(2, '0');

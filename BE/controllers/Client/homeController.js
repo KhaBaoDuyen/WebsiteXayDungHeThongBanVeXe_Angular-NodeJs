@@ -87,7 +87,7 @@ class HomeController {
                         return {
                             tripId: trip.id,
                             departureTime: trip.departureTime,
-                            price: trip.price, 
+                            price: new Intl.NumberFormat('vi-VN').format(trip.price),
                             arrivalTime: trip.dataValues.arrivalTime, 
                             bus: {
                                 busId: trip.buses.id,
