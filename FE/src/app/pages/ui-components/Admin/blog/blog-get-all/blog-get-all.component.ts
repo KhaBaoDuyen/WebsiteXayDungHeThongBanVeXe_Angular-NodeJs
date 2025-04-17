@@ -46,7 +46,6 @@ export class BlogGetAllComponent implements OnInit, AfterViewInit {
   fetchPosts() {
     this.blogsService.List().subscribe({
       next: (data: any) => {
-        // console.log('✅ Dữ liệu nhận được từ API:', data);
 
         // Nếu backend trả về dạng { status, data }, bạn cần truy cập data.data
         const posts = Array.isArray(data) ? data : data?.data;

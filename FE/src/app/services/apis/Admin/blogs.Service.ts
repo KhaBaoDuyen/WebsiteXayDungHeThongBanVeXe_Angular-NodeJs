@@ -37,8 +37,9 @@ export class BlogsService extends ApiService {
     }
       
 
-    // Thêm bài viết mới
     Create(data: any): Observable<blogInterface> {
         return this.post<blogInterface>(API_ENDPOINT_AD.blogs.base + API_ENDPOINT_AD.blogs.add, data);
     }
+    
+    
 }

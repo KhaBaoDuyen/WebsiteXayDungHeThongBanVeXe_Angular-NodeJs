@@ -32,9 +32,9 @@ export const API_ENDPOINT_AD = {
   blogs: {
     base: API_BASE_URL + '/admin'+ '/blogs',
     list: '/list',         // Lấy danh sách tất cả blog
-    getById: '/blogs/getById/:id', // Lấy blog theo id
+    getById: '/getById', // Lấy blog theo id
     add: '/add',           // Thêm blog mới
-    update: '/blogs/update/:id', // Cập nhật blog theo id
+    update: '/update', // Cập nhật blog theo id
     delete: 'delete'        // Xóa blog theo id
   },
   seats: {
