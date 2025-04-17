@@ -58,6 +58,7 @@ class TripsController {
             }
             res.status(200).json({
                 "status": 200,
+                "success":true,
                 "message": "Lấy chuyến xe thành công!",
                 "data": trips
             })
@@ -90,6 +91,7 @@ class TripsController {
             });
             res.status(200).json({
                 "status": 200,
+                "success":true,
                 "message": "Thêm chuyến xe thành công!",
                 "data": trips
             })
@@ -128,6 +130,7 @@ class TripsController {
 
             res.status(200).json({
                 "status": 200,
+                "success":true,
                 "message": "Cập nhật thành công!",
                 "data": trips
             })
@@ -144,6 +147,7 @@ class TripsController {
 
             res.status(200).json({
                 "status": 200,
+                "success":true,
                 "message": "Xóa thành công!",
                 "data": trips
             });

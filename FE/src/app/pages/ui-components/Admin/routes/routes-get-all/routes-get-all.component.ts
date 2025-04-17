@@ -19,8 +19,14 @@ import { NotificationService } from 'src/app/services/notification.service';
 @Component({
   selector: 'app-routes-get-all',
   standalone: true,
-  imports: [RouterModule, MatTableModule, MatButtonModule, MatIconModule,
-    CommonModule, MatPaginatorModule, FormDeleteComponent, FormSearchComponent],
+  imports: [RouterModule, 
+    MatTableModule, 
+    MatButtonModule, 
+    MatIconModule,
+    CommonModule, 
+    MatPaginatorModule, 
+    FormDeleteComponent, 
+    FormSearchComponent],
   templateUrl: './routes-get-all.component.html',
 })
 export class RoutesGetAllComponent implements OnInit {
@@ -59,13 +65,16 @@ export class RoutesGetAllComponent implements OnInit {
     if (!searchTerm.trim()) {
       this.getList();
     } else {
-      this.dataSource.data = this.dataSource.data.filter(route =>
-        (route.startPoint && route.startPoint.toLowerCase().includes(searchTerm.toLowerCase())) || 
-        (route.endPoint && route.endPoint.toLowerCase().includes(searchTerm.toLowerCase()))
+      const keyword = searchTerm.trim().toLowerCase();
+      this.dataSource.data = this.dataSource.data.filter(trip =>
+        (trip.startPoint?.toLowerCase().includes(keyword)) ||
+        (trip.endPoint?.toLowerCase().includes(keyword))
       );
     }
   }
   
+
+
 
   getList() {
     this.routesService.List().subscribe({

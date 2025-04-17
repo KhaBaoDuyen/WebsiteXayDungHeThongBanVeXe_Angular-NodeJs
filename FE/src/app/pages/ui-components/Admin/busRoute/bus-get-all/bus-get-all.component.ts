@@ -57,20 +57,25 @@ export class BusGetAllComponent implements OnInit {
     if (!searchTerm.trim()) {
       this.getList();
     } else {
-      this.dataSource.data = this.dataSource.data.filter(route =>
-        (route.routeId && route.routeId.toString().includes(searchTerm.toLowerCase())) || 
-        (route.busID && route.busID.toString().includes(searchTerm.toLowerCase())) ||
-        (route.driverId && route.driverId.toString().includes(searchTerm.toLowerCase()))
+      const keyword = searchTerm.trim().toLowerCase();
+      this.dataSource.data = this.dataSource.data.filter(trip =>
+        (trip.routeId && trip.routeId.toString().includes(keyword)) ||
+        (trip.busID && trip.busID.toString().includes(keyword)) ||
+        (trip.driverId && trip.driverId.toString().includes(keyword)) ||
+        (trip.routes?.startPoint?.toLowerCase().includes(keyword)) ||
+        (trip.routes?.endPoint?.toLowerCase().includes(keyword)) ||
+        (trip.drivers?.fullName?.toLowerCase().includes(keyword))
       );
+      console.log("Search result:", this.dataSource.data);
     }
   }
   
-
   getList() {
     this.tripsService.List().subscribe({
       next: (res: any) => {
-        this.dataSource._updateChangeSubscription();
         this.dataSource.data = res?.data ?? [];
+        this.dataSource._updateChangeSubscription();
+       
         console.log(this.dataSource.data);
       },
       error: (err: any) => {
