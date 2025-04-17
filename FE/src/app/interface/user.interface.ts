@@ -1,9 +1,10 @@
 export interface userInterface {
-   id?:number | string,
-   image?: string;
-   fullName?: string;
-   email?: string;
-   phone?: string;
-   role?: string;
-   status?: string;
+   id?: number,
+   image: string;
+   fullName: string;
+   email: string;
+   phone: string;
+   role: 'admin' | 'customer';
+   status: number;
+   password: string;
 }

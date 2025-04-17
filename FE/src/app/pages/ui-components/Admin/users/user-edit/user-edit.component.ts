@@ -1,49 +1,105 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { userInterface } from 'src/app/interface/user.interface';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NotificationService } from 'src/app/services/notification.service';
+import { UsersService } from '../../../../../services/apis/Admin/users.service';
 
 @Component({
   selector: 'app-user-edit',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule], // Thêm ReactiveFormsModule
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './user-edit.component.html',
 })
-export class UserEditComponent {
-  users: userInterface = {
-    id: 1,
-    fullName: 'Nguyễn Văn A',
-    phone: '0987654321',
-    status: 'active',
-    image: 'user-7.jpg',
-    email: 'NguyenVanA@gmail.com',
-    role: 'User'
-  };
+export class UserEditComponent implements OnInit {
+  form: FormGroup;
+  userId!: string;
+  avatarPreview: string | ArrayBuffer | null = null;
+  selectedFile: File | null = null;
 
-  userForm: FormGroup;
-
-  constructor(private fb: FormBuilder) {
-    this.userForm = this.fb.group({
-      fullName: [this.users.fullName, [Validators.required, Validators.minLength(3)]],
-      phone: [this.users.phone, [Validators.required, Validators.pattern(/^0\d{9}$/)]],
-      email: [this.users.email, [Validators.required, Validators.email]],
-      role: [this.users.role, Validators.required],
-      status: [this.users.status, Validators.required],
-      image: [this.users.image],
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private notificationService: NotificationService,
+    private usersService: UsersService
+  ) {
+    this.form = this.fb.group({
+      fullName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      phone: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
+      role: ['', Validators.required],
+      status: ['', Validators.required],
     });
   }
 
-  get fullName() { return this.userForm.get('fullName'); }
-  get phone() { return this.userForm.get('phone'); }
-  get email() { return this.userForm.get('email'); }
-  get role() { return this.userForm.get('role'); }
-  get status() { return this.userForm.get('status'); }
-
-  onSubmit() {
-    if (this.userForm.invalid) {
-      this.userForm.markAllAsTouched();
-      return;
+  ngOnInit(): void {
+    this.userId = this.route.snapshot.paramMap.get('id') || '';
+    console.log(this.userId);
+    
+    if (this.userId) {
+      this.usersService.getById(Number(this.userId)).subscribe({
+        next: (res: any) => {
+          const user = res.data;
+      
+          this.form.patchValue({
+            fullName: user.fullName,
+            email: user.email,
+            phone: user.phone,
+            role: user.role,
+            status: user.status,
+          });
+      
+          this.avatarPreview = `http://localhost:3001/upload/drivers/${user.image}`;
+        },
+        error: (err) => {
+          this.notificationService.showError('Lấy dữ liệu thất bại!');
+          console.error(err);
+        }
+      });
     }
-    console.log('Dữ liệu hợp lệ:', this.userForm.value);
+  }
+
+  onFileSelect(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      this.selectedFile = file;
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.avatarPreview = reader.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  onUpdate(): void {
+    this.form.markAllAsTouched();
+    if (this.form.valid) {
+      const formData = new FormData();
+      formData.append('fullName', this.form.value.fullName);
+      formData.append('email', this.form.value.email);
+      formData.append('phone', this.form.value.phone);
+      formData.append('role', this.form.value.role);
+
+      const statusValue = this.form.value.status === 1 ? 1 : 0;
+      formData.append('status', statusValue.toString());
+
+      if (this.selectedFile) {
+        formData.append('avatar', this.selectedFile);
+      }
+
+      this.usersService.Update(Number(this.userId), formData).subscribe({
+        next: () => {
+          this.notificationService.showSuccess('Cập nhật user thành công!');
+          this.router.navigate(['/admin/userGetAll']);
+        },
+        error: (err) => {
+          this.notificationService.showError('Cập nhật thất bại!');
+          console.error(err);
+        }
+      });
+    }
   }
 }

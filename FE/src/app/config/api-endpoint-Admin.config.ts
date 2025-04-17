@@ -27,6 +27,23 @@ export const API_ENDPOINT_AD = {
   buses: {
     base: API_BASE_URL + '/admin'+'/buses',
     getList:'/list',
+    create: '/add',
+    getById: '/getId',
+    update: '/update',
+    delete: '/delete',
+  },
+
+  users: {
+    base: API_BASE_URL + '/admin'+'/user',
+    getList:'/list',
+    create: '/add',
+    getById: '/getById',
+    update: '/update',
+  },
+
+  bustype: {
+    base: API_BASE_URL + '/admin'+'/bustype',
+    getList:'/list',
 
   },
   blogs: {

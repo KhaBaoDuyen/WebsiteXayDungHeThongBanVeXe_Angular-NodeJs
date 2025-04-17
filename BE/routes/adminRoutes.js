@@ -9,6 +9,8 @@ const BusesController = require('../controllers/Admin/busesController');
 const DriversController = require('../controllers/Admin/driversController');
 const SeatsController = require('../controllers/Admin/seatsController');
 const BlogsController = require('../controllers/Admin/blogsController');
+const BusTypeController = require('../controllers/Admin/busTypeController');
+const UserController = require('../controllers/Admin/userController');
 
 const DriverController = require('../controllers/Admin/driversController');
 const upload = require('../config/multer');
@@ -64,5 +66,19 @@ router.patch('/driver/update/:id',upload.fields([
 router.delete('/driver/delete/:id', DriverController.delete);
 
 
+
+//-----------------[ BUSTYPES ]-----------------
+router.get('/busType/list',BusTypeController.get);
+router.get('/busType/getId/:id',BusTypeController.getById);
+router.post('/busType/add',BusTypeController.create);
+router.patch('/busType/update/:id',BusTypeController.update);
+router.delete('/busType/delete/:id',BusTypeController.delete);
+
+//------------------[ User]-------------
+router.get('/user/list', UserController.get);
+router.get('/user/getById/:id', UserController.getById);
+router.post('/user/add', upload.single('avatar'), UserController.create);
+router.patch('/user/update/:id', upload.single('avatar'), UserController.update);
+router.delete('/user/:id', UserController.delete);
 
 module.exports = router;

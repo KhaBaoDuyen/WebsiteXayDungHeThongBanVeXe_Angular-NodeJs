@@ -30,7 +30,7 @@ const UserModel = connection.define('User', {
         allowNull: true
     },
     role: {
-        type: DataTypes.TINYINT,
+        type: DataTypes.ENUM('admin', 'customer'),
         allowNull: true
     },
     status: {

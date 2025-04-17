@@ -10,7 +10,7 @@ if (!fs.existsSync(uploadDir)) {
 
 const fileFilter = (req, file, cb) => {
   if (file.fieldname === 'avatar') {
-    const imageTypes = ['image/jpeg', 'image/png', 'image/gif'];
+    const imageTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/jpg', 'image/webp'];
     if (imageTypes.includes(file.mimetype)) {
       cb(null, true);
     } else {
