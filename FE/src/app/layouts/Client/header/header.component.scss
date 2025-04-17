@@ -15,6 +15,16 @@
         margin-top: 5%;
     }
 }
+.container-cha {
+    overflow: visible !important;
+    position: relative;
+  }
+  ::ng-deep .ng-dropdown-panel .ng-option {
+    padding: 8px 12px;
+    margin-bottom: 2px; 
+    border-radius: 6px;
+  }
+  
 
 header li a{
 color: white;

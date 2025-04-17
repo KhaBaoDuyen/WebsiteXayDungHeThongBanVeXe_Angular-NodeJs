@@ -19,5 +19,15 @@ export const API_ENDPOINT = {
   contact:{
     base: API_BASE_URL + '/contact',
     question: '/question',
+  },
+  home:{
+    base: API_BASE_URL + '/home',
+    getOption:'/list',
+    search:'/search',
+  },
+  timeTable:{
+    base: API_BASE_URL + '/timetable',
+    get:'/list',
+
   }
 };
