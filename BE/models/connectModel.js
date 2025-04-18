@@ -20,7 +20,6 @@ TripsModel.belongsTo(BusesModel, { foreignKey: 'busID', as: 'buses' });
 DriverModel.hasMany(TripsModel, { foreignKey: 'driverId', as: 'trips' });
 TripsModel.belongsTo(DriverModel, { foreignKey: 'driverId', as: 'drivers' });
 
-
 // Bus - Seats
 BusesModel.hasMany(SeatsModel, { foreignKey: 'busId', as: 'seats' });
 SeatsModel.belongsTo(BusesModel, { foreignKey: 'busId', as: 'bus' });
@@ -29,12 +28,10 @@ SeatsModel.belongsTo(BusesModel, { foreignKey: 'busId', as: 'bus' });
 BusesModel.belongsTo(BusTypesModel, { foreignKey: 'busTypeId', as: 'busType' });
 BusTypesModel.hasMany(BusesModel, { foreignKey: 'busTypeId', as: 'buses' });
 
-// Driver - Trips
-DriverModel.hasOne(BusesModel, { foreignKey: 'driverId', as: 'bus'});
-BusesModel.belongsTo(DriverModel, { foreignKey: 'driverId', as: 'drivers'  });
+// // Driver - Trips
+// DriverModel.hasOne(BusesModel, { foreignKey: 'driverId', as: 'bus'});
+// BusesModel.belongsTo(DriverModel, { foreignKey: 'driverId', as: 'drivers'  });
   
-
-module.exports = {TripsModel, BusesModel, DriverModel, RoutesModel, SeatsModel};
 // Driver - Buses
 DriverModel.hasOne(BusesModel, { foreignKey: 'driverId', as: 'bus'});
 BusesModel.belongsTo(DriverModel, { foreignKey: 'driverId', as: 'drivers'  });
