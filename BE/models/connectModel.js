@@ -4,6 +4,8 @@ const DriverModel = require('./driverModel');
 const RoutesModel = require('./routesModel');
 const SeatsModel = require('./seatsModel');
 const BusTypesModel = require('./busTypesModel');
+const UserModel = require('./userModel');
+const ResetToken = require('./ResetTokenModel');
 
 
 //--------------------- [ Thiết lập quan hệ ]------------------------
@@ -35,5 +37,10 @@ BusTypesModel.hasMany(BusesModel, { foreignKey: 'busTypeId', as: 'buses' });
 // Driver - Buses
 DriverModel.hasOne(BusesModel, { foreignKey: 'driverId', as: 'bus'});
 BusesModel.belongsTo(DriverModel, { foreignKey: 'driverId', as: 'drivers'  });
+
+// ResetPassword
+ResetToken.belongsTo(UserModel, { foreignKey: 'userId', as: 'user' });
+UserModel.hasMany(ResetToken, { foreignKey: 'userId', as: 'resetTokens' });
+
 
 module.exports = { TripsModel, BusesModel, DriverModel, RoutesModel, SeatsModel, BusTypesModel, };

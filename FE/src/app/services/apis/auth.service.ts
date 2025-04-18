@@ -11,9 +11,9 @@ import { API_ENDPOINT } from '../../config/api-endpoint.config';
   providedIn: 'root'
 })
 export class AuthService extends ApiService {
-  static isLoggedIn() {
-    throw new Error('Method not implemented.');
-  }
+  // static isLoggedIn() {
+  //   throw new Error('Method not implemented.');
+  // }
   public jwtHelperService = new JwtHelperService();
   private loginInfo!: userInterface;
   // static isLoggedIn() {
@@ -55,21 +55,30 @@ export class AuthService extends ApiService {
     }
     return null;
   }
+
   isTokenExpired(token: string): boolean {
-    return this.jwtHelperService.isTokenExpired(token);
-  }
-
-
-  isLoggedIn(): boolean {
-    if (this.getToken()) {
-      const expired = this.jwtHelperService.isTokenExpired(this.getToken());
-      if (expired) {
-        localStorage.clear();
-      }
-      return !expired;
+    const expired = this.jwtHelperService.isTokenExpired(token);
+    const decoded = this.jwtHelperService.decodeToken(token);
+    
+    if (expired || decoded?.status === 0) {
+      localStorage.clear();
+      return true;
     }
     return false;
+
   }
+
+
+  // isLoggedIn(): boolean {
+  //   if (this.getToken()) {
+  //     const expired = this.jwtHelperService.isTokenExpired(this.getToken());
+  //     if (expired) {
+  //       localStorage.clear();
+  //     }
+  //     return !expired;
+  //   }
+  //   return false;
+  // }
   
   isAdmin(): boolean {
     const token = this.getToken();

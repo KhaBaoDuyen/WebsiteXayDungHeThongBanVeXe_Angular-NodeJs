@@ -1,3 +1,4 @@
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { AuthService } from '../services/apis/auth.service';
@@ -22,5 +23,5 @@ export class AuthGuard implements CanActivate {
       return false;
     }
     return true;
-  }
+  } 
 }

@@ -42,9 +42,9 @@ export class AppComponent {
    }
 
   ngOnInit() {
-    if (this.authService.isLoggedIn()) {
-      this.router.navigate(['/auth/login']); 
-    }
+    // if (this.authService.isLoggedIn()) {
+    //   this.router.navigate(['/auth/login']); 
+    // }
    this.checkUrl();
   }
 
