@@ -54,7 +54,7 @@ export class BusCreateComponent {
       }
     })
 
-    this.busesService.List().subscribe({
+    this.busesService.getAllByStatusCreate().subscribe({
       next: (buses: any) => {
         console.log('Dữ liệu xe:', buses); 
         this.busesOption = buses.data || [];
@@ -64,7 +64,7 @@ export class BusCreateComponent {
       }
     })
 
-    this.driversService.List().subscribe({
+    this.driversService.getAllByStatusCreate().subscribe({
       next: (drivers: any) => {
         console.log('Dữ liệu tài xế xe:', drivers); 
         this.driversOption = drivers.data || [];

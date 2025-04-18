@@ -72,17 +72,18 @@ export class BusEditComponent implements OnInit {
   }
 
   loadOptions() {
+    const id = Number(this.activatedRoute.snapshot.paramMap.get('id'));
     this.routesService.List().subscribe({
       next: (res: any) => this.routeOptions = res.data || [],
       error: () => console.error("Lỗi khi lấy danh sách tuyến đường!")
     });
 
-    this.busesService.List().subscribe({
+    this.busesService.getAllByStatusEdit(id).subscribe({
       next: (res: any) => this.busesOption = res.data || [],
       error: () => console.error("Lỗi khi lấy danh sách xe!")
     });
 
-    this.driversService.List().subscribe({
+    this.driversService.getAllByStatusEdit(id).subscribe({
       next: (res: any) => this.driversOption = res.data || [],
       error: () => console.error("Lỗi khi lấy danh sách tài xế!")
     });

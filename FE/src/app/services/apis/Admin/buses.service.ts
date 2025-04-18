@@ -19,4 +19,33 @@ export class BusesService extends ApiService {
         return this.get<busesInterface[]>(API_ENDPOINT_AD.buses.base + API_ENDPOINT_AD.buses.getList);
     }
 
+    Create(busesData: {
+        plateNumber: string;
+        busTypeId: number;
+        status: 'active' | 'inactive';
+        totalSeats: number;
+    }): Observable<busesInterface> {
+        return this.post<busesInterface>(API_ENDPOINT_AD.buses.base + API_ENDPOINT_AD.buses.create, busesData);
+    }
+
+
+    getById(id: number): Observable<busesInterface> {
+        return this.get<busesInterface>(API_ENDPOINT_AD.buses.base + API_ENDPOINT_AD.buses.getById + '/' + id);
+    }
+
+    Update(id: number, busesData: any): Observable<busesInterface> {
+        return this.patch<busesInterface>(API_ENDPOINT_AD.buses.base + API_ENDPOINT_AD.buses.update + '/' + id, busesData);
+    }
+    Delete(id: number): Observable<busesInterface> {
+        return this.delete(API_ENDPOINT_AD.buses.base + API_ENDPOINT_AD.buses.delete + '/' + id) as Observable<busesInterface>;
+    }
+
+    getAllByStatusCreate(): Observable<busesInterface[]> {
+        return this.get<busesInterface[]>(API_ENDPOINT_AD.buses.base + API_ENDPOINT_AD.buses.getByStatusCreate);
+    }
+
+    getAllByStatusEdit(id: number): Observable<busesInterface[]> {
+        return this.get<busesInterface[]>(API_ENDPOINT_AD.buses.base + API_ENDPOINT_AD.buses.getByStatusEdit + '/' + id);
+    }
+
 }

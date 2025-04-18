@@ -19,4 +19,12 @@ export class DriversService extends ApiService {
         return this.get<driveriInterface[]>(API_ENDPOINT_AD.drivers.base + API_ENDPOINT_AD.drivers.get);
     }
 
+    getAllByStatusCreate(): Observable<driveriInterface[]> {
+        return this.get<driveriInterface[]>(API_ENDPOINT_AD.drivers.base + API_ENDPOINT_AD.drivers.getByStatusCreate);
+    }
+
+    getAllByStatusEdit(id: number): Observable<driveriInterface[]> {
+        return this.get<driveriInterface[]>(API_ENDPOINT_AD.drivers.base + API_ENDPOINT_AD.drivers.getByStatusEdit + '/' + id);
+    }
+
 }

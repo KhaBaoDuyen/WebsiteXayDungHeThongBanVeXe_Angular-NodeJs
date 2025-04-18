@@ -31,6 +31,8 @@ export const API_ENDPOINT_AD = {
     getById: '/getId',
     update: '/update',
     delete: '/delete',
+    getByStatusCreate: '/getAllBusByStatusCreate',
+    getByStatusEdit: '/getAllByStatusEdit',
   },
 
   users: {
@@ -64,5 +66,7 @@ export const API_ENDPOINT_AD = {
     getById: '/getById',
     update: '/update',
     delete: '/delete',
+    getByStatusCreate: '/getByStatusCreate',
+    getByStatusEdit: '/getByStatusEdit',
   },
 };

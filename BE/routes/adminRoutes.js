@@ -64,8 +64,8 @@ router.patch('/driver/update/:id',upload.fields([
   { name: 'fileName', maxCount: 5 }
 ]), DriverController.update)
 router.delete('/driver/delete/:id', DriverController.delete);
-
-
+router.get('/driver/getByStatusCreate', DriverController.getAllByStatusCreate);
+router.get('/driver/getByStatusEdit/:tripId', DriverController.getAllByStatusEdit);
 
 //-----------------[ BUSTYPES ]-----------------
 router.get('/busType/list',BusTypeController.get);
