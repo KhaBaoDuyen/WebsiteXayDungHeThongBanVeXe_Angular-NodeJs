@@ -4,6 +4,7 @@ import {
   importProvidersFrom,
 } from '@angular/core';
 import {
+  HTTP_INTERCEPTORS,
   provideHttpClient,
   withFetch,
   withInterceptorsFromDi,
@@ -28,8 +29,12 @@ import { NgScrollbarModule } from 'ngx-scrollbar';
 import { MaterialModule } from './material.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { InterceptorService } from './services/common/loader/interceptor.service';
+
 export const appConfig: ApplicationConfig = {
   providers: [
+    {provide: HTTP_INTERCEPTORS,useClass:InterceptorService, multi:true},
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(
       routes,
@@ -48,6 +53,7 @@ export const appConfig: ApplicationConfig = {
       MaterialModule,
       TablerIconsModule.pick(TablerIcons),
       NgScrollbarModule,
+      MatProgressBarModule
     ), provideAnimationsAsync(),
   ],
 };

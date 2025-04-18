@@ -5,10 +5,17 @@ import { NotificationService } from './services/notification.service';
 import { Subscription } from 'rxjs';
 import { ImageUploaderDirective } from "../app/directives/images-upload.directive";
 import { AuthService } from './services/apis/auth.service';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { LoaderService } from './services/common/loader/loader.service';
 
 @Component({
     selector: 'app-root',
-    imports: [RouterOutlet,CommonModule,ImageUploaderDirective ],
+    imports: [RouterOutlet,
+      CommonModule,
+      ImageUploaderDirective,
+      MatProgressBarModule,
+      
+     ],
     templateUrl: './app.component.html'
 })
 export class AppComponent {
@@ -21,14 +28,9 @@ export class AppComponent {
 
   constructor(private notificationService: NotificationService,
     private authService :AuthService,
+    public  loaderService :LoaderService,
   ) {
-    this.notificationService.successMessage$.subscribe(
-      (message) => (this.successMessage = message)
-    );
-    this.notificationService.errorMessage$.subscribe(
-      (message) => (this.errorMessage = message)
-    );
-
+ 
       this.successSubscription = this.notificationService.successMessage$.subscribe(message => {
       this.successMessage = message;
     });
@@ -36,6 +38,7 @@ export class AppComponent {
     this.errorSubscription = this.notificationService.errorMessage$.subscribe(message => {
       this.errorMessage = message;
     });
+
    }
 
   ngOnInit() {
