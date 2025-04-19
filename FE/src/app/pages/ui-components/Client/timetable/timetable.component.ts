@@ -1,13 +1,15 @@
 import { HomeService } from 'src/app/services/apis/Client/home.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SearchDataService } from 'src/app/services/apis/Client/search-data.service';
 import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-timetable',
-  imports: [CommonModule],
+  imports: [CommonModule,
+    RouterModule,
+  ],
   templateUrl: './timetable.component.html',
 })
 export class TimetableComponent implements OnInit, OnDestroy {
@@ -15,6 +17,7 @@ export class TimetableComponent implements OnInit, OnDestroy {
   searchParams: any;
   private sub: Subscription = new Subscription();
   allTripsData: any;
+  tripId: number;
 
   constructor(private router: Router,
     private homeService: HomeService,
@@ -25,13 +28,13 @@ export class TimetableComponent implements OnInit, OnDestroy {
     this.sub = this.searchDataService.tripsData$.subscribe(data => {
       if (data && data.length > 0) {
         this.tripsData = data;
-        console.log("✅ Hiển thị dữ liệu từ tìm kiếm:", data);
+        console.log(" Hiển thị dữ liệu từ tìm kiếm:", data);
       } else {
-        this.getData(); // fallback nếu không có tìm kiếm
+        this.getData();
       }
     });
   }
-  
+
 
   ngOnDestroy() {
     this.sub.unsubscribe();
@@ -48,7 +51,7 @@ export class TimetableComponent implements OnInit, OnDestroy {
     this.homeService.TimeTable().subscribe({
       next: (res: any) => {
         this.allTripsData = res.data || [];
-        this.tripsData = [...this.allTripsData]; 
+        this.tripsData = [...this.allTripsData];
       },
       error: (err: any) => {
         console.error('Lỗi khi lấy dữ liệu:', err);
@@ -57,8 +60,10 @@ export class TimetableComponent implements OnInit, OnDestroy {
       }
     });
   }
+
+
   resetToAll() {
     this.tripsData = [...this.allTripsData];
   }
-  
+
 }

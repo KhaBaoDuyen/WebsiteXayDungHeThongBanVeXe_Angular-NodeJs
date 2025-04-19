@@ -91,10 +91,11 @@
                         <td class="py-2 text-gray-400 text-sm" colspan="3">• {{ trip.bus.busType }}
                             <span class="text-green-600">• {{ trip.bus.totalSeats }} chỗ trống</span>
                         </td>
-                        <td class="py-2 w-[16%]">
-                            <button class="px-4 py-2 bg-orange-500 hover:bg-orange-600 rounded-full text-white">
+
+                        <td class="py-2 w-[18%]">
+                            <a [routerLink]="['/booktickets', route.routeId]" class="px-4 py-2 bg-orange-500 hover:bg-orange-600 rounded-full text-white">
                                 Chọn chuyến
-                            </button>
+                            </a>
                         </td>
                     </tr>
                 </table>

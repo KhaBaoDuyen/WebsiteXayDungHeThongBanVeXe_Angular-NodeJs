@@ -33,7 +33,7 @@ export const ClientRoutes: Routes = [
     component: TimetableComponent,
   },
   {
-    path: 'booktickets',
+    path: 'booktickets/:id',
     canActivate: [AuthGuard],
     component: BookticketsComponent
   },

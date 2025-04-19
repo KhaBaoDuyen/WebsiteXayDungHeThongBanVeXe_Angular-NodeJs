@@ -31,7 +31,10 @@ export class HeaderComponent {
   selectedStartPoint: string | null = null;
   selectedEndPoint: string | null = null;
   selectedDate: string = '';
-  isSearching: boolean = false;
+  isSearching: boolean = false; 
+  isLoggedIn: boolean = false;
+  fullName: string = '';
+  private jwtHelper = new JwtHelperService();
   [x: string]: any;
   @Input() tripsData: any[];
 
@@ -50,9 +53,7 @@ export class HeaderComponent {
     this.config.appendTo = 'body';
     this.config.bindValue = 'value';
   }
-  isLoggedIn: boolean = false;
-  fullName: string = '';
-  private jwtHelper = new JwtHelperService();
+
   ngOnInit() {
     const token = localStorage.getItem('auth_token');
 

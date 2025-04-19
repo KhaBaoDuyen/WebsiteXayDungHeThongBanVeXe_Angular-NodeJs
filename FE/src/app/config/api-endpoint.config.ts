@@ -28,6 +28,11 @@ export const API_ENDPOINT = {
   timeTable:{
     base: API_BASE_URL + '/timetable',
     get:'/list',
+    getById:'/getById',
 
+  },
+  booking:{
+    base: API_BASE_URL,
+    create:'/booking'
   }
 };

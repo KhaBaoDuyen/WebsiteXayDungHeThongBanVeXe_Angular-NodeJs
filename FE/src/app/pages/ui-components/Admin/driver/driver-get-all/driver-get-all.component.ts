@@ -30,6 +30,9 @@ import { MatDialog } from '@angular/material/dialog';
 
 export class DriverGetAllComponent {
   [x: string]: any;
+  searchTerm: string = '';
+  showFormDelete = false;
+  driverId: number | null = null;
   constructor(
     private driverService: DriverService,
     private notificationService: NotificationService,
@@ -59,10 +62,6 @@ export class DriverGetAllComponent {
     });
   }
 
-  searchTerm: string = '';
-
-  showFormDelete = false;
-  driverId: number | null = null;
 
   openDeleteDialog(id: Number): void {
     const dialogRef = this.dialog.open(FormDeleteComponent, {

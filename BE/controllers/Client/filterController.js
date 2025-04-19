@@ -6,7 +6,7 @@ const BusTypesModel = require("../../models/busTypesModel.js");
 const SeatsModel = require("../../models/seatsModel.js");
 const { add } = require('date-fns');
 
-class HomeController {
+class FilterController {
     static async filterBuses(req, res) {
         try {
             const { startPoint, endPoint, travelTime } = req.body;
@@ -76,19 +76,21 @@ class HomeController {
                     trip.dataValues.arrivalTime = arrivalTime;
                 }
             }
-        
+
             const formattedData = routes.map(route => {
+                const seatsTrip = (route.trips || []).filter(trip => trip.dataValues.totalSeats > 0);
+
                 return {
                     routeId: route.id,
                     time: route.time,
                     startPoint: route.startPoint,
                     endPoint: route.endPoint,
-                    trips: route.trips.map(trip => {
+                    trips: seatsTrip.map(trip => {
                         return {
                             tripId: trip.id,
                             departureTime: trip.departureTime,
                             price: new Intl.NumberFormat('vi-VN').format(trip.price),
-                            arrivalTime: trip.dataValues.arrivalTime, 
+                            arrivalTime: trip.dataValues.arrivalTime,
                             bus: {
                                 busId: trip.buses.id,
                                 licensePlate: trip.buses.plateNumber,
@@ -106,7 +108,7 @@ class HomeController {
                 data: formattedData,
                 meta: {
                     total: routes.length,
-                    filteredBy: { startPoint, endPoint, travelTime  }
+                    filteredBy: { startPoint, endPoint, travelTime }
                 }
             });
 
@@ -119,95 +121,6 @@ class HomeController {
             });
         }
     }
-
-
-    static async timeTable(req, res) {
-        try {
-            const tripInclude = {
-                model: TripsModel,
-                as: "trips",
-                include: [
-                    {
-                        model: BusesModel,
-                        as: "buses",
-                        include: [
-                            {
-                                model: BusTypesModel,
-                                as: "busType",
-                                attributes: ['typeName']
-                            }
-                        ]
-                    }
-                ]
-            };
-    
-            const routes = await RoutesModel.findAll({
-                include: [tripInclude],
-                order: [[{ model: TripsModel, as: "trips" }, "departureTime", "ASC"]]
-            });
-    
-            for (const route of routes) {
-                for (const trip of route.trips) {
-                    // Lấy ghế trống theo bus ID
-                    const emptySeatsCount = await SeatsModel.count({
-                        where: {
-                            busID: trip.buses.id,
-                            status: 'empty'
-                        }
-                    });
-                    trip.dataValues.totalSeats = emptySeatsCount;
-    
-                    // Tính arrivalTime 
-                    const [hours, minutes] = String(route.time).split('.').map(Number);
-                    const arrivalTime = add(new Date(trip.departureTime), {
-                        hours: hours || 0,
-                        minutes: minutes || 0
-                    });
-                    trip.dataValues.arrivalTime = arrivalTime;
-                }
-            }
-    
-            const formattedData = routes
-                .map(route => ({
-                    routeId: route.id,
-                    time: route.time,
-                    startPoint: route.startPoint,
-                    endPoint: route.endPoint,
-                    trips: (route.trips || []).map(trip => ({
-                        tripId: trip.id,
-                        departureTime: trip.departureTime,
-                        price: new Intl.NumberFormat('vi-VN').format(trip.price),
-                        arrivalTime: trip.dataValues.arrivalTime,
-                        bus: {
-                            busId: trip.buses.id,
-                            licensePlate: trip.buses.plateNumber,
-                            totalSeats: trip.dataValues.totalSeats,
-                            driver: trip.buses.driver,
-                            busType: trip.buses.busType.typeName
-                        }
-                    }))
-                }))
-                .filter(route => route.trips && route.trips.length > 0); // Lọc ra route có trip thật
-    
-            return res.json({
-                success: true,
-                data: formattedData,
-                meta: {
-                    total: formattedData.length
-                }
-            });
-    
-        } catch (error) {
-            console.error("Lỗi khi lấy dữ liệu:", error);
-            return res.status(500).json({
-                success: false,
-                message: "Đã xảy ra lỗi server",
-                error: error.message
-            });
-        }
-    }
-    
-    
 }
 
-module.exports = HomeController;
+module.exports = FilterController;

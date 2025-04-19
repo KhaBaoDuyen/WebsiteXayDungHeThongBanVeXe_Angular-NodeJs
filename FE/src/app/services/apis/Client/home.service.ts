@@ -30,4 +30,8 @@ export class HomeService extends ApiService {
         return this.get<routesInterface>(API_ENDPOINT.timeTable.base + API_ENDPOINT.timeTable.get);
     }
 
+    GetById(id:number): Observable<routesInterface> {
+        return this.get<routesInterface>(API_ENDPOINT.timeTable.base + API_ENDPOINT.timeTable.getById + '/' + id);
+    }
+
 }

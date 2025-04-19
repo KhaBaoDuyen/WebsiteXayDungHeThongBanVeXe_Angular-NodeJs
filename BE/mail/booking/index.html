@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      color: #333;
+      background-color: #f5f7fa;
+      padding: 30px;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      padding: 20px 30px;
+    }
+    h2 {
+      color: #0F3079;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #f0f3f7;
+    }
+    .note {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #fff3cd;
+      border: 1px solid #ffeeba;
+      border-radius: 6px;
+      color: #856404;
+    }
+    .footer {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Xin chào {{name}},</h2>
+    <p>Cảm ơn bạn đã đặt vé tại hệ thống <strong>Vé Xe Thông Minh</strong>.</p>
+
+    <table>
+      <tr>
+        <th>Mã đơn hàng</th>
+        <td>{{orderCode}}</td>
+      </tr>
+      <tr>
+        <th>Điểm đi</th>
+        <td>{{startPoint}}</td>
+      </tr>
+      <tr>
+        <th>Điểm đến</th>
+        <td>{{endPoint}}</td>
+      </tr>
+      <tr>
+        <th>Thời gian khởi hành</th>
+        <td>{{startDate}}</td>
+      </tr>
+      <tr>
+        <th>Ghế đã đặt</th>
+        <td>{{seats}}</td>
+      </tr>
+      <tr>
+        <th>Tổng tiền</th>
+        <td>{{totalPrice}} VND</td>
+      </tr>
+    </table>
+
+    <div class="note">
+      <strong>Lưu ý:</strong> Vui lòng đến bến trước ít nhất <strong>30 phút</strong> để nhận vé và chuẩn bị cho chuyến đi.
+    </div>
+
+    <div class="footer">
+      Trân trọng,<br/>
+      <strong>Vé Xe Thông Minh</strong>
+    </div>
+  </div>
+</body>
+</html>
