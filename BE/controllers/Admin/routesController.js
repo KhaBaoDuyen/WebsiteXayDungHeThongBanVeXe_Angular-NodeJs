@@ -5,7 +5,10 @@ class RoutesController {
     //------------------[ GET ]------------------
     static async get(req, res) {
         try {
-            const routes = await RoutesModel.findAll();
+            const routes = await RoutesModel.findAll({
+                order: [['id', 'DESC']]
+            });
+            
             res.status(200).json({
                 "status": 200,
                 "message": "Lấy danh sách thành công",
@@ -53,6 +56,19 @@ class RoutesController {
                 endWardID
             } = req.body;
 
+            const checkRoutes = await RoutesModel.findOne({
+                where: {
+                    endPoint,
+                    startPoint
+                }
+            })
+            if (checkRoutes !== null) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'Tuyến đường hiện tại đã có'
+                });
+            }
+
             const routes = await RoutesModel.create({
                 startPoint,
                 endPoint,
@@ -66,10 +82,24 @@ class RoutesController {
                 endWardID
             });
 
+            const routes2 = await RoutesModel.create({
+                startPoint:endPoint,
+                endPoint: startPoint,
+                distance,
+                time,
+                startProvinceID,
+                startDistrictID,
+                startWardID,
+                endProvinceID,
+                endDistrictID,
+                endWardID
+            });
+
             res.status(201).json({
                 success: true,
                 message: "Thêm mới thành công",
-                routes
+                routes,
+                routes2,
             });
         } catch (error) {
             res.status(500).json({ error: error.message });
@@ -120,9 +150,10 @@ class RoutesController {
             });
         } catch (error) {
             res.status(500).json({
-                success:false,
+                success: false,
                 message: "Cập nhật không thành công",
-                error: error.message });
+                error: error.message
+            });
         }
     }
     //------------------[ DELETE ]------------------

@@ -91,6 +91,10 @@ export class BookticketsComponent {
   //--------------------[ BOOKING ]--------------------
 
   createBooking() {
+    if (!this.tripsData.trips || this.tripsData.trips.length === 0) {
+      this.notificationService.showError('Dữ liệu chuyến đi không hợp lệ!');
+      return;
+    }
     const bookingData = {
       fullName: this.fullName,
       email: this.email,

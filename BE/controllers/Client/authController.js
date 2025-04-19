@@ -10,6 +10,7 @@ require("dotenv").config();
 const JWT_SECRET = process.env.JWT_SECRET || "your_secret_key";
 
 class AuthController {
+
     static async register(req, res) {
         try {
             console.log('Nhận từ Client:', req.body);
@@ -25,12 +26,12 @@ class AuthController {
             }
 
 
-            const userResponse = {
-                id: user.id,
-                fullName: user.fullName,
-                email: user.email,
-                phone: user.phone,
-            };
+            const userResponse = await UserModel.create({
+                fullName,
+                email,
+                phone,
+                password
+            });
 
             return res.status(200).json({
                 success: true,

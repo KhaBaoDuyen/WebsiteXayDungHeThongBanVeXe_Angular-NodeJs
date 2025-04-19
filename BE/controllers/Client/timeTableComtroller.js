@@ -12,9 +12,16 @@ class timeTableController {
 
     static async timeTable(req, res) {
         try {
+            const now = new Date();
+            const plus30m = new Date(now.getTime() + 30 * 60 * 1000)
             const tripInclude = {
                 model: TripsModel,
                 as: "trips",
+                where: {
+                    departureTime: {
+                        [Op.gt]: plus30m,
+                    }
+                },
                 include: [
                     {
                         model: BusesModel,
@@ -145,89 +152,89 @@ class timeTableController {
 
     }
 
- static async booking(req, res) {
-    try {
-        const {
-            fullName,
-            email,
-            phone,
-            startPoint,
-            endPoint,
-            totalSeat,
-            finalPrice,
-            startDate,
-            userId,
-            price,
-            selectedSeats,
-        } = req.body;
+    static async booking(req, res) {
+        try {
+            const {
+                fullName,
+                email,
+                phone,
+                startPoint,
+                endPoint,
+                totalSeat,
+                finalPrice,
+                startDate,
+                userId,
+                price,
+                selectedSeats,
+            } = req.body;
 
-        // Kiểm tra seatId 
-        const seatIds = selectedSeats.map(seat => seat.id);
-        const validSeats = await SeatsModel.findAll({
-            where: { id: seatIds }
-        });
+            // Kiểm tra seatId 
+            const seatIds = selectedSeats.map(seat => seat.id);
+            const validSeats = await SeatsModel.findAll({
+                where: { id: seatIds }
+            });
 
-        if (validSeats.length !== seatIds.length) {
-            return res.status(400).json({
+            if (validSeats.length !== seatIds.length) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Một hoặc nhiều ghế không hợp lệ!"
+                });
+            }
+
+            const booking = await BookingModel.create({
+                fullName,
+                email,
+                phone,
+                startPoint,
+                endPoint,
+                totalSeat,
+                finalPrice,
+                startDate,
+                userId,
+                status: "pending",
+            });
+
+            const bookingDetails = selectedSeats.map(seat => ({
+                bookingId: booking.id,
+                seatNumber: seat.seatNumber,
+                seatId: seat.id,
+                price,
+            }));
+
+            await BookingDetailModel.bulkCreate(bookingDetails);
+
+            await SeatsModel.update(
+                { status: 'sold' },
+                { where: { id: seatIds } }
+            );
+
+            const seatsString = selectedSeats.map(seat => seat.seatNumber).join(', ');
+
+            await sendBookingMail(
+                email,
+                fullName,
+                booking.id,
+                startPoint,
+                endPoint,
+                startDate,
+                seatsString,
+                finalPrice
+            );
+            return res.status(200).json({
+                success: true,
+                message: "Đặt vé xe thành công",
+                booking,
+            });
+
+        } catch (error) {
+            console.error("Lỗi đặt vé:", error);
+            return res.status(500).json({
                 success: false,
-                message: "Một hoặc nhiều ghế không hợp lệ!"
+                message: 'Đặt vé thất bại!',
+                error
             });
         }
-
-        const booking = await BookingModel.create({
-            fullName,
-            email,
-            phone,
-            startPoint,
-            endPoint,
-            totalSeat,
-            finalPrice,
-            startDate,
-            userId,
-            status: "pending",
-        });
-
-        const bookingDetails = selectedSeats.map(seat => ({
-            bookingId: booking.id,
-            seatNumber: seat.seatNumber, 
-            seatId: seat.id,
-            price,
-        }));
-
-        await BookingDetailModel.bulkCreate(bookingDetails);
-
-        await SeatsModel.update(
-            { status: 'sold' },
-            { where: { id: seatIds } }
-        );
-
-        const seatsString = selectedSeats.map(seat => seat.seatNumber).join(', ');
-        
-        await sendBookingMail(
-            email,
-            fullName,
-            booking.id, 
-            startPoint,
-            endPoint,
-            startDate,
-            seatsString,
-            finalPrice
-          );
-        return res.status(200).json({
-            success: true,
-            message: "Đặt vé xe thành công",
-            booking,
-        });
-
-    } catch (error) {
-        console.error("Lỗi đặt vé:", error);
-        return res.status(500).json({
-            success: false,
-            message: 'Đặt vé thất bại!',
-            error
-        });
     }
-}
 
 
 }

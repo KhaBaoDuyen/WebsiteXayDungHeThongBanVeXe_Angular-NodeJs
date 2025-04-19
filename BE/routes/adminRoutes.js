@@ -88,10 +88,10 @@ router.patch('/user/update/:id', upload.single('avatar'), UserController.update)
 router.delete('/user/:id', UserController.delete);
 
 //-----------------[ BUSTYPES ]-----------------
-router.get('/busType/list',BusTypeController.get);
-router.get('/busType/getId/:id',BusTypeController.getById);
-router.post('/busType/add',BusTypeController.create);
-router.patch('/busType/update/:id',BusTypeController.update);
-router.delete('/busType/delete/:id',BusTypeController.delete);
+// router.get('/busType/list',BusTypeController.get);
+// router.get('/busType/getId/:id',BusTypeController.getById);
+// router.post('/busType/add',BusTypeController.create);
+// router.patch('/busType/update/:id',BusTypeController.update);
+// router.delete('/busType/delete/:id',BusTypeController.delete);
 
 module.exports = router;

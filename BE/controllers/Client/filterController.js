@@ -10,7 +10,7 @@ class FilterController {
     static async filterBuses(req, res) {
         try {
             const { startPoint, endPoint, travelTime } = req.body;
-
+              
             const whereClause = {};
             if (startPoint) {
                 whereClause.startPoint = { [Op.like]: `%${startPoint}%` };
@@ -18,10 +18,17 @@ class FilterController {
             if (endPoint) {
                 whereClause.endPoint = { [Op.like]: `%${endPoint}%` };
             }
-
+            const now = new Date();
+            const plus30m = new Date(now.getTime() + 30 * 60 * 1000)
+       
             const tripInclude = {
                 model: TripsModel,
                 as: "trips",
+                where:{
+                    departureTime:{
+                        [Op.gt]:plus30m,
+                    }
+                },
                 include: [
                     {
                         model: BusesModel,
@@ -38,14 +45,6 @@ class FilterController {
                 ]
             };
 
-            if (travelTime) {
-                const departureDate = new Date(travelTime);
-                tripInclude.where = {
-                    departureTime: {
-                        [Op.gte]: departureDate.toISOString()
-                    }
-                };
-            }
 
             const routes = await RoutesModel.findAll({
                 where: whereClause,
@@ -78,6 +77,7 @@ class FilterController {
             }
 
             const formattedData = routes.map(route => {
+
                 const seatsTrip = (route.trips || []).filter(trip => trip.dataValues.totalSeats > 0);
 
                 return {

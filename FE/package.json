@@ -40,6 +40,7 @@
     "font-awesome": "^4.7.0",
     "iconify": "^1.4.0",
     "material-icons": "^1.13.14",
+    "moment-timezone": "^0.5.48",
     "ng-apexcharts": "^1.7.6",
     "ngx-dropzone": "^3.1.0",
     "ngx-file-drop": "^16.0.0",
