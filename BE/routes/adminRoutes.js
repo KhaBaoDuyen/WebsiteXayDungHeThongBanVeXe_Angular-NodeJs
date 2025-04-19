@@ -96,6 +96,8 @@ router.delete('/user/:id', UserController.delete);
 
 //-----------------[ BOOKINGS ]-----------------
 router.get('/bookings/list', BookingController.get);
+router.get('/bookings/canceled', BookingController.getcanceled);
+router.get('/bookings/confirmed', BookingController.getconfirmed);
 router.get('/bookings/getById/:id', BookingController.getById);
 // router.post('/bookings/add', BookingController.create);
 router.patch('/bookings/update/:id', BookingController.update);

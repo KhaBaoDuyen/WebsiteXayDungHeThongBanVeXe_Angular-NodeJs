@@ -15,12 +15,19 @@ export class BookingsService extends ApiService {
     ) {
         super(_http);
     }
-    
+
     // Lấy danh sách tất cả bookings
     List(): Observable<bookingInterface[]> {
         return this.get<bookingInterface[]>(API_ENDPOINT_AD.bookings.base + API_ENDPOINT_AD.bookings.list);
     }
-
+    // Lấy danh sách tất cả bookings có status canceled 
+    ListCanceled(): Observable<bookingInterface[]> {
+        return this.get<bookingInterface[]>(API_ENDPOINT_AD.bookings.base + API_ENDPOINT_AD.bookings.ListCanceled);
+    }
+    // Lấy danh sách tất cả bookings có status confirmed
+    ListConfirmed(): Observable<bookingInterface[]> {
+        return this.get<bookingInterface[]>(API_ENDPOINT_AD.bookings.base + API_ENDPOINT_AD.bookings.ListConfirmed);
+    }
     // Lấy booking theo ID
     getById(id: number): Observable<bookingInterface> {
         return this.get<bookingInterface>(API_ENDPOINT_AD.bookings.base + API_ENDPOINT_AD.bookings.getById + '/' + id);

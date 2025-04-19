@@ -138,7 +138,7 @@ export const navItems: NavItem[] = [
     iconName: "mdi:ticket-confirmation",
     children: [
       {
-        displayName: "Danh sách Đơn Hàng",
+        displayName: "Danh Sách Đơn Hàng",
         iconName: "solar:list-check-line-duotone",
         route: "/admin/ticketGetAll"
       },

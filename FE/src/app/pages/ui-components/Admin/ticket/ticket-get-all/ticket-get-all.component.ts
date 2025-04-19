@@ -71,23 +71,24 @@ export class TicketGetAllComponent implements OnInit, AfterViewInit {
       confirmButtonText: 'Xóa',
       cancelButtonText: 'Hủy',
       confirmButtonColor: '#e3342f',
-      cancelButtonColor: '#6c757d'
-    }).then(result => {
+      cancelButtonColor: '#6c757d',
+    }).then((result) => {
       if (result.isConfirmed) {
         this.bookingsService.Delete(id).subscribe({
           next: () => {
-            this.bookings = this.bookings.filter(booking => booking.id !== id);
+            this.bookings = this.bookings.filter((booking) => booking.id !== id);
             this.dataSource.data = [...this.bookings];
             Swal.fire('Đã xóa!', 'Booking đã được xóa thành công.', 'success');
           },
           error: (err: any) => {
             console.error('❌ Lỗi khi xóa booking:', err);
             Swal.fire('Lỗi!', 'Không thể xóa booking.', 'error');
-          }
+          },
         });
       }
     });
   }
+
 
   handleSearch(searchTerm: string) {
     this.searchTerm = searchTerm;

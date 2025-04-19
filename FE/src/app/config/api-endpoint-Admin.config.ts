@@ -58,7 +58,9 @@ export const API_ENDPOINT_AD = {
   },
   bookings: {
     base: API_BASE_URL + '/admin' + '/bookings',
-    list: '/list',        
+    list: '/list',   
+    ListCanceled: '/canceled',     
+    ListConfirmed: '/confirmed',     
     getById: '/getById',  
     // add: '/add',        
     update: '/update',  

@@ -18,6 +18,50 @@ class BookingController {
             });
         }
     }
+    
+// Lấy các booking có status = 'canceled'
+static async getcanceled (req, res) {
+    try {
+        const bookings = await BookingModel.findAll({
+            where: {
+                status: 'canceled'
+            }
+        });
+        res.status(200).json({
+            success: true,
+            message: "Lấy danh sách đặt vé đã hủy thành công",
+            data: bookings
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Lỗi khi lấy danh sách đặt vé",
+            error: error.message
+        });
+    }
+}
+
+// Lấy các booking có status = 'confirmed'
+static async getconfirmed (req, res) {
+    try {
+        const bookings = await BookingModel.findAll({
+            where: {
+                status: 'confirmed'
+            }
+        });
+        res.status(200).json({
+            success: true,
+            message: "Lấy danh sách đặt vé đã hủy thành công",
+            data: bookings
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Lỗi khi lấy danh sách đặt vé",
+            error: error.message
+        });
+    }
+}
 
     // Lấy booking theo ID
     static async getById(req, res) {

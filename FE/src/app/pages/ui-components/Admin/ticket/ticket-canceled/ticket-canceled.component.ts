@@ -1,12 +1,17 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
-import { FormDeleteComponent } from 'src/app/components/form-delete/form-delete.component';
 import { FormSearchComponent } from '../../../../../components/form-search/form-search.component';
+import { MatPaginator } from '@angular/material/paginator';
+import { BookingsService } from 'src/app/services/apis/Admin/bookings.Service';
+import { bookingInterface } from 'src/app/interface/booking.interface';
+import { RouterModule } from '@angular/router';
+import { FormDeleteComponent } from 'src/app/components/form-delete/form-delete.component';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-ticket-canceled',
   templateUrl: './ticket-canceled.component.html',
@@ -24,58 +29,83 @@ import { FormSearchComponent } from '../../../../../components/form-search/form-
   ],
 })
 export class TicketCanceledComponent {
-  displayedColumns: string[] = ['id', 'userName', 'phone', 'tripID', 'seatID', 'finalPrice', 'cancelReason', 'actions'];
-  dataSource = new MatTableDataSource([
-    { id: 1, userName: 'Nguyễn Văn A', phone: '0987654321', tripID: 'HN-HCM', seatID: 'A1', finalPrice: 500000, cancelReason: 'Lịch trình thay đổi' },
-    { id: 2, userName: 'Trần Thị B', phone: '0976543210', tripID: 'HCM-ĐN', seatID: 'B3', finalPrice: 400000, cancelReason: 'Bị ốm' },
-    { id: 3, userName: 'Lê Văn C', phone: '0965432109', tripID: 'ĐN-HN', seatID: 'C2', finalPrice: 450000, cancelReason: 'Không kịp giờ' },
-  ]);
-  searchTerm: string = '';
+displayedColumns: string[] = ['id', 'fullName', 'phone', 'email', 'startPoint', 'startDate', 'finalPrice', 'status', 'actions'];
+   dataSource = new MatTableDataSource<bookingInterface>([]);
+   bookings: bookingInterface[] = [];
+   searchTerm: string = '';
+ 
+   @ViewChild(MatPaginator) paginator!: MatPaginator;
+ 
+   constructor(private bookingsService: BookingsService) {}
+ 
+   ngOnInit() {
+     this.fetchBookings();
+   }
+ 
+   ngAfterViewInit() {
+     this.dataSource.paginator = this.paginator;
+     this.paginator._intl.itemsPerPageLabel = 'Phân trang theo số lượng';
+   }
+ 
+   fetchBookings() {
+     this.bookingsService.ListCanceled().subscribe({
+       next: (data: any) => {
+         // Nếu backend trả về dạng { status, data }, bạn cần truy cập data.data
+         const bookings = Array.isArray(data) ? data : data?.data;
+ 
+         if (Array.isArray(bookings)) {
+           this.bookings = bookings;
+           this.dataSource.data = [...this.bookings];
+         } else {
+           console.error('❌ Dữ liệu không phải mảng:', bookings);
+         }
+       },
+       error: (err: any) => {
+         console.error('❌ Lỗi lấy danh sách bookings:', err);
+       }
+     });
+   }
+ 
 
-  showDeleteConfirmation = false; 
-  selectedTicketId: number | null = null; 
-
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  
-    ngAfterViewInit() {
-      this.dataSource.paginator = this.paginator;
-    }
-  
-    // Mở form xác nhận xóa
-    openDeleteConfirmation(TicketId: number) {
-      this.selectedTicketId = TicketId;
-      this.showDeleteConfirmation = true;
-    }
-  
-    // Xử lý khi xác nhận xóa
-    handleDeleteConfirmed() {
-      if (this.selectedTicketId !== null) {
-        this.dataSource.data = this.dataSource.data.filter(
-          (ticket) => ticket.id !== this.selectedTicketId
-        );
+  deleteBooking(id: number) {
+    Swal.fire({
+      title: 'Bạn có chắc muốn xóa?',
+      text: 'Hành động này không thể hoàn tác!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Xóa',
+      cancelButtonText: 'Hủy',
+      confirmButtonColor: '#e3342f',
+      cancelButtonColor: '#6c757d',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.bookingsService.Delete(id).subscribe({
+          next: () => {
+            this.bookings = this.bookings.filter((booking) => booking.id !== id);
+            this.dataSource.data = [...this.bookings];
+            Swal.fire('Đã xóa!', 'Booking đã được xóa thành công.', 'success');
+          },
+          error: (err: any) => {
+            console.error('❌ Lỗi khi xóa booking:', err);
+            Swal.fire('Lỗi!', 'Không thể xóa booking.', 'error');
+          },
+        });
       }
-      this.showDeleteConfirmation = false; 
-    }
-  
-    handleCancel() {
-      this.showDeleteConfirmation = false; 
-    }
-
-    handleSearch(searchTerm: string) {
-      this.searchTerm = searchTerm; 
-  
-      if (!searchTerm.trim()) {
-        this.dataSource.data = [
-          { id: 1, userName: 'Nguyễn Văn A', phone: '0987654321', tripID: 'HN-HCM', seatID: 'A1', finalPrice: 500000, cancelReason: 'Lịch trình thay đổi' },
-          { id: 2, userName: 'Trần Thị B', phone: '0976543210', tripID: 'HCM-ĐN', seatID: 'B3', finalPrice: 400000, cancelReason: 'Bị ốm' },
-          { id: 3, userName: 'Lê Văn C', phone: '0965432109', tripID: 'ĐN-HN', seatID: 'C2', finalPrice: 450000, cancelReason: 'Không kịp giờ' },
-        ];
-      } else {
-        this.dataSource.data = this.dataSource.data.filter(route =>
-          route.userName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          route.phone.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          route.tripID.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-      }
-    }
-}
+    });
+  }
+ 
+   handleSearch(searchTerm: string) {
+     this.searchTerm = searchTerm;
+     if (!searchTerm.trim()) {
+       this.dataSource.data = [...this.bookings];
+     } else {
+       const lower = searchTerm.toLowerCase();
+       this.dataSource.data = this.bookings.filter(booking => {
+         const fullName = booking.fullName?.toLowerCase() || '';
+         const email = booking.email?.toLowerCase() || '';
+         return fullName.includes(lower) || email.includes(lower);
+       });
+     }
+   }
+ }
+ 

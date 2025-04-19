@@ -1,6 +1,6 @@
 <div class="bg-white shadow-lg rounded-lg overflow-hidden w-full border-collapse">
   <div class="flex gap-2 justify-between mb-2 p-10">
-    <h3 class="font-bold text-2xl m-b-10 text-gray-500">Danh sách Đặt Vé</h3>
+    <h3 class="font-bold text-2xl m-b-10 text-gray-500">Danh Sách Đặt Vé</h3>
     <app-form-search (search)="handleSearch($event)"></app-form-search>
   </div>
 
@@ -89,11 +89,15 @@
         <a class="m-1 bg-yellow-100 text-yellow-700 px-2 py-2 rounded flex items-center" [routerLink]="['/admin/ticketEdit', element.id]">
           <mat-icon class="text-yellow-700">edit</mat-icon>
         </a>
-        <button class="m-1 bg-red-100 text-red-700 px-2 py-2 rounded flex items-center" (click)="deleteBooking(element.id)">
+        <button
+          class="m-1 bg-red-100 text-red-700 px-2 py-2 rounded flex items-center"
+          (click)="deleteBooking(element.id)"
+        >
           <mat-icon class="text-red-700">delete</mat-icon>
         </button>
       </td>
     </ng-container>
+    
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns" class="border-b"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="hover:bg-gray-100"></tr>
