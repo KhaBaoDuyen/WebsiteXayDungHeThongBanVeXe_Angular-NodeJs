@@ -5,9 +5,9 @@ import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgModel } from '@angular/forms';
-import { BookingService } from 'src/app/services/apis/Client/booking.sevice';
+import { BookingService } from 'src/app/services/apis/Client/booking.service';
 import { NotificationService } from 'src/app/services/notification.service';
-
+import { MatDialog } from '@angular/material/dialog'; 
 @Component({
   selector: 'app-booktickets',
   imports: [CommonModule,
@@ -35,6 +35,7 @@ export class BookticketsComponent {
     private bookingService: BookingService,
     private notificationService: NotificationService,
     private router: Router,
+    private dialog: MatDialog
   ) {
 
   }

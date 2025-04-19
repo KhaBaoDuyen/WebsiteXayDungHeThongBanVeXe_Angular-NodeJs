@@ -45,6 +45,10 @@ const BookingModel = connection.define('Booking', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    note: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
     startDate: {
         type: DataTypes.DATE,
         allowNull: false

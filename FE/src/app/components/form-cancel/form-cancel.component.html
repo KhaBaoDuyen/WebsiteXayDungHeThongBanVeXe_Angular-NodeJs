@@ -1,39 +1,27 @@
-<div *ngIf="isModalOpen" class="fixed inset-0 flex items-center justify-center z-50">
-    <div class="absolute inset-0 bg-black opacity-50" (click)="closeCancelModal()"></div>
-  
-    <form (ngSubmit)="onSubmit()" action="" class="relative bg-white p-10 rounded-lg shadow-lg w-96 z-10">
-      <h2 class="text-lg font-bold mb-4 text-center">Xác nhận hủy vé</h2>
-  
-      <p class=" mb-2 font-bold">Chọn lý do hủy:</p>
-      <div class="space-y-2">
-        <label class="flex items-center space-x-2">
-          <input type="radio" name="cancel_reason" value="Không thể đi" (click)="toggleTextarea(true) " checked>
-          <span>Không thể đi</span>
-        </label>
-        <label class="flex items-center space-x-2">
-          <input type="radio" name="cancel_reason" value="Đổi kế hoạch" (click)="toggleTextarea(true)">
-          <span>Đổi kế hoạch</span>
-        </label>
-        <label class="flex items-center space-x-2">
-          <input type="radio" name="cancel_reason" value="Sự cố cá nhân" (click)="toggleTextarea(true)">
-          <span>Sự cố cá nhân</span>
-        </label>
-        <label class="flex items-center space-x-2">
-          <input type="radio" name="cancel_reason" value="Lý do sức khỏe" (click)="toggleTextarea(true)">
-          <span>Lý do sức khỏe</span>
-        </label>
-        <label class="flex items-center space-x-2">
-          <input type="radio" name="cancel_reason" value="Khác" (click)="toggleTextarea(false)">
-          <span>Khác</span>
-        </label>
-      </div>
-  
-      <textarea *ngIf="showTextarea" class="w-full p-2 mt-3 border border-gray-300 rounded-md"
-                placeholder="Nhập lý do khác..."></textarea>
-  
-      <div class="flex justify-end mt-4">
-        <button type="button" class="bg-gray-300 text-black px-4 py-2 rounded-md mr-2" (click)="closeCancelModal()">Hủy</button>
-        <button type="button" class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700">Xác nhận</button>
-      </div>
-    </form>
+<h2 mat-dialog-title class="text-xl font-bold text-center !w-[20rem] py-4">XÁC NHẬN HỦY VÉ</h2>
+
+<mat-dialog-content class="px-6 pb-4 !w-[20rem]">
+  <div class="mb-4">
+    <p class="font-semibold text-gray-700 mb-3">Chọn lý do hủy:</p>
+    <mat-radio-group [(ngModel)]="selectedReason" class="grid gap-3">
+      <mat-radio-button value="Không thể đi" class="radio-item">Không thể đi</mat-radio-button>
+      <mat-radio-button value="Đổi kế hoạch" class="radio-item">Đổi kế hoạch</mat-radio-button>
+      <mat-radio-button value="Sự cố cá nhân" class="radio-item">Sự cố cá nhân</mat-radio-button>
+      <mat-radio-button value="Lý do sức khỏe" class="radio-item">Lý do sức khỏe</mat-radio-button>
+      <mat-radio-button value="Khác" class="radio-item">Khác</mat-radio-button>
+    </mat-radio-group>
   </div>
+
+  <mat-form-field *ngIf="selectedReason === 'Khác'" class="w-full">
+    <textarea matInput [(ngModel)]="otherReason" 
+              placeholder="Nhập lý do khác..."
+              rows="3"
+              class="border rounded-md p-3 w-full"></textarea>
+  </mat-form-field>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="px-6 pb-4">
+  <button mat-button (click)="onCancel()" class="mr-2 px-4 py-1 border border-gray-300 rounded">Hủy</button>
+  <button mat-raised-button color="warn" (click)="onConfirm()" class="px-4 py-1 rounded">Xác nhận</button>
+</mat-dialog-actions>

@@ -18,6 +18,14 @@ export class BookingService extends ApiService {
     Create(data: any): Observable<bookingInterface> {
         return this.post<bookingInterface>(API_ENDPOINT.booking.base + API_ENDPOINT.booking.create, data);
       }
- 
 
+   //---------------[ HISTORY ]-----------------
+    getAllByUser(id:any): Observable<BookingInterface> {
+           return this.post<BookingInterface>(API_ENDPOINT.ticket.base + API_ENDPOINT.ticket.getAllByUser,id );
+    }
+ 
+    cancelTicket(data:any):Observable<BookingInterface> {
+        return this.patch<BookingInterface>(API_ENDPOINT.ticket.base + API_ENDPOINT.ticket.cancel, data );
+
+    }
 }

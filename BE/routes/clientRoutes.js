@@ -7,6 +7,7 @@ const ContacController = require('../controllers/Client/contactController');
 const FilterController = require('../controllers/Client/filterController');
 const RoutesController = require('../controllers/Admin/routesController')
 const timeTableController = require('../controllers/Client/timeTableComtroller');
+const HistoryBookingController = require('../controllers/Client/historyBooking');
 //------------------[ AUTH ]------------------
 router.post('/register',AuthController.register);
 router.post("/login", AuthController.login);
@@ -28,6 +29,10 @@ router.get('/timetable/getById/:id', timeTableController.getById);
 
 //--------------------[ BOOKING ]--------------------------
 router.post('/booking', timeTableController.booking);
+
+//--------------------[ HISTORY TICKETS]--------------------
+router.post('/historyTickets', HistoryBookingController.historyTicket);
+router.patch('/cancelTicket', HistoryBookingController.cancelTicket);
 
 
 module.exports = router;

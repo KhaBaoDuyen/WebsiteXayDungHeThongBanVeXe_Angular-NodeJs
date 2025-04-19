@@ -46,7 +46,7 @@ BookingDetailModel.belongsTo(BookingModel, { foreignKey: 'bookingId', as: 'booki
 
 // BookingDetail - Seat
 SeatsModel.hasMany(BookingDetailModel, { foreignKey: 'seatId', as: 'seatBookings' });
-BookingDetailModel.belongsTo(SeatsModel, { foreignKey: 'seatId', });
+BookingDetailModel.belongsTo(SeatsModel, { foreignKey: 'seatId',as:'bookingSeats' });
 
 
 module.exports = {

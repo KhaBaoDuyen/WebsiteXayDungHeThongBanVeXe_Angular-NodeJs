@@ -34,5 +34,10 @@ export const API_ENDPOINT = {
   booking:{
     base: API_BASE_URL,
     create:'/booking'
+  },
+  ticket:{
+    base: API_BASE_URL,
+    getAllByUser:'/historyTickets',
+    cancel:'/cancelTicket',
   }
 };

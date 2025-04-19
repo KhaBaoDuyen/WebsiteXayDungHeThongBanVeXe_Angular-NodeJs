@@ -1,37 +1,73 @@
+import { Component, inject } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatRadioModule } from '@angular/material/radio';
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import {
+  MAT_DIALOG_DATA,
+  MatDialogRef,
+  MatDialogTitle,
+  MatDialogContent,
+  MatDialogActions,
+  MatDialogClose,
+} from '@angular/material/dialog';
+import { NotificationService } from 'src/app/services/notification.service';
+import { Observable } from 'rxjs';
+
+export interface CancelDialogData {
+  id: number;
+  service: (id: number, note?: string) => Observable<any>;
+}
 
 @Component({
   selector: 'app-form-cancel',
   standalone: true,
-  imports:[CommonModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatRadioModule,
+    MatDialogTitle,
+    MatDialogContent,
+    MatDialogActions,
+    MatDialogClose,
+  ],
   templateUrl: './form-cancel.component.html',
 })
 export class FormCancelComponent {
-  @Input() Id!: number; 
+  readonly dialogRef = inject(MatDialogRef<FormCancelComponent>);
+  readonly data = inject<CancelDialogData>(MAT_DIALOG_DATA);
 
-  isModalOpen = false;
-  showTextarea = false;
+  selectedReason = 'Không thể đi';
+  otherReason = '';
 
-  constructor(private router: Router){
-    
-  }
-  openCancelModal(id: number) {
-    this.Id = id;
-    this.isModalOpen = true;
-  }
+  constructor(private notificationService: NotificationService) {}
 
-  closeCancelModal() {
-    this.isModalOpen = false;
+  onCancel(): void {
+    this.dialogRef.close();
   }
 
-  onSubmit() {
-    console.log('Submit form với id:', this.Id);
-    this.closeCancelModal();
-  }
-  
-  toggleTextarea(isDisabled: boolean) {
-    this.showTextarea = !isDisabled;
+  onConfirm(): void {
+    const note = this.selectedReason === 'Khác' ? this.otherReason : this.selectedReason;
+
+    this.data.service(this.data.id, note).subscribe({
+      next: (res) => {
+        if (res.success) {
+          this.notificationService.showSuccess(res.message);
+          this.dialogRef.close(true);
+        } else {
+          this.notificationService.showError(res.message);
+          this.dialogRef.close(false);
+        }
+      },
+      error: (err) => {
+        this.notificationService.showError(err.error?.message);
+        this.dialogRef.close(false);
+      }
+    });
   }
 }
