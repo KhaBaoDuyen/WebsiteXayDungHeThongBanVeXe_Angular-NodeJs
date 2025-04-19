@@ -50,12 +50,20 @@ export const API_ENDPOINT_AD = {
   },
   blogs: {
     base: API_BASE_URL + '/admin'+ '/blogs',
-    list: '/list',         // Lấy danh sách tất cả blog
-    getById: '/getById', // Lấy blog theo id
-    add: '/add',           // Thêm blog mới
-    update: '/update', // Cập nhật blog theo id
-    delete: 'delete'        // Xóa blog theo id
+    list: '/list',   
+    getById: '/getById', 
+    add: '/add',         
+    update: '/update', 
+    delete: 'delete' 
   },
+  bookings: {
+    base: API_BASE_URL + '/admin' + '/bookings',
+    list: '/list',        
+    getById: '/getById',  
+    // add: '/add',        
+    update: '/update',  
+    delete: '/delete'    
+},
   seats: {
     base: API_BASE_URL + '/admin'+'/seats',
   },

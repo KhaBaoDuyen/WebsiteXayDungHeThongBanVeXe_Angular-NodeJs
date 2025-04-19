@@ -134,11 +134,11 @@ export const navItems: NavItem[] = [
     ]
   },
   {
-    displayName: 'Quản lý Vé',
+    displayName: 'Quản lý Đơn Hàng',
     iconName: "mdi:ticket-confirmation",
     children: [
       {
-        displayName: "Danh sách vé",
+        displayName: "Danh sách Đơn Hàng",
         iconName: "solar:list-check-line-duotone",
         route: "/admin/ticketGetAll"
       },

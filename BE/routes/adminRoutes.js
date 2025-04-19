@@ -11,7 +11,7 @@ const SeatsController = require('../controllers/Admin/seatsController');
 const BlogsController = require('../controllers/Admin/blogsController');
 const BusTypeController = require('../controllers/Admin/busTypeController');
 const UserController = require('../controllers/Admin/userController');
-
+const BookingController = require('../controllers/Admin/bookingController');
 const DriverController = require('../controllers/Admin/driversController');
 const upload = require('../config/multer');
 //------------------[ ROUTES ]------------
@@ -93,5 +93,12 @@ router.delete('/user/:id', UserController.delete);
 // router.post('/busType/add',BusTypeController.create);
 // router.patch('/busType/update/:id',BusTypeController.update);
 // router.delete('/busType/delete/:id',BusTypeController.delete);
+
+//-----------------[ BOOKINGS ]-----------------
+router.get('/bookings/list', BookingController.get);
+router.get('/bookings/getById/:id', BookingController.getById);
+// router.post('/bookings/add', BookingController.create);
+router.patch('/bookings/update/:id', BookingController.update);
+router.delete('/bookings/:id', BookingController.delete);
 
 module.exports = router;
