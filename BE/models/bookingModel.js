@@ -46,7 +46,7 @@ const BookingModel = connection.define('Booking', {
         allowNull: false
     },
     startDate: {
-        type: DataTypes.DATEONLY,
+        type: DataTypes.DATE,
         allowNull: false
     },
     totalSeat: {
