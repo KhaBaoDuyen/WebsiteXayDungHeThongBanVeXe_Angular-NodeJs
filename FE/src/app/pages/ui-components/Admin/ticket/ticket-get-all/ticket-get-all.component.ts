@@ -25,7 +25,7 @@ import Swal from 'sweetalert2';
   ],
 })
 export class TicketGetAllComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['id', 'fullName', 'phone', 'email', 'startPoint', 'startDate', 'finalPrice', 'status', 'actions'];
+  displayedColumns: string[] = ['id', 'fullName', 'phone',  'startPoint', 'startDate', 'finalPrice', 'status', 'actions'];
   dataSource = new MatTableDataSource<bookingInterface>([]);
   bookings: bookingInterface[] = [];
   searchTerm: string = '';
