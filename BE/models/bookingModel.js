@@ -56,6 +56,35 @@ const BookingModel = connection.define('Booking', {
     totalSeat: {
         type: DataTypes.INTEGER,
         allowNull: false
+    },
+    payment_method: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    payment_status: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        defaultValue: 'pending'
+    },
+    vnp_txn_ref: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    vnp_transaction_no: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    vnp_amount: {
+        type: DataTypes.DECIMAL(10, 2),
+        allowNull: true
+    },
+    vnp_bank_code: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    vnp_pay_date: {
+        type: DataTypes.DATE,
+        allowNull: true
     }
 }, {
     tableName: 'bookings',

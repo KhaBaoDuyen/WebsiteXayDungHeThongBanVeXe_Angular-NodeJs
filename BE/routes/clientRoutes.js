@@ -9,6 +9,7 @@ const RoutesController = require('../controllers/Admin/routesController')
 const timeTableController = require('../controllers/Client/timeTableComtroller');
 const HistoryBookingController = require('../controllers/Client/historyBooking');
 const ProfileController = require('../controllers/Client/profileController');
+const PaymentController = require('../controllers/Client/paymentController');
 const upload = require('../config/multer');
 //------------------[ AUTH ]------------------
 router.post('/register',AuthController.register);
@@ -31,7 +32,6 @@ router.get('/timetable/getById/:id', timeTableController.getById);
 
 //--------------------[ BOOKING ]--------------------------
 router.post('/booking', timeTableController.booking);
-
 //--------------------[ HISTORY TICKETS]--------------------
 router.post('/historyTickets', HistoryBookingController.historyTicket);
 router.patch('/cancelTicket', HistoryBookingController.cancelTicket);

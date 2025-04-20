@@ -7,13 +7,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, NgModel } from '@angular/forms';
 import { BookingService } from 'src/app/services/apis/Client/booking.service';
 import { NotificationService } from 'src/app/services/notification.service';
-import { MatDialog } from '@angular/material/dialog'; 
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-booktickets',
   imports: [CommonModule,
     FormsModule,
   ],
   templateUrl: './booktickets.component.html',
+  styleUrl: './booktickets.scss'
 })
 export class BookticketsComponent {
   tripId: number;
@@ -24,7 +25,8 @@ export class BookticketsComponent {
   phone: string | number = "";
   totelSeat: number = 0;
   totalPrice: number = 0;
-  userId:number| string  ; 
+  userId: number | string;
+  showSuccessPopup = false;
 
   private jwtHelperService = new JwtHelperService();
 
@@ -56,6 +58,14 @@ export class BookticketsComponent {
       this.email = decode?.email;
       this.phone = decode?.phone;
     }
+
+    this.route.queryParams.subscribe(params => {
+      if (params['success'] === 'true') {
+        this.notificationService.showSuccess('Đã đặt vé thành công!');
+      } else if (params['success'] === 'false') {
+        this.notificationService.showError('Đã có lỗi xảy ra trong qua stirnhf đặt vé!');
+      }
+    });
   }
 
 
@@ -90,12 +100,14 @@ export class BookticketsComponent {
 
 
   //--------------------[ BOOKING ]--------------------
-
   createBooking() {
     if (!this.tripsData.trips || this.tripsData.trips.length === 0) {
       this.notificationService.showError('Dữ liệu chuyến đi không hợp lệ!');
       return;
     }
+
+    const selectedPaymentMethod = (document.querySelector('input[name="payment_method"]:checked') as HTMLInputElement)?.value;
+
     const bookingData = {
       fullName: this.fullName,
       email: this.email,
@@ -109,22 +121,34 @@ export class BookticketsComponent {
       seatNumber: this.getSelectedSeatNumbers(),
       price: this.tripsData.trips[0].price,
       selectedSeats: this.selectedSeat,
+      payment_method: Number(selectedPaymentMethod)
     };
+    
 
-     this.bookingService.Create(bookingData).subscribe({
-      next: (res:any) => {
-        if(res.success){
+    this.bookingService.Create(bookingData).subscribe({
+      next: (res: any) => {
+        if (res.success) {
+          if (bookingData.payment_method === 2 && res.paymentUrl) {
+            //  thanh toán vnpay
+            window.location.href = res.paymentUrl;
+            // this.router.navigateByUrl(res.paymentUrl);
+            return;
+          }
+    
+          //  thanh toán tiền mặt
           this.notificationService.showSuccess(res.message);
-          this.router.navigate(['/timetable']);
+          this.showSuccessPopup = true;
+          setTimeout(() => {
+            this.showSuccessPopup = false;
+            this.router.navigate(['/timetable']);
+          }, 3000);
         }
       },
-      error: (err:any) => {
-          this.notificationService.showError(err.error?.message);
+      error: (err: any) => {
+        this.notificationService.showError(err.error?.message);
       },
-     })
+    });
     
-    console.log('Booking Data:', bookingData);
+
   }
-
-
 }

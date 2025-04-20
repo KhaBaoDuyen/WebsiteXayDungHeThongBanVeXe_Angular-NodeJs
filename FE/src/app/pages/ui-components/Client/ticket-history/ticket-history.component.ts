@@ -62,8 +62,10 @@ export class TicketHistoryComponent implements OnInit {
             name: item.fullName,
             status: item.status,
             startDate: startDate,
+            payment: item.payment_method 
           };
         });
+        console.log(this.ticketHistory); 
       },
       error: (err: any) => {
         console.error('Lỗi khi lấy lịch sử vé:', err);

@@ -8,6 +8,7 @@ const { add } = require('date-fns');
 const BookingModel = require("../../models/bookingModel.js");
 const BookingDetailModel = require("../../models/bookingDetailModel.js");
 const sendBookingMail = require("../../mail/booking/sendMail.js");
+const PaymentController = require('../Client/paymentController.js')
 class timeTableController {
 
     static async timeTable(req, res) {
@@ -166,10 +167,13 @@ class timeTableController {
                 userId,
                 price,
                 selectedSeats,
+                payment_method 
             } = req.body;
 
+            console.log(res.body);
             // Kiểm tra seatId 
             const seatIds = selectedSeats.map(seat => seat.id);
+
             const validSeats = await SeatsModel.findAll({
                 where: { id: seatIds }
             });
@@ -180,6 +184,9 @@ class timeTableController {
                     message: "Một hoặc nhiều ghế không hợp lệ!"
                 });
             }
+
+            // Tạo mã giao dịch
+            const vnp_txn_ref = `${Date.now()}`;
 
             const booking = await BookingModel.create({
                 fullName,
@@ -192,8 +199,12 @@ class timeTableController {
                 startDate,
                 userId,
                 status: "pending",
+                payment_method: payment_method === 1 ? 'cash' : 'vnpay',
+                payment_status: payment_method === 1 ? 'paid' : 'pending',
+                ...(payment_method === 2 && { vnp_txn_ref }) // Chỉ thêm nếu là VNPay
             });
 
+            // Tạo booking details
             const bookingDetails = selectedSeats.map(seat => ({
                 bookingId: booking.id,
                 seatNumber: seat.seatNumber,
@@ -203,39 +214,57 @@ class timeTableController {
 
             await BookingDetailModel.bulkCreate(bookingDetails);
 
+            // Cập nhật ghế
             await SeatsModel.update(
                 { status: 'sold' },
                 { where: { id: seatIds } }
             );
 
-            const seatsString = selectedSeats.map(seat => seat.seatNumber).join(', ');
+            if (payment_method === 1) {
+                const seatsString = selectedSeats.map(seat => seat.seatNumber).join(', ');
+                await sendBookingMail(
+                    email,
+                    fullName,
+                    booking.id,
+                    startPoint,
+                    endPoint,
+                    startDate,
+                    seatsString,
+                    finalPrice
+                );
 
-            await sendBookingMail(
-                email,
-                fullName,
-                booking.id,
-                startPoint,
-                endPoint,
-                startDate,
-                seatsString,
-                finalPrice
-            );
-            return res.status(200).json({
-                success: true,
-                message: "Đặt vé xe thành công",
-                booking,
-            });
+                return res.status(200).json({
+                    success: true,
+                    message: "Đặt vé xe thành công",
+                    booking,
+                });
+            }
+             if (payment_method === 2) {
+                const paymentData = {
+                    txnRef: vnp_txn_ref,
+                    finalTotal: finalPrice,
+                    returnUrl: `${process.env.BASE_URL}/payment/vnpay-return`
+                };
+
+                req.body = paymentData;
+                return PaymentController.createPayment(req, res);
+            }
+            else {
+                return res.status(400).json({
+                    success: false,
+                    message: "Phương thức thanh toán không hợp lệ"
+                });
+            }
 
         } catch (error) {
             console.error("Lỗi đặt vé:", error);
             return res.status(500).json({
                 success: false,
                 message: 'Đặt vé thất bại!',
-                error
+                error: error.message
             });
         }
     }
-
 
 }
 
