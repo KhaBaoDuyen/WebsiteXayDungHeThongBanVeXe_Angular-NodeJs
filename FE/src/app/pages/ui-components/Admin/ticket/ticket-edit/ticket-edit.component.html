@@ -1,58 +1,89 @@
-<form action="">
-    <main class="flex-1 p-[2rem] bg-white shadow-xl rounded-xl">
-        <h2 class="text-2xl font-bold text-gray-800 mb-8">Cập nhật thông tin đơn đặt vé</h2>
-    
-        <div class="space-y-8 ">
-          <div class="grid grid-cols-2 gap-6 mt-5">
-            <div>
-              <label class="block font-medium  text-gray-700  mb-2">Người đặt</label>
-              <input type="text" [value]="ticket.userName" disabled
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition duration-200">
-            </div>
-            <div>
-                <label class="block font-medium  text-gray-700  mb-2">Số điện thoại</label>
-                <input type="text" [value]="ticket.phone" disabled
-                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition duration-200">
-              </div>
-          </div>
-    
-          <div class="grid grid-cols-2 gap-6">
-            <div>
-              <label class="block font-medium  text-gray-700 mb-2">Mã chuyến</label>
-              <input type="text" [value]="ticket.tripID" disabled
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition duration-200">
-            </div>
-            <div>
-              <label class="block font-medium  text-gray-700 mb-2">Mã số ghế</label>
-              <input type="text" [value]="ticket.seatID" disabled
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition duration-200">
-            </div>
-          </div>
-    
-          <div class="grid grid-cols-2 gap-6">
-            <div>
-                <label class="block font-medium  text-gray-700 mb-2">Giá vé</label>
-                <input type="text" [value]="ticket.finalPrice | currency:'VND'" disabled
-                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition duration-200">
-              </div>
-            <div>
-              <label class="block font-medium  text-gray-700 mb-2">Trạng Thái</label>
-              <select
-                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent transition duration-200">
-                <option value="Confirmed" [selected]="ticket.status === 'Confirmed'">Đã xác nhận</option>
-                <option value="Pending" [selected]="ticket.status === 'Pending'">Chờ xử lý</option>
-                <option value="Canceled" [selected]="ticket.status === 'Canceled'">Hủy đơn</option>
-              </select>
-            </div>
-          </div>
-    
-          <div class="flex justify-end space-x-4">
-    
-            <button type="submit"
-              class="px-6 py-3 bg-orange-500 text-white rounded-lg font-semibold hover:bg-orange-600 transition duration-200">
-              Lưu thay đổi
-            </button>
-          </div>
-        </div>
-      </main>
-</form>
+<main class="flex-1 p-[2rem] bg-white shadow-xl rounded-xl">
+  <h3 class="text-3xl font-bold text-gray-800 mb-8">Chi tiết đơn đặt vé</h3>
+
+  <div class="space-y-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Mã đơn (ID) -->
+      <div class="p-4 bg-gray-50 border rounded-lg shadow-md hover:shadow-xl transition duration-300 ease-in-out">
+        <label class="block font-semibold text-gray-700 mb-2">Mã đơn (ID)</label>
+        <p class="p-3 border border-gray-300 rounded bg-gray-100 text-gray-700">{{ ticket.id }}</p>
+      </div>
+
+      <!-- Mã người dùng (User ID) -->
+      <div class="p-4 bg-gray-50 border rounded-lg shadow-md hover:shadow-xl transition duration-300 ease-in-out">
+        <label class="block font-semibold text-gray-700 mb-2">Mã người dùng (User ID)</label>
+        <p class="p-3 border border-gray-300 rounded bg-gray-100 text-gray-700">{{ ticket.userId }}</p>
+      </div>
+
+      <!-- Họ tên -->
+      <div class="p-4 bg-gray-50 border rounded-lg shadow-md hover:shadow-xl transition duration-300 ease-in-out">
+        <label class="block font-semibold text-gray-700 mb-2">Họ tên</label>
+        <p class="p-3 border border-gray-300 rounded bg-gray-100 text-gray-700">{{ ticket.fullName }}</p>
+      </div>
+
+      <!-- Số điện thoại -->
+      <div class="p-4 bg-gray-50 border rounded-lg shadow-md hover:shadow-xl transition duration-300 ease-in-out">
+        <label class="block font-semibold text-gray-700 mb-2">Số điện thoại</label>
+        <p class="p-3 border border-gray-300 rounded bg-gray-100 text-gray-700">{{ ticket.phone }}</p>
+      </div>
+
+      <!-- Email -->
+      <div class="p-4 bg-gray-50 border rounded-lg shadow-md hover:shadow-xl transition duration-300 ease-in-out">
+        <label class="block font-semibold text-gray-700 mb-2">Email</label>
+        <p class="p-3 border border-gray-300 rounded bg-gray-100 text-gray-700">{{ ticket.email }}</p>
+      </div>
+
+      <!-- Điểm đi -->
+      <div class="p-4 bg-gray-50 border rounded-lg shadow-md hover:shadow-xl transition duration-300 ease-in-out">
+        <label class="block font-semibold text-gray-700 mb-2">Điểm đi</label>
+        <p class="p-3 border border-gray-300 rounded bg-gray-100 text-gray-700">{{ ticket.startPoint }}</p>
+      </div>
+
+      <!-- Điểm đến -->
+      <div class="p-4 bg-gray-50 border rounded-lg shadow-md hover:shadow-xl transition duration-300 ease-in-out">
+        <label class="block font-semibold text-gray-700 mb-2">Điểm đến</label>
+        <p class="p-3 border border-gray-300 rounded bg-gray-100 text-gray-700">{{ ticket.endPoint }}</p>
+      </div>
+
+      <!-- Ngày khởi hành -->
+      <div class="p-4 bg-gray-50 border rounded-lg shadow-md hover:shadow-xl transition duration-300 ease-in-out">
+        <label class="block font-semibold text-gray-700 mb-2">Ngày khởi hành</label>
+        <p class="p-3 border border-gray-300 rounded bg-gray-100 text-gray-700">{{ ticket.startDate | date:'short' }}</p>
+      </div>
+
+      <!-- Ngày tạo đơn -->
+      <div class="p-4 bg-gray-50 border rounded-lg shadow-md hover:shadow-xl transition duration-300 ease-in-out">
+        <label class="block font-semibold text-gray-700 mb-2">Ngày tạo đơn</label>
+        <p class="p-3 border border-gray-300 rounded bg-gray-100 text-gray-700">{{ ticket.createdAt | date:'short' }}</p>
+      </div>
+
+      <!-- Tổng số ghế -->
+      <div class="p-4 bg-gray-50 border rounded-lg shadow-md hover:shadow-xl transition duration-300 ease-in-out">
+        <label class="block font-semibold text-gray-700 mb-2">Mã Ghế Đã Đặt</label>
+        <p class="p-3 border border-gray-300 rounded bg-gray-100 text-gray-700">{{ ticket.totalSeat }}</p>
+      </div>
+
+      <!-- Giá cuối cùng -->
+      <div class="p-4 bg-gray-50 border rounded-lg shadow-md hover:shadow-xl transition duration-300 ease-in-out">
+        <label class="block font-semibold text-gray-700 mb-2">Tổng Tiền</label>
+        <p class="p-3 border border-gray-300 rounded bg-gray-100 text-gray-700">{{ ticket.finalPrice | currency:'VND' }}</p>
+      </div>
+
+      <!-- Trạng thái -->
+      <div class="p-4 bg-gray-50 border rounded-lg shadow-md hover:shadow-xl transition duration-300 ease-in-out">
+        <label class="block font-semibold text-gray-700 mb-2">Trạng thái</label>
+        <p class="p-3 border border-gray-300 rounded bg-gray-100 text-gray-700">
+          <span 
+            class="px-3 py-1 rounded-full text-white"
+            [ngClass]="{
+              'bg-green-500': ticket.status === 'confirmed',
+              'bg-yellow-500': ticket.status === 'pending',
+              'bg-red-500': ticket.status === 'canceled'
+            }">
+            {{ getStatusInVietnamese(ticket.status) }}
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+</main>
