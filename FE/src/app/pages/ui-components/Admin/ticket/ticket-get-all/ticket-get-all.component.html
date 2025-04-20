@@ -67,21 +67,55 @@
         {{element.finalPrice | currency:'VND'}}
       </td>
     </ng-container>
-    <ng-container matColumnDef="status">
-      <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2">
-        <span class="font-bold text-gray-500">Trạng thái</span>
+
+    <!-- <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef class="bg-gray-100 px-4 py-2 text-left">
+        <span class="font-semibold text-gray-600">Trạng thái</span>
       </th>
       <td mat-cell *matCellDef="let element" class="px-4 py-2">
-        <span [ngClass]="{
-          'bg-green-100 text-green-700': element.status === 'confirmed',
-          'bg-red-100 text-red-700': element.status === 'canceled',
-          'bg-orange-100 text-orange-700': element.status === 'pending'
-        }" class="px-2 py-1 rounded">
-          {{element.status === 'canceled' ? 'Đã Hủy' : (element.status === 'confirmed' ? 'Đã nhận vé' : 'Chưa nhận vé')}}
-        </span>
+        <select
+          class="px-3 py-1 rounded-md border focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-150"
+          [ngClass]="{
+            'bg-green-100 text-green-700 font-medium': element.status === 'confirmed',
+            'bg-red-100 text-red-700 font-medium': element.status === 'canceled',
+            'bg-yellow-100 text-yellow-700 font-medium': element.status === 'pending'
+          }"
+          (change)="onStatusChange($event, element.id)"
+          [value]="element.status"
+        >
+          <option value="confirmed">Đã nhận vé</option>
+          <option value="pending">Chưa nhận vé</option>
+          <option value="canceled">Đã Hủy</option>
+        </select>
+      </td>
+    </ng-container> -->
+    
+
+    
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef class="bg-gray-100 px-4 py-2 text-left">
+        <span class="font-semibold text-gray-600">Trạng thái</span>
+      </th>
+      <td mat-cell *matCellDef="let element" class="px-4 py-2">
+        <select
+          class="px-3 py-1 rounded-md border focus:outline-none focus:ring-2 focus:ring-blue-400 transition-all duration-150"
+          [ngClass]="{
+            'bg-green-100 text-green-700 font-medium': element.status === 'confirmed',
+            'bg-red-100 text-red-700 font-medium': element.status === 'canceled',
+            'bg-yellow-100 text-yellow-700 font-medium': element.status === 'pending'
+          }"
+          (change)="onStatusChange($event, element.id)"
+          [value]="element.status"
+          [disabled]="element.status !== 'pending'"
+        >
+          <option value="pending" disabled>Chưa nhận vé</option>
+          <option *ngIf="element.status === 'pending'" value="confirmed">Đã nhận vé</option>
+          <option *ngIf="element.status === 'pending'" value="canceled">Đã hủy</option>
+          <option *ngIf="element.status === 'confirmed'" value="confirmed">Đã nhận vé</option>
+          <option *ngIf="element.status === 'canceled'" value="canceled">Đã hủy</option>
+        </select>
       </td>
     </ng-container>
-
 
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2 w-[10%]">
