@@ -31,7 +31,7 @@
              <input
                type="text"
                formControlName="fullName"
-               class="rounded-md p-2 w-full focus:ring-1 focus:ring-blue-500 border border-gray-300" />
+               class="rounded-md py-3 w-full focus:ring-1 focus:ring-blue-500 " />
              <i class="fas fa-pen text-gray-400"></i>
            </div>
          </div>
@@ -42,7 +42,7 @@
              <input
                type="email"
                formControlName="email"
-               class="rounded-md p-2 w-full focus:ring-1 focus:ring-blue-500 border border-gray-300" />
+               class="rounded-md py-3 w-full focus:ring-1 focus:ring-blue-500 " />
              <i class="fas fa-pen text-gray-400"></i>
            </div>
          </div>
@@ -53,7 +53,7 @@
              <input
                type="tel"
                formControlName="phone"
-               class="rounded-md p-2 w-full focus:ring-1 focus:ring-blue-500 border border-gray-300" />
+               class="rounded-md py-3 w-full focus:ring-1 focus:ring-blue-500  " />
              <i class="fas fa-pen text-gray-400"></i>
            </div>
          </div>
@@ -63,7 +63,7 @@
            <div class="flex items-center gap-2 w-4/5">
              <select
                formControlName="role"
-               class="rounded-md p-2 w-full focus:ring-1 focus:ring-blue-500 border border-gray-300">
+               class="rounded-md py-3 w-full focus:ring-1 focus:ring-blue-500 bg-white  ">
                <option disabled value="admin">Admin</option>
                <option disabled value="customer">User</option>
              </select>
@@ -75,7 +75,7 @@
            <div class="flex items-center gap-2 w-4/5">
              <select
                formControlName="status"
-               class="rounded-md p-2 w-full focus:ring-1 focus:ring-blue-500 border border-gray-300">
+               class="rounded-md  w-full focus:ring-1 focus:ring-blue-500 bg-white py-3">
                <option disabled [value]="1">Hoạt động</option>
                <option disabled [value]="0">Không hoạt động</option>
              </select>
@@ -83,7 +83,7 @@
          </div>
        </div>
  
-       <button type="submit" class="bg-[#043175] text-white px-6 py-2 rounded mt-[1%] hover:bg-[#032c66] transition">
+       <button type="submit" class="bg-[#043175] text-white px-6 py-2 rounded mt-[2%] hover:bg-[#032c66] transition">
          Cập nhật
        </button>
      </form>
