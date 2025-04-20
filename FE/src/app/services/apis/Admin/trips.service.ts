@@ -22,9 +22,7 @@ export class TripsService extends ApiService {
     Create(busrouteData: {
         routeId: number;
         departureTime: string;
-        arrivalTime: string;
         price: number;
-        status: string;
         busID: number;
         driverId: number;
     }): Observable<busRouteInterface> {

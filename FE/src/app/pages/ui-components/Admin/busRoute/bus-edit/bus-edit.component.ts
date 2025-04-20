@@ -11,6 +11,8 @@ import { BusesService } from 'src/app/services/apis/Admin/buses.service';
 import { DriversService } from 'src/app/services/apis/Admin/drivers.service';
 import { MaterialModule } from 'src/app/material.module';
 import { SeatsService } from '../../../../../services/apis/Admin/seats.service';
+import { toZonedTime, format } from 'date-fns-tz';
+
 
 @Component({
   selector: 'app-bus-edit',
@@ -28,7 +30,8 @@ export class BusEditComponent implements OnInit {
     private driversService: DriversService,
     private seatsService: SeatsService,
     private router: Router
-  ) {}
+  ) { }
+  serverError: string = '';
 
   busRoute!: busRouteInterface;
 
@@ -46,6 +49,13 @@ export class BusEditComponent implements OnInit {
   driverId = new FormControl<number | null>(null, Validators.required);
   selectedSeatId = new FormControl<number | null>(null);
   selectedSeatStatus = new FormControl<string>('', Validators.required);
+
+  convertUTCToVNTime(utcDateTime: string): string {
+    const timeZone = 'Asia/Ho_Chi_Minh';  // Giờ Việt Nam
+    const zonedDate = toZonedTime(utcDateTime, timeZone);
+    return format(zonedDate, 'yyyy-MM-dd\'T\'HH:mm');
+  }
+
 
   ngOnInit(): void {
     this.loadOptions();
@@ -78,12 +88,12 @@ export class BusEditComponent implements OnInit {
       error: () => console.error("Lỗi khi lấy danh sách tuyến đường!")
     });
 
-    this.busesService.getAllByStatusEdit(id).subscribe({
+    this.busesService.List().subscribe({
       next: (res: any) => this.busesOption = res.data || [],
       error: () => console.error("Lỗi khi lấy danh sách xe!")
     });
 
-    this.driversService.getAllByStatusEdit(id).subscribe({
+    this.driversService.List().subscribe({
       next: (res: any) => this.driversOption = res.data || [],
       error: () => console.error("Lỗi khi lấy danh sách tài xế!")
     });
@@ -92,7 +102,7 @@ export class BusEditComponent implements OnInit {
   loadSeatsByBusId(busId: number) {
     this.seatsService.List(busId).subscribe({
       next: (res: any) => {
-        this.seatsOption = res.data  || [];
+        this.seatsOption = res.data || [];
       },
       error: () => {
         console.error("Lỗi khi lấy danh sách ghế!");
@@ -103,8 +113,8 @@ export class BusEditComponent implements OnInit {
 
   setFormData(data: busRouteInterface) {
     this.routeId.setValue(Number(data.routeId ?? null));
-    this.departureTime.setValue(data.departureTime ?? '');
-    this.arrivalTime.setValue(data.arrivalTime ?? '');
+    this.departureTime.setValue(this.convertUTCToVNTime(data.departureTime ?? ''));
+    this.arrivalTime.setValue(this.convertUTCToVNTime(data.arrivalTime ?? ''));
     this.price.setValue(Number(data.price ?? null));
     this.status.setValue(data.status ?? '');
     this.busID.setValue(data.busID ?? null);
@@ -147,12 +157,14 @@ export class BusEditComponent implements OnInit {
   updateRoute(data: busRouteInterface) {
     this.tripsService.Update(data.id!, data).subscribe({
       next: () => {
+        this.serverError = '';
         this.notificationService.showSuccess('Cập nhật chuyến xe thành công!');
         this.router.navigate(['/admin/busGetAll']);
       },
       error: (err) => {
-        console.error('Lỗi khi cập nhật chuyến xe:', err);
-        this.notificationService.showError('Cập nhật thất bại!');
+        const message = err.error?.message || 'Thêm thất bại!';
+        this.serverError = message;
+        this.notificationService.showError(err.error?.message || 'Thêm thất bại!');
       }
     });
   }

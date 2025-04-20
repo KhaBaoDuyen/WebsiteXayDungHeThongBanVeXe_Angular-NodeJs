@@ -3,9 +3,9 @@
     <h2 class="text-2xl text-gray-800 font-bold mb-8">Thêm mới chuyến xe</h2>
 
     <div class="space-y-8">
-      <div class="grid grid-cols-2 gap-6">
+      <div class="grid grid-cols-1 gap-6">
         <div>
-          <label class="text-gray-700 block font-medium mb-2">Tuyến đường</label>
+          <!-- <label class="text-gray-700 block font-medium mb-2">Tuyến đường</label>
           <select [formControl]="route"
             class="border border-gray-300 rounded-lg w-full duration-200 
             focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
@@ -17,87 +17,127 @@
           </select>
           <div *ngIf="route.invalid && route.touched" class="text-red-500 mt-2">
             <span *ngIf="route.errors?.['required']">Tuyến đường không được bỏ trống.</span>
-          </div>
-        </div>
-        <div>
-          <label class="text-gray-700 block font-medium mb-2">Xe</label>
-          <select [formControl]="busID"
+          </div> -->
+          <label class="text-gray-700 block font-medium mb-2">Tuyến
+            đường</label>
+          <ng-select
+            [items]="routeOptions"
+            bindLabel="startPoint"
+            bindValue="id"
+            [searchable]="true"
+            [formControl]="route"
+            [placeholder]="route.value ? '' : '------ Chọn tuyến đường ------'"
             class="border border-gray-300 rounded-lg w-full duration-200 
             focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
-            [ngClass]="{ 'border-red-500': busID.invalid && busID.touched }">
-            <option value="">------ Chọn xe --------</option>
-            <option *ngFor="let bus of busesOption" [value]="bus.id" >
-              {{bus.plateNumber}}
-            </option>
-          </select>
-          <div *ngIf="busID.invalid && busID.touched" class="text-red-500 mt-2">
-            <span *ngIf="busID.errors?.['required']">Xe không được bỏ trống.</span>
+            [ngClass]="{ 'border-red-500': route.invalid && route.touched }">
+            <ng-template ng-label-tmp let-item="item">
+              {{ item.startPoint }} → {{ item.endPoint }} ({{ item.distance
+              }}km)
+            </ng-template>
+
+            <ng-template ng-option-tmp let-item="item">
+              <div class="bg-white px-4 py-2 hover:bg-orange-100 rounded">
+                {{ item.startPoint }} → {{ item.endPoint }} ({{ item.distance
+                }}km)
+              </div>
+            </ng-template>
+          </ng-select>
+
+          <div *ngIf="route.invalid && route.touched" class="text-red-500 mt-2">
+            <span *ngIf="route.errors?.['required']">Tuyến đường không được bỏ
+              trống.</span>
           </div>
+
         </div>
+
       </div>
 
-      <div class="grid grid-cols-3 gap-6">
+      <div class="grid grid-cols-2 gap-6">
         <div>
-          <label class="text-gray-700 block font-medium mb-2">Giờ khởi hành</label>
+          <label class="text-gray-700 block font-medium mb-2">Giờ khởi
+            hành</label>
           <input type="datetime-local" [formControl]="departure"
             class="border border-gray-300 rounded-lg w-full duration-200 focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
             [ngClass]="{ 'border-red-500': departure.invalid && departure.touched }">
-          <div *ngIf="departure.invalid && departure.touched" class="text-red-500 mt-2">
-            <span *ngIf="departure.errors?.['required']">Giờ đi không được bỏ trống.</span>
-          </div>
-        </div>
-        <div>
-          <label class="text-gray-700 block font-medium mb-2">Giờ đến</label>
-          <input type="datetime-local" [formControl]="arrival"
-            class="border border-gray-300 rounded-lg w-full duration-200 focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
-            [ngClass]="{ 'border-red-500': arrival.invalid && arrival.touched }">
-          <div *ngIf="arrival.invalid && arrival.touched" class="text-red-500 mt-2">
-            <span *ngIf="arrival.errors?.['required']">Giờ đến không được bỏ trống.</span>
+          <div *ngIf="departure.invalid && departure.touched"
+            class="text-red-500 mt-2">
+            <span *ngIf="departure.errors?.['required']">Giờ đi không được bỏ
+              trống.</span>
           </div>
         </div>
 
         <div>
           <label class="text-gray-700 block font-medium mb-2">Tài xế</label>
-          <select [formControl]="driverID"
+          <ng-select
+            [items]="driversOption"
+            bindLabel="fullName"
+            bindValue="id"
+            [searchable]="true"
+            [formControl]="driverID"
+            [placeholder]="driverID.value ? '' : '------ Chọn tài xế ------'"
             class="border border-gray-300 rounded-lg w-full duration-200 
             focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
             [ngClass]="{ 'border-red-500': driverID.invalid && driverID.touched }">
-            <option value="">------ Chọn tài xế --------</option>
-            <option *ngFor="let drivers of driversOption" [value]="drivers.id">
-              {{drivers.fullName}}
-            </option>
-          </select>
+            <ng-template ng-label-tmp let-item="item">
+              {{item.fullName}}
+            </ng-template>
+
+            <ng-template ng-option-tmp let-item="item">
+              <div class="bg-white px-4 py-2 hover:bg-orange-100 rounded">
+                {{item.fullName}}
+              </div>
+            </ng-template>
+          </ng-select>
+
           <div *ngIf="driverID.invalid && driverID.touched" class="text-red-500 mt-2">
-            <span *ngIf="driverID.errors?.['required']">Tài xế không được bỏ trống.</span>
+            <span *ngIf="driverID.errors?.['required']">Tuyến đường không được bỏ
+              trống.</span>
           </div>
         </div>
       </div>
 
       <div class="grid grid-cols-2 gap-6">
         <div>
+          <label class="text-gray-700 block font-medium mb-2">Xe</label>
+          <ng-select
+            [items]="busesOption"
+            bindLabel="plateNumber"
+            bindValue="id"
+            [searchable]="true"
+            [formControl]="busID"
+            [placeholder]="busID.value ? '' : '------ Chọn xe ------'"
+            class="border border-gray-300 rounded-lg w-full duration-200 
+            focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
+            [ngClass]="{ 'border-red-500': busID.invalid && busID.touched }">
+            <ng-template ng-label-tmp let-item="item">
+              {{item.plateNumber}}
+            </ng-template>
+
+            <ng-template ng-option-tmp let-item="item">
+              <div class="bg-white px-4 py-2 hover:bg-orange-100 rounded">
+                {{item.plateNumber}}
+              </div>
+            </ng-template>
+          </ng-select>
+
+          <div *ngIf="busID.invalid && busID.touched" class="text-red-500 mt-2">
+            <span *ngIf="busID.errors?.['required']">Tuyến đường không được bỏ trống.</span>
+          </div>
+
+        </div>
+        <div>
           <label class="text-gray-700 block font-medium mb-2">Giá vé</label>
-          <input type="text" [formControl]="price" placeholder="Vui lòng nhập giá vé"
-            class="border border-gray-300 rounded-lg w-full duration-200 focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition" 
+          <input type="text" [formControl]="price"
+            placeholder="Vui lòng nhập giá vé"
+            class="border border-gray-300 rounded-lg w-full duration-200 focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
             [ngClass]="{ 'border-red-500': price.invalid && price.touched }">
           <div *ngIf="price.invalid && price.touched" class="text-red-500 mt-2">
-            <span *ngIf="price.errors?.['required']">Giá vé không được bỏ trống.</span>
+            <span *ngIf="price.errors?.['required']">Giá vé không được bỏ
+              trống.</span>
             <span *ngIf="price.errors?.['pattern']">Giá vé phải là số.</span>
           </div>
         </div>
-        <div>
-          <label class="text-gray-700 block font-medium mb-2">Trạng Thái</label>
-          <select [formControl]="status"
-            class="border border-gray-300 rounded-lg w-full duration-200 
-            focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
-            [ngClass]="{ 'border-red-500': status.invalid && status.touched }">
-            <option value="scheduled">Sắp khởi hành</option>
-            <option value="completed">Đang chạy</option>
-            <option value="canceled">Hủy</option>
-          </select>
-          <div *ngIf="status.invalid && status.touched" class="text-red-500 mt-2">
-            <span *ngIf="status.errors?.['required']">Trạng thái không được bỏ trống.</span>
-          </div>
-        </div>
+
       </div>
 
       <div class="flex justify-end space-x-4">

@@ -9,10 +9,11 @@ import { NotificationService } from 'src/app/services/notification.service';
 import { RoutesService } from '../../../../../services/apis/Admin/routes.service';
 import { BusesService } from '../../../../../services/apis/Admin/buses.service';
 import { DriversService } from '../../../../../services/apis/Admin/drivers.service';
- 
+import { NgSelectModule } from '@ng-select/ng-select';
+
 @Component({
   selector: 'app-bus-create',
-  imports: [MaterialModule, CommonModule, ReactiveFormsModule, FormsModule],
+  imports: [MaterialModule, CommonModule, ReactiveFormsModule, FormsModule, NgSelectModule],
   templateUrl: './bus-create.component.html',
   standalone: true,
 })
@@ -25,6 +26,8 @@ export class BusCreateComponent {
     private driversService: DriversService,
     private router: Router,
   ) { }
+  serverError: string = '';
+
 
   routeOptions: any[] = [];
   busesOption: any[] = [];
@@ -34,7 +37,6 @@ export class BusCreateComponent {
   departure = new FormControl('', Validators.required);
   arrival = new FormControl('', Validators.required);
   price = new FormControl('', [Validators.required, Validators.pattern('^[0-9]+$')]);
-  status = new FormControl('', Validators.required);
   busID = new FormControl('', Validators.required);
   driverID = new FormControl('', Validators.required);
 
@@ -54,7 +56,7 @@ export class BusCreateComponent {
       }
     })
 
-    this.busesService.getAllByStatusCreate().subscribe({
+    this.busesService.List().subscribe({
       next: (buses: any) => {
         console.log('Dữ liệu xe:', buses); 
         this.busesOption = buses.data || [];
@@ -64,7 +66,7 @@ export class BusCreateComponent {
       }
     })
 
-    this.driversService.getAllByStatusCreate().subscribe({
+    this.driversService.List().subscribe({
       next: (drivers: any) => {
         console.log('Dữ liệu tài xế xe:', drivers); 
         this.driversOption = drivers.data || [];
@@ -79,9 +81,7 @@ export class BusCreateComponent {
     const controls = {
       route: this.route,
       departure: this.departure,
-      arrival: this.arrival,
       price: this.price,
-      status: this.status,
       busID: this.busID,
       driverID: this.driverID,
     };
@@ -94,19 +94,20 @@ export class BusCreateComponent {
         routeId: Number(this.route.value),
         driverId: Number(this.driverID.value),
         departureTime: this.formatDateTimeForAPI(this.departure.value!),
-        arrivalTime: this.formatDateTimeForAPI(this.arrival.value!),
         price: Number(this.price.value),
-        status: this.status.value!
       };
 
       console.log('Dữ liệu gửi lên:', data);
       this.tripsService.Create(data).subscribe({
         next: (res) => {
+          this.serverError = '';
           this.notificationService.showSuccess('Thêm tuyến xe thành công!');
           this.router.navigate(['/admin/busGetAll']);
         },
         error: (err) => {
-          this.notificationService.showError('Thêm thất bại!');
+          const message = err.error?.message || 'Thêm thất bại!';
+          this.serverError = message;
+          this.notificationService.showError(err.error?.message || 'Thêm thất bại!');
           console.error(err);
         }
       });

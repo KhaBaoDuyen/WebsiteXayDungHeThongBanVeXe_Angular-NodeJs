@@ -46,7 +46,7 @@
 
         <div>
           <label class="text-gray-700 block font-medium mb-2">Giờ đến</label>
-          <input type="datetime-local" [formControl]="arrivalTime"
+          <input [disabled]="true" type="datetime-local" [formControl]="arrivalTime"
             class="border border-gray-300 rounded-lg w-full duration-200 focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
             [ngClass]="{ 'border-red-500': arrivalTime.invalid && arrivalTime.touched }"
             [value]="arrivalTime.value ? arrivalTime.value.replace(' ', 'T').substring(0, 16) : ''">
@@ -88,7 +88,8 @@
             class="border border-gray-300 rounded-lg w-full duration-200 
                   focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
             [ngClass]="{ 'border-red-500': status.invalid && status.touched }">
-            <option value="scheduled">Sắp khởi hành</option>
+            <option value="scheduled">Chưa khởi hành</option>
+            <option value="running">Đang chạy</option>
             <option value="completed">Đã hoàn thành</option>
             <option value="canceled">Hủy</option>
           </select>
@@ -113,8 +114,7 @@
           <label class="text-gray-700 block font-medium mb-2">Trạng thái ghế</label>
           <select [formControl]="selectedSeatStatus"
             class="border border-gray-300 rounded-lg w-full duration-200 
-            focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
-            [ngClass]="{ 'border-red-500': selectedSeatStatus.invalid && selectedSeatStatus.touched }">
+            focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition">
             <option value="">-- Chọn trạng thái --</option>
             <option value="empty">Còn trống</option>
             <option value="sold">Đã bán</option>

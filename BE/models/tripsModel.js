@@ -32,7 +32,7 @@ const TripsModel = connection.define('Trips',{
         allowNull: true,
     },
     status: {
-        type: DataTypes.ENUM('scheduled', 'completed', 'canceled'),
+        type: DataTypes.ENUM('scheduled', 'completed', 'canceled','running'),
         allowNull: true,
     },
 }, {
