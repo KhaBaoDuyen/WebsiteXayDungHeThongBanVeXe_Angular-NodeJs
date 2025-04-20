@@ -20,12 +20,12 @@ export class BookingService extends ApiService {
       }
 
    //---------------[ HISTORY ]-----------------
-    getAllByUser(id:any): Observable<BookingInterface> {
-           return this.post<BookingInterface>(API_ENDPOINT.ticket.base + API_ENDPOINT.ticket.getAllByUser,id );
+    getAllByUser(id:any): Observable<bookingInterface> {
+           return this.post<bookingInterface>(API_ENDPOINT.ticket.base + API_ENDPOINT.ticket.getAllByUser,id );
     }
  
-    cancelTicket(data:any):Observable<BookingInterface> {
-        return this.patch<BookingInterface>(API_ENDPOINT.ticket.base + API_ENDPOINT.ticket.cancel, data );
+    cancelTicket(data:any):Observable<bookingInterface> {
+        return this.patch<bookingInterface>(API_ENDPOINT.ticket.base + API_ENDPOINT.ticket.cancel, data );
 
     }
 }
