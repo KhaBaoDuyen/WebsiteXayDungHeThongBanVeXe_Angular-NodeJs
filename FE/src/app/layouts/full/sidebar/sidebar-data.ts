@@ -155,38 +155,9 @@ export const navItems: NavItem[] = [
     ]
   },
   {
-    displayName: "Quản lý Đánh Giá",
-    iconName: "solar:star-line-duotone",
-    route: "/admin/reviews"
-  },
-  {
     displayName: "Quản lý Liên hệ",
     iconName: "solar:mailbox-bold",
     route: "/admin/contactGetAll"
   },
-  {
-    navCap: 'Extra',
-    divider: true
-  },
-  {
-    displayName: 'Icons',
-    iconName: 'solar:sticker-smile-circle-2-line-duotone',
-    route: '/admin/extra/icons',
-  },
-  {
-    divider: true,
-    navCap: 'Tài khoản',
-  },
-  {
-    displayName: 'Đăng nhập',
-    iconName: 'solar:lock-keyhole-minimalistic-line-duotone',
-    route: '/authentication/login',
-  },
-  {
-    displayName: 'Đăng ký',
-    iconName: 'solar:user-plus-rounded-line-duotone',
-    route: '/authentication/register',
-  },
-
 
 ];
