@@ -48,7 +48,8 @@ export class TicketGetAllComponent implements OnInit, AfterViewInit {
       next: (data: any) => {
         // Nếu backend trả về dạng { status, data }, bạn cần truy cập data.data
         const bookings = Array.isArray(data) ? data : data?.data;
-
+        console.log(bookings);
+        
         if (Array.isArray(bookings)) {
           this.bookings = bookings;
           this.dataSource.data = [...this.bookings];
