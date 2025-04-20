@@ -16,7 +16,7 @@
                         </div>
                         <div class="text-gray-800 font-mono text-lg font-bold px-3">Giá vé: <span
                                 class="float-right">Khởi hành: {{ ticket.departure }}</span></div>
-                        <div class="text-xl font-bold text-gray-900 px-3">{{ ticket.price }} VNĐ <span
+                        <div class="text-xl font-bold text-gray-900 px-3">{{ ticket.price | number:'1.0-0' }} VNĐ <span
                                 class="float-right">{{ ticket.date }}</span></div>
 
                         <div class="mt-2 flex justify-between px-3">
@@ -53,7 +53,7 @@
                                 }}</b>
                             <button *ngIf="ticket.status === 'pending'"
                                 class="bg-red-400 text-white px-4 py-2 font-mono rounded-md hover:bg-red-600"
-                                (click)="openCancelDialog(ticket.id)">Hủy vé</button>
+                                (click)="openCancelDialog(ticket.id, ticket.startDate  )">Hủy vé</button>
                             <span *ngIf="ticket.status === 'confirmed'" class="text-green-600">Đã nhận vé</span>
                             <span *ngIf="ticket.status === 'canceled'" class="text-red-600">Đã hủy</span>
                         </div>

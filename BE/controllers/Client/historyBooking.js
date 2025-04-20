@@ -42,60 +42,76 @@ class HistoryBookingController {
     }
 
     static async cancelTicket(req, res) {
-        const { id, note } = req.body;
+        const { id, note, startDate } = req.body;
+        console.log(req.body);
+
 
         try {
-            const cancel = await BookingModel.update(
-                {
-                    status: 'canceled',
-                    note: note
-                },
-                {
-                    where: {
-                        id: id
-                    },
-                    returning: true // trả về các bảng ghi được cập nhật
-                }
-            );
-            
-                const booking = await BookingModel.findOne({
-                    where: { id: id },
-                    include: [
-                        {
-                            model: BookingDetailModel,
-                            as: 'bookingDetails',
-                            include: [
-                                {
-                                    model: SeatsModel,
-                                    as: 'bookingSeats'
-                                }
-                            ]
-                        }
-                    ]
+
+            const nowday = new Date();
+            const start = new Date(startDate);
+            const now30m = new Date(nowday.getTime() + 30 * 60 * 1000);
+
+            if (start <= now30m) {
+                return res.status(400).json({
+                    success: false,
+                    message: 'Chỉ có thể hủy vé trước giờ khởi hành 30 phút.'
                 });
-            
-                if (booking) {
-                    for (const detail of booking.bookingDetails) {
-                        if (detail.seatId) {
-                            await SeatsModel.update(
-                                { status: "empty" }, 
-                                {
-                                    where: {
-                                        id: detail.seatId
-                                    }
-                                }
-                            );
-                        }
-                    }
-                }
-            
-                return res.status(200).json({
-                    success: true,
-                    message: 'Vé đã được hủy thành công .'
-                });
-            
-          
-            
+
+            }
+
+
+            // await BookingModel.update(
+            //     {
+            //         status: 'canceled',
+            //         note: note
+            //     },
+            //     {
+            //         where: {
+            //             id: id
+            //         },
+            //         returning: true // trả về các bảng ghi được cập nhật
+            //     }
+            // );
+
+            //     const booking = await BookingModel.findOne({
+            //         where: { id: id },
+            //         include: [
+            //             {
+            //                 model: BookingDetailModel,
+            //                 as: 'bookingDetails',
+            //                 include: [
+            //                     {
+            //                         model: SeatsModel,
+            //                         as: 'bookingSeats'
+            //                     }
+            //                 ]
+            //             }
+            //         ]
+            //     });
+
+            //     if (booking) {
+            //         for (const detail of booking.bookingDetails) {
+            //             if (detail.seatId) {
+            //                 await SeatsModel.update(
+            //                     { status: "empty" }, 
+            //                     {
+            //                         where: {
+            //                             id: detail.seatId
+            //                         }
+            //                     }
+            //                 );
+            //             }
+            //         }
+            //     }
+
+            // return res.status(200).json({
+            //     success: true,
+            //     message: 'Vé đã được hủy thành công .'
+            // });
+
+
+
         } catch (error) {
             console.log(error);
             return res.status(500).json({

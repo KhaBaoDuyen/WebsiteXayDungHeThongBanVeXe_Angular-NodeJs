@@ -49,7 +49,7 @@ export class TicketHistoryComponent implements OnInit {
           const startDate = new Date(item.startDate);
           const date = startDate.toLocaleDateString('vi-VN');
           const time = startDate.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
-    
+          
           return {
             id: item.id,
             code: `#${item.id.toString().padStart(6, '0')}`,
@@ -60,7 +60,8 @@ export class TicketHistoryComponent implements OnInit {
             date: date,
             seat: seatNumbers,
             name: item.fullName,
-            status: item.status
+            status: item.status,
+            startDate: startDate,
           };
         });
       },
@@ -71,12 +72,13 @@ export class TicketHistoryComponent implements OnInit {
     
   }
   
-  openCancelDialog(id: number): void {
+  openCancelDialog(id: number, startDate: Date): void {
     const dialogRef = this.dialog.open(FormCancelComponent, {
       data: {
         id: id,
+        startDate: startDate,
         service: (id: number, note?: string) =>
-          this.bookingService.cancelTicket({ id, note })
+          this.bookingService.cancelTicket({ id, note, startDate })
       }
     });
   
@@ -87,6 +89,7 @@ export class TicketHistoryComponent implements OnInit {
       this.getHistory();
     });
   }
+  
   
   
   
