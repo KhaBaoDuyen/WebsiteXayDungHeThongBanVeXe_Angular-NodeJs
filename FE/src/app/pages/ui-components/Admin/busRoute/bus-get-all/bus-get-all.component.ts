@@ -31,7 +31,7 @@ import { TripsService } from '../../../../../services/apis/Admin/trips.service';
   ]
 })
 export class BusGetAllComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'routeId', 'busID',  'departureTime', 'arrivalTime', 'status', 'actions'];
+  displayedColumns: string[] = ['id', 'routeId', 'busID', 'driverId', 'departureTime', 'status', 'actions'];
   dataSource = new MatTableDataSource<busRouteInterface>([]);
 
   showDeleteConfirmation = false; 
