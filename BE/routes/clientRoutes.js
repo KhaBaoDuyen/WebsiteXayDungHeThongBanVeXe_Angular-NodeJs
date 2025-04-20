@@ -8,6 +8,8 @@ const FilterController = require('../controllers/Client/filterController');
 const RoutesController = require('../controllers/Admin/routesController')
 const timeTableController = require('../controllers/Client/timeTableComtroller');
 const HistoryBookingController = require('../controllers/Client/historyBooking');
+const ProfileController = require('../controllers/Client/profileController');
+const upload = require('../config/multer');
 //------------------[ AUTH ]------------------
 router.post('/register',AuthController.register);
 router.post("/login", AuthController.login);
@@ -34,5 +36,9 @@ router.post('/booking', timeTableController.booking);
 router.post('/historyTickets', HistoryBookingController.historyTicket);
 router.patch('/cancelTicket', HistoryBookingController.cancelTicket);
 
+//------------------[ PROFILE ]------------------
+router.get('/profile/list',ProfileController.get);
+router.get('/profile/getId/:id',ProfileController.getById);
+router.patch('/profile/update/:id', upload.single('avatar'), ProfileController.update);
 
 module.exports = router;

@@ -7,25 +7,53 @@
         <div>
           <label class="text-gray-700 block font-medium mb-2">Tuyến
             đường</label>
-          <select [formControl]="routeId"
+          <ng-select
+            [items]="routeOptions"
+            bindLabel="startPoint"
+            bindValue="id"
+            [searchable]="true"
+            [formControl]="routeId"
+            [placeholder]="routeId.value ? '' : '------ Chọn tuyến đường ------'"
             class="border border-gray-300 rounded-lg w-full duration-200 
-            focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
+                   focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
             [ngClass]="{ 'border-red-500': routeId.invalid && routeId.touched }">
-            <option *ngFor="let route of routeOptions" [value]="route.id">
-              {{route.startPoint}} → {{route.endPoint}} ({{route.distance}}km)
-            </option>
-          </select>
+
+            <ng-template ng-label-tmp let-item="item">
+              {{ item.startPoint }} → {{ item.endPoint }} ({{ item.distance
+              }}km)
+            </ng-template>
+
+            <ng-template ng-option-tmp let-item="item">
+              <div class="bg-white px-4 py-2 hover:bg-orange-100 rounded">
+                {{ item.startPoint }} → {{ item.endPoint }} ({{ item.distance
+                }}km)
+              </div>
+            </ng-template>
+          </ng-select>
         </div>
         <div>
           <label class="text-gray-700 block font-medium mb-2">Xe</label>
-          <select [formControl]="busID"
+          <ng-select
+            [items]="busesOption"
+            bindLabel="plateNumber"
+            bindValue="id"
+            [searchable]="true"
+            [formControl]="busID"
+            [placeholder]="busID.value ? '' : '------ Chọn xe ------'"
             class="border border-gray-300 rounded-lg w-full duration-200 
-            focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
-            [ngClass]="{ 'border-red-500': busID.invalid && busID.touched }">
-            <option *ngFor="let bus of busesOption" [value]="bus.id">
-              {{bus.plateNumber}}
-            </option>
-          </select>
+                   focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
+            [ngClass]="{ 'border-red-500': routeId.invalid && routeId.touched }">
+            <ng-template ng-label-tmp let-item="item">
+              {{item.plateNumber}}
+            </ng-template>
+
+            <ng-template ng-option-tmp let-item="item">
+              <div class="bg-white px-4 py-2 hover:bg-orange-100 rounded">
+                {{item.plateNumber}}
+              </div>
+            </ng-template>
+          </ng-select>
+
         </div>
       </div>
 
@@ -46,7 +74,8 @@
 
         <div>
           <label class="text-gray-700 block font-medium mb-2">Giờ đến</label>
-          <input [disabled]="true" type="datetime-local" [formControl]="arrivalTime"
+          <input [disabled]="true" type="datetime-local"
+            [formControl]="arrivalTime"
             class="border border-gray-300 rounded-lg w-full duration-200 focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
             [ngClass]="{ 'border-red-500': arrivalTime.invalid && arrivalTime.touched }"
             [value]="arrivalTime.value ? arrivalTime.value.replace(' ', 'T').substring(0, 16) : ''">
@@ -59,14 +88,26 @@
 
         <div>
           <label class="text-gray-700 block font-medium mb-2">Tài xế</label>
-          <select [formControl]="driverId"
+          <ng-select
+            [items]="driversOption"
+            bindLabel="fullName"
+            bindValue="id"
+            [searchable]="true"
+            [formControl]="driverId"
+            [placeholder]="driverId.value ? '' : '------ Chọn tài xế ------'"
             class="border border-gray-300 rounded-lg w-full duration-200 
             focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
             [ngClass]="{ 'border-red-500': driverId.invalid && driverId.touched }">
-            <option *ngFor="let drivers of driversOption" [value]="drivers.id">
-              {{drivers.fullName}}
-            </option>
-          </select>
+            <ng-template ng-label-tmp let-item="item">
+              {{item.fullName}}
+            </ng-template>
+
+            <ng-template ng-option-tmp let-item="item">
+              <div class="bg-white px-4 py-2 hover:bg-orange-100 rounded">
+                {{item.fullName}}
+              </div>
+            </ng-template>
+          </ng-select>
         </div>
       </div>
 
@@ -103,7 +144,7 @@
             class="border border-gray-300 rounded-lg w-full duration-200 
             focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition"
             [ngClass]="{ 'border-red-500': selectedSeatId.invalid && selectedSeatId.touched }">
-            <option value="">-- Chọn ghế --</option>
+            <option value>-- Chọn ghế --</option>
             <option *ngFor="let seat of seatsOption" [value]="seat.id">
               {{ seat.seatNumber }}
             </option>
@@ -111,11 +152,12 @@
         </div>
 
         <div>
-          <label class="text-gray-700 block font-medium mb-2">Trạng thái ghế</label>
+          <label class="text-gray-700 block font-medium mb-2">Trạng thái
+            ghế</label>
           <select [formControl]="selectedSeatStatus"
             class="border border-gray-300 rounded-lg w-full duration-200 
             focus:border-transparent focus:ring-2 focus:ring-orange-500 px-4 py-3 transition">
-            <option value="">-- Chọn trạng thái --</option>
+            <option value>-- Chọn trạng thái --</option>
             <option value="empty">Còn trống</option>
             <option value="sold">Đã bán</option>
             <option value="maintenance">Đang bảo trì</option>
@@ -123,13 +165,16 @@
         </div>
       </div>
 
-      <div *ngIf="seatsOption?.length" class="w-full bg-white p-10 rounded-t-lg rounded-b-none shadow-md">
+      <div *ngIf="seatsOption?.length"
+        class="w-full bg-white p-10 rounded-t-lg rounded-b-none shadow-md">
         <div class="flex gap-2">
 
-          <div *ngIf="seatsOption?.length" class="w-full bg-white p-10 rounded-t-lg rounded-b-none shadow-md">
+          <div *ngIf="seatsOption?.length"
+            class="w-full bg-white p-10 rounded-t-lg rounded-b-none shadow-md">
             <div class="flex gap-2">
               <div class="flex-1 w-[50%] p-[50px]">
-                <h3 class="text-xl font-semibold mb-4 text-center">Sơ đồ ghế</h3>
+                <h3 class="text-xl font-semibold mb-4 text-center">Sơ đồ
+                  ghế</h3>
                 <div class="flex flex-wrap">
                   <div class="w-1/4 p-1" *ngFor="let seat of seatsOption">
                     <div [ngClass]="{
@@ -138,7 +183,7 @@
                           'bg-sky-100 border-sky-600': seat.status === 'empty',
                           'bg-orange-100 border-orange-600': seat.status === 'maintenance',
                           'hover:bg-yellow-100 hover:border-yellow-600': true
-                      }" 
+                      }"
                       (click)="selectSeat(seat)">
                       {{ seat.seatNumber }}
                     </div>
@@ -147,19 +192,21 @@
               </div>
             </div>
           </div>
-          
 
           <div class="ml-12 mt-10 flex flex-col gap-4 w-[50%]">
             <div class="flex items-center gap-2">
-              <div class="w-[20px] h-[20px] bg-gray-200 border border-gray-600 rounded-md"></div>
+              <div
+                class="w-[20px] h-[20px] bg-gray-200 border border-gray-600 rounded-md"></div>
               <span>Đã bán</span>
             </div>
             <div class="flex items-center gap-2">
-              <div class="w-[20px] h-[20px] bg-sky-100 border border-sky-600 rounded-md"></div>
+              <div
+                class="w-[20px] h-[20px] bg-sky-100 border border-sky-600 rounded-md"></div>
               <span>Còn trống</span>
             </div>
             <div class="flex items-center gap-2">
-              <div class="w-[20px] h-[20px] bg-orange-100 border border-orange-600 rounded-md"></div>
+              <div
+                class="w-[20px] h-[20px] bg-orange-100 border border-orange-600 rounded-md"></div>
               <span>Đang bảo trì</span>
             </div>
           </div>
@@ -172,7 +219,6 @@
           Cập nhật chuyến xe
         </button>
       </div>
-
 
     </div>
 

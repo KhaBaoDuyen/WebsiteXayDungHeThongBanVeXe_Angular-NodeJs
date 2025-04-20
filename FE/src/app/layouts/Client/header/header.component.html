@@ -28,7 +28,7 @@
                      <mat-icon class="ml-1">arrow_drop_down</mat-icon>
                   </button>
                   <mat-menu #menu="matMenu" class="mt-1">
-                     <button mat-menu-item routerLink="/profile">
+                     <button mat-menu-item [routerLink]="['/profile', userId]">
                         <mat-icon>person</mat-icon>
                         <span>Trang cá nhân</span>
                      </button>

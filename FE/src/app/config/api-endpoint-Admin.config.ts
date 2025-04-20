@@ -43,6 +43,12 @@ export const API_ENDPOINT_AD = {
     update: '/update',
   },
 
+  profile: {
+    base: API_BASE_URL +'/profile',
+    getById: '/getId',
+    update: '/update',
+  },
+
   bustype: {
     base: API_BASE_URL + '/admin'+'/bustype',
     getList:'/list',

@@ -1,72 +1,92 @@
-<main class="profile mt-[11%] mb-[1%] ">
-    <div class="flex w-[80%] mx-auto ">
-        <div class="w-[20%] bg-gray-100 p-10 rounded-md border border-gray-200">
-            <app-navbar/>
-        </div>
-       <form class="w-[80%] bg-white p-15 rounded-md ml-4">
-          <div class="flex items-center gap-4 relative justify-between">
-             <div>
-                <h1 class="text-3xl font-bold">Thông tin cá nhân</h1>
-                <p class="text-gray-600">Quản lý và cập nhật thông tin cá nhân của bạn.</p>
-             </div>
-             <label for="avatarInput" class="cursor-pointer">
-                <img src="../../../../../assets/images/main/avatar.jpg" alt=""
-                   class="w-[100px] h-[100px] rounded-full border-4 border-orange-500">
-                <input type="file" id="avatarInput"
-                   class="opacity-0 absolute w-full h-full top-0 left-0 cursor-pointer"> </label>
-          </div>
+<main class="profile mt-[11%] mb-[1%]">
+   <div class="flex w-[80%] mx-auto">
+     <div class="w-[20%] bg-gray-100 p-10 rounded-md border border-gray-200">
+       <app-navbar />
+     </div>
+ 
+     <form [formGroup]="form" (ngSubmit)="onUpdate()" enctype="multipart/form-data" class="w-[80%] bg-white p-15 rounded-md ml-4">
+       <div class="flex items-center gap-4 relative justify-between">
+         <div>
+           <h1 class="text-3xl font-bold">Thông tin cá nhân</h1>
+           <p class="text-gray-600">Quản lý và cập nhật thông tin cá nhân của bạn.</p>
+         </div>
+ 
+         <label for="avatarInput" class="cursor-pointer relative">
+           <img
+             [src]="avatarPreview || '../../../assets/images/main/avatar.jpg'"
+             alt="Avatar"
+             class="w-[100px] h-[100px] rounded-full border-4 border-orange-500 object-cover" />
+           <input
+             type="file"
+             id="avatarInput"
+             (change)="onFileSelect($event)"
+             class="opacity-0 absolute w-full h-full top-0 left-0 cursor-pointer" />
+         </label>
+       </div>
+ 
+       <div class="space-y-4 border-gray-300 mt-[2%]">
+         <div class="flex justify-between items-center border-b border-gray-300 p-2">
+           <label class="font-medium w-1/5">Tên</label>
+           <div class="flex items-center gap-2 w-4/5">
+             <input
+               type="text"
+               formControlName="fullName"
+               class="rounded-md p-2 w-full focus:ring-1 focus:ring-blue-500 border border-gray-300" />
+             <i class="fas fa-pen text-gray-400"></i>
+           </div>
+         </div>
+ 
+         <div class="flex justify-between items-center border-b border-gray-300 p-2">
+           <label class="font-medium w-1/5">Email</label>
+           <div class="flex items-center gap-2 w-4/5">
+             <input
+               type="email"
+               formControlName="email"
+               class="rounded-md p-2 w-full focus:ring-1 focus:ring-blue-500 border border-gray-300" />
+             <i class="fas fa-pen text-gray-400"></i>
+           </div>
+         </div>
 
-          <div class="space-y-4 border-gray-300 mt-[2%] ">
+         <div class="flex justify-between items-center border-b border-gray-300 p-2">
+           <label class="font-medium w-1/5">Số điện thoại</label>
+           <div class="flex items-center gap-2 w-4/5">
+             <input
+               type="tel"
+               formControlName="phone"
+               class="rounded-md p-2 w-full focus:ring-1 focus:ring-blue-500 border border-gray-300" />
+             <i class="fas fa-pen text-gray-400"></i>
+           </div>
+         </div>
+ 
+         <div class="flex justify-between items-center border-b border-gray-300 p-2">
+           <label class="font-medium w-1/5">Vai trò</label>
+           <div class="flex items-center gap-2 w-4/5">
+             <select
+               formControlName="role"
+               class="rounded-md p-2 w-full focus:ring-1 focus:ring-blue-500 border border-gray-300">
+               <option disabled value="admin">Admin</option>
+               <option disabled value="customer">User</option>
+             </select>
+           </div>
+         </div>
 
-             <div class="flex justify-between items-center border-b border-gray-300 p-2">
-                <label class="font-medium w-1/5">Tên</label>
-                <div class="flex items-center gap-2 w-4/5">
-                   <input type="text" value="Bao Duyen Kha Thi"
-                      class="rounded-md p-2 w-full focus:ring-1 focus:ring-blue-500 border-gray-300">
-                   <i class="fas fa-pen text-gray-400"></i>
-                </div>
-             </div>
-
-             <div class="flex justify-between items-center border-b border-gray-300 pb-2">
-                <label class="font-medium w-1/5">Password</label>
-                <div class="flex items-center gap-2 w-4/5">
-                   <input type="password" placeholder=""
-                      class="rounded-md p-2 w-full focus:ring-1 focus:ring-blue-500 border-gray-300">
-                   <i class="fas fa-pen text-gray-400"></i>
-                </div>
-             </div>
-
-             <div class="flex justify-between items-center border-b border-gray-300 pb-2">
-                <label class="font-medium w-1/5">Địa chỉ email</label>
-                <div class="flex items-center gap-2 w-4/5">
-                   <input type="email" value="duyenktbpc08750@gmail.com"
-                      class="rounded-md p-2 w-full focus:ring-1 focus:ring-blue-500 border-gray-300">
-                   <i class="fas fa-pen text-gray-400"></i>
-                </div>
-             </div>
-
-             <div class="flex justify-between items-center border-b border-gray-300 pb-2">
-                <label class="font-medium w-1/5">Địa chỉ </label>
-                <div class="flex items-center gap-2 w-4/5">
-                   <input type="text" value=""
-                      class="rounded-md p-2 w-full focus:ring-1 focus:ring-blue-500 border-gray-300">
-                   <i class="fas fa-pen text-gray-400"></i>
-                </div>
-             </div>
-
-             <div class="flex justify-between items-center border-b border-gray-300 pb-2">
-                <label class="font-medium w-1/5">Số điện thoại</label>
-                <div class="flex items-center gap-2 w-4/5">
-                   <input type="tel" placeholder="Nhập số điện thoại"
-                      class="rounded-md p-2 w-full focus:ring-1 focus:ring-blue-500 border-gray-300">
-                   <i class="fas fa-pen text-gray-400"></i>
-                </div>
-             </div>
-          </div>
-
-          <button class="bg-[#043175] text-white px-6 py-2 rounded mt-[1%]">Cập nhật </button>
-       </form>
-    </div>
-   
+         <div class="flex justify-between items-center border-b border-gray-300 p-2">
+           <label class="font-medium w-1/5">Trạng thái</label>
+           <div class="flex items-center gap-2 w-4/5">
+             <select
+               formControlName="status"
+               class="rounded-md p-2 w-full focus:ring-1 focus:ring-blue-500 border border-gray-300">
+               <option disabled [value]="1">Hoạt động</option>
+               <option disabled [value]="0">Không hoạt động</option>
+             </select>
+           </div>
+         </div>
+       </div>
+ 
+       <button type="submit" class="bg-[#043175] text-white px-6 py-2 rounded mt-[1%] hover:bg-[#032c66] transition">
+         Cập nhật
+       </button>
+     </form>
+   </div>
  </main>
  

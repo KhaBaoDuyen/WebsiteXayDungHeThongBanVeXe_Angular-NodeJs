@@ -47,7 +47,7 @@ export const ClientRoutes: Routes = [
     component: TicketHistoryComponent,
   },
   {
-    path: 'profile',
+    path: 'profile/:id',
     canActivate: [AuthGuard],
     component: ProfileComponent,
   },

@@ -38,7 +38,7 @@ export class HeaderComponent {
   [x: string]: any;
   @Input() tripsData: any[];
 
-
+  userId: string = '';
   get currentUser() {
     return this['authService'].getCurrentUser();
   }
@@ -61,6 +61,7 @@ export class HeaderComponent {
       const decoded = this.jwtHelper.decodeToken(token);
       this.isLoggedIn = true;
       this.fullName = decoded?.fullName || '';
+      this.userId = decoded?.id || ''; 
     }
     this.getDataOptions();
   }

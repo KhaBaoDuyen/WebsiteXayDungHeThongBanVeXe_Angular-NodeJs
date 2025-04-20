@@ -12,12 +12,13 @@ import { DriversService } from 'src/app/services/apis/Admin/drivers.service';
 import { MaterialModule } from 'src/app/material.module';
 import { SeatsService } from '../../../../../services/apis/Admin/seats.service';
 import { toZonedTime, format } from 'date-fns-tz';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @Component({
   selector: 'app-bus-edit',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, CommonModule, MaterialModule],
+  imports: [ReactiveFormsModule, FormsModule, CommonModule, MaterialModule, NgSelectModule],
   templateUrl: './bus-edit.component.html',
 })
 export class BusEditComponent implements OnInit {
