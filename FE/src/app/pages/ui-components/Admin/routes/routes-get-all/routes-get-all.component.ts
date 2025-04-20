@@ -99,9 +99,8 @@ export class RoutesGetAllComponent implements OnInit {
            service: (id: number) =>this.routesService.Delete(Number(id)), }
       });
       dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
         if (result) {
-          console.log('Deleted category:', result);
+          console.log('Delete:', result);
         }
         this.getList();
       });

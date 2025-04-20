@@ -19,4 +19,20 @@ export class BusTypeService extends ApiService {
         return this.get<BusTypeInterface[]>(API_ENDPOINT_AD.bustype.base + API_ENDPOINT_AD.bustype.getList);
     }
 
+    Create(busesData: any): Observable<BusTypeInterface> {
+        return this.post<BusTypeInterface>(API_ENDPOINT_AD.bustype.base + API_ENDPOINT_AD.bustype.create, busesData);
+    }
+
+    getById(id: number): Observable<BusTypeInterface> {
+        return this.get<BusTypeInterface>(API_ENDPOINT_AD.bustype.base + API_ENDPOINT_AD.bustype.getById + '/' + id);
+    }
+
+    Update(id: number, routeData: any): Observable<BusTypeInterface> {
+        return this.patch<BusTypeInterface>(API_ENDPOINT_AD.bustype.base + API_ENDPOINT_AD.bustype.update + '/' + id, routeData);
+    }
+
+    Delete(id: number): Observable<BusTypeInterface> {
+        return this.delete(API_ENDPOINT_AD.bustype.base + API_ENDPOINT_AD.bustype.delete + '/' + id);
+    }
+
 }

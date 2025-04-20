@@ -3,5 +3,5 @@ export interface busesInterface {
     plateNumber: string;
     busTypeId: number;
     status: 'active' | 'inactive';
-    totalSeats: number;
+    totalSeats?: number;
 }

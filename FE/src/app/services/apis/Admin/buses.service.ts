@@ -23,7 +23,6 @@ export class BusesService extends ApiService {
         plateNumber: string;
         busTypeId: number;
         status: 'active' | 'inactive';
-        totalSeats: number;
     }): Observable<busesInterface> {
         return this.post<busesInterface>(API_ENDPOINT_AD.buses.base + API_ENDPOINT_AD.buses.create, busesData);
     }

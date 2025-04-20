@@ -2,7 +2,7 @@
   <main class="flex-1 p-[2rem] bg-white shadow-xl rounded-xl">
       <h2 class="text-2xl font-bold text-gray-800 mb-8">Thông tin chi tiết xe</h2>
       <div class="space-y-8 ">
-        <div class="grid grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 gap-6">
 
           <div class="">
             <label class="block font-medium  text-gray-700  mb-2">Mã số xe</label>
@@ -15,7 +15,7 @@
                 <span *ngIf="plateNumber.errors?.['minlength']">Mã số xe phải có ít nhất 5 ký tự.</span>
               </div>
           </div>
-
+<!-- 
           <div>
             <label class="block font-medium  text-gray-700 mb-2">Tổng số ghế</label>
             <input type="text" [formControl]="totalSeats"
@@ -26,7 +26,7 @@
                 <span *ngIf="totalSeats.errors?.['required']">Tổng số ghế không được bỏ trống.</span>
                 <span *ngIf="totalSeats.errors?.['pattern']">Tổng số ghế phải là số.</span>
               </div>
-          </div>
+          </div> -->
         </div>
   
         <div class="grid grid-cols-2 gap-6">

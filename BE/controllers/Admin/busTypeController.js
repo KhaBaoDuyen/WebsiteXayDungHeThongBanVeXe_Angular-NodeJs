@@ -5,7 +5,9 @@ class BusTypeController {
     //------------------[ GET ]------------------
     static async get(req, res) {
         try {
-            const busType = await BusTypesModel.findAll();
+            const busType = await BusTypesModel.findAll(
+                {order:[['id','DESC']]}
+            );
             res.status(200).json({
                 "status": 200,
                 "message": "Lấy danh sách thành công",
@@ -20,7 +22,14 @@ class BusTypeController {
     static async getById(req, res) {
         try {
             const { id } = req.params;
-            const busType = await BusTypesModel.findByPk(id);
+            const busType = await BusTypesModel.findByPk(id,
+
+                {
+                    order: [[
+                        'id', 'DESC'
+                    ]]
+                }
+            );
 
             if (!busType) {
                 return res.status(404).json({ message: "Id không tồn tại" });
@@ -40,23 +49,34 @@ class BusTypeController {
     // //------------------[ CREATE ]------------------
     static async create(req, res) {
         try {
-            const {
-                typeName
+            const { typeName,
+                totalSeat
             } = req.body;
 
-            const busType = await BusTypesModel.create({
-                typeName
+            const nameBusTYpe = await BusTypesModel.findOne({
+                where: { typeName: typeName }
             });
+
+            if (nameBusTYpe) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Tên loại xe đã tồn tại."
+                });
+            }
+
+            const busType = await BusTypesModel.create({ typeName, totalSeat });
 
             res.status(201).json({
                 success: true,
                 message: "Thêm mới loại xe thành công",
                 busType
             });
+
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
     }
+
 
 
     // //------------------[ UPDATE ]------------------
@@ -65,15 +85,30 @@ class BusTypeController {
             const { id } = req.params;
 
             const {
-                typeName
+                typeName,
+                status,
+                totalSeat
             } = req.body;
 
             const busType = await BusTypesModel.findByPk(id);
             if (!busType) {
                 return res.status(404).json({ message: "Id không tồn tại" });
             }
+            const nameBusTYpe = await BusTypesModel.findOne({
+                where: { typeName: typeName }
+            });
+
+            if (nameBusTYpe) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Tên loại xe đã tồn tại."
+                });
+            }
 
             busType.typeName = typeName;
+            busType.status = status,
+            busType.totalSeat = totalSeat;
+            
 
             await busType.save();
 
@@ -84,9 +119,10 @@ class BusTypeController {
             });
         } catch (error) {
             res.status(500).json({
-                success:false,
+                success: false,
                 message: "Cập nhật loại xe không thành công",
-                error: error.message });
+                error: error.message
+            });
         }
     }
 

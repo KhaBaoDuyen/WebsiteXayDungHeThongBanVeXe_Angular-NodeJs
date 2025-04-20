@@ -1,5 +1,6 @@
 export interface BusTypeInterface {
-    id: number;
-    name: string;
-    status: 'active' | 'inactive';
+    id?: number | string;
+    typeName?: string;
+    status?: 'active' | 'inactive';
+    totalSeat?:number,
   }

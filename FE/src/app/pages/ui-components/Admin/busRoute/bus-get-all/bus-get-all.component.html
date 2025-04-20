@@ -22,10 +22,7 @@
       <td mat-cell *matCellDef="let route" class=" px-4 py-2"> {{ route.buses.plateNumber }} </td>
     </ng-container>
 
-    <ng-container matColumnDef="driverId">
-      <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2 text-gray-700">Tài xế</th>
-      <td mat-cell *matCellDef="let route" class=" px-4 py-2"> {{ route.drivers?.fullName }} </td>
-    </ng-container>
+
 
     <ng-container matColumnDef="departureTime">
       <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2 text-gray-700">Khởi Hành</th>
@@ -45,19 +42,20 @@
     <ng-container matColumnDef="status">
       <th mat-header-cell *matHeaderCellDef class="bg-gray-200 px-4 py-2 text-gray-700 text-center">Trạng Thái</th>
       <td mat-cell *matCellDef="let route" class="px-4 py-2 text-center">
-        <span [ngClass]="{
-          'text-green-700 px-5 bg-green-100 font-semibold rounded-lg': route.status === 'scheduled',
-          'text-blue-700 px-4 bg-blue-200 font-semibold rounded-lg': route.status === 'running',
-          'text-yellow-700 px-4 bg-yellow-200 font-semibold rounded-lg': route.status === 'completed',
-          'text-red-700 bg-red-200 px-6 font-semibold rounded-xl': route.status === 'canceled'
+        <span class="rounded px-4" [ngClass]="{
+          'text-green-700  bg-green-100 font-semibold': route.status === 'scheduled',
+          'text-blue-700  bg-blue-200 font-semibold': route.status === 'running',
+          'text-yellow-700  bg-yellow-200 font-semibold': route.status === 'completed',
+          'text-red-700 bg-red-200  font-semibold': route.status === 'canceled'
         }">
           {{
             route.status === 'scheduled' ? 'Chưa khởi hành' :
-            route.status === 'completed' ? 'Đã hoàn thành' :
-            route.status === 'running' ? 'Đang chạy' :
+            route.status === 'completed' ? 'Đã cập bến' :
+            route.status === 'running' ? 'Đang trong tuyến' :
             route.status === 'canceled' ? 'Hủy' : 'Không xác định'
           }}
         </span>
+        
       </td>
     </ng-container>
 

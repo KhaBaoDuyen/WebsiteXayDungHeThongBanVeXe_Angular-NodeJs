@@ -29,7 +29,7 @@ export class BusesEditComponent {
   plateNumber = new FormControl('', Validators.required);
   busTypeId = new FormControl('', Validators.required);
   status = new FormControl('', Validators.required);
-  totalSeats = new FormControl('', Validators.required);
+  // totalSeats = new FormControl('', Validators.required);
 
   ngOnInit(): void {
     this.busId = Number(this.route.snapshot.paramMap.get('id'));
@@ -55,7 +55,7 @@ export class BusesEditComponent {
         this.plateNumber.setValue(bus.plateNumber);
         this.busTypeId.setValue(bus.busTypeId);
         this.status.setValue(bus.status);
-        this.totalSeats.setValue(bus.totalSeats);
+        // this.totalSeats.setValue(bus.totalSeats);
       },
       error: (err) => {
         console.log('Lỗi khi tải dữ liệu xe!', err);
@@ -68,7 +68,7 @@ export class BusesEditComponent {
       plateNumber: this.plateNumber,
       busTypeId: this.busTypeId,
       status: this.status,
-      totalSeats: this.totalSeats,
+      // totalSeats: this.totalSeats,
     };
 
     Object.values(controls).forEach(control => control.markAsTouched());
@@ -82,7 +82,7 @@ export class BusesEditComponent {
         plateNumber,
         busTypeId: Number(this.busTypeId.value),
         status,
-        totalSeats: Number(this.totalSeats.value)
+        // totalSeats: Number(this.totalSeats.value)
       };
 
       this.busesService.Update(this.busId, data).subscribe({

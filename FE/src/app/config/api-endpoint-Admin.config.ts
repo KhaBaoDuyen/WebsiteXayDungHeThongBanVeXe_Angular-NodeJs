@@ -50,8 +50,12 @@ export const API_ENDPOINT_AD = {
   },
 
   bustype: {
-    base: API_BASE_URL + '/admin'+'/bustype',
+    base: API_BASE_URL + '/admin'+'/busType',
     getList:'/list',
+    getById: '/getId', 
+    create:'/add',
+    update:'/update',
+    delete:'/delete'
 
   },
   blogs: {

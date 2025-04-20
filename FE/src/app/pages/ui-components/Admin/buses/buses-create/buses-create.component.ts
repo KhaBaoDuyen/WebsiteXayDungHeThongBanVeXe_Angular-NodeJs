@@ -49,7 +49,7 @@ export class BusesCreateComponent {
       plateNumber: this.plateNumber,
       busTypeId: this.busTypeId,
       status: this.status,
-      totalSeats: this.totalSeats,
+      // totalSeats: this.totalSeats,
     };
 
     Object.values(controls).forEach(control => control.markAsTouched());
@@ -60,7 +60,7 @@ export class BusesCreateComponent {
 
       const data = {
         busTypeId: Number(this.busTypeId.value),
-        totalSeats: Number(this.totalSeats.value),
+        // totalSeats: Number(this.totalSeats.value),
         plateNumber,
         status,
       };

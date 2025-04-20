@@ -4,7 +4,7 @@ const TripsModel = require('../../models/tripsModel'); */
 
 const { RoutesModel, BusesModel, DriverModel, TripsModel, SeatsModel, BusTypesModel, } = require('../../models/connectModel');
 
-const { Op } = require('sequelize');
+const { Op, where } = require('sequelize');
 class BusesController {
     static async get(req, res) {
         try {
@@ -22,7 +22,10 @@ class BusesController {
                         model: DriverModel,
                         as: 'drivers',
                     }
-                ]
+                ],
+                order:[[
+                    'id','DESC'
+                ]]
             });
             res.status(200).json({
                 "status": 200,
@@ -60,17 +63,24 @@ class BusesController {
             const {
                 plateNumber,
                 busTypeId,
-                status,
-                totalSeats
+                status
             } = req.body;
 
             console.log(req.body);
 
+            const busType = await BusTypesModel.findOne({
+                where: { id: busTypeId,
+                    
+                 },
+                 attributes:['totalSeat']
+            });
+    
+            const seat = busType.totalSeat
             const bus = await BusesModel.create({
                 plateNumber,
                 busTypeId,
                 status,
-                totalSeats
+                totalSeats:seat
             });
 
             if (!bus) {
@@ -78,7 +88,7 @@ class BusesController {
             }
 
             const seatPromises = [];
-            for (let i = 1; i <= totalSeats; i++) {
+            for (let i = 1; i <= seat; i++) {
                 seatPromises.push(
                     SeatsModel.create({
                         busID: bus.id,
@@ -108,20 +118,17 @@ class BusesController {
     static async update(req, res) {
         try {
             const { id } = req.params;
-    
-            let {
+            const {
                 plateNumber,
                 busTypeId,
-                status,
-                totalSeats
+                status
             } = req.body;
     
-            if (!plateNumber || !busTypeId || !status || !totalSeats) {
-                return res.status(400).json({
-                    success: false,
-                    message: "Vui lòng nhập đầy đủ thông tin hợp lệ."
-                });
-            }
+            const busType = await BusTypesModel.findOne({
+                where: { id: busTypeId }
+            });
+    
+            const seat = busType.totalSeat; 
     
             const bus = await BusesModel.findByPk(id);
             if (!bus) {
@@ -133,31 +140,27 @@ class BusesController {
             bus.plateNumber = plateNumber;
             bus.busTypeId = busTypeId;
             bus.status = status;
-            bus.totalSeats = totalSeats;
+            bus.totalSeats = seat;
     
             await bus.save();
     
-           
-            if (parseInt(totalSeats) !== parseInt(oldTotalSeats)) {
+            if (parseInt(seat) !== parseInt(oldTotalSeats)) {
                 const currentSeats = await SeatsModel.findAll({
                     where: { busID: id },
                     order: [['seatNumber', 'ASC']]
                 });
     
-               
-                if (parseInt(totalSeats) < currentSeats.length) {
-                    const seatsToRemove = currentSeats.slice(totalSeats);
+                if (parseInt(seat) < currentSeats.length) {
+                    const seatsToRemove = currentSeats.slice(seat);
                     for (const seat of seatsToRemove) {
                         await seat.destroy();
                     }
-                } 
-
-                else {
-                    for (let i = currentSeats.length + 1; i <= totalSeats; i++) {
+                } else {
+                    for (let i = currentSeats.length + 1; i <= seat; i++) {
                         await SeatsModel.create({
                             busID: id,
                             seatNumber: `G${i}`,
-                            status: 'empty'  
+                            status: 'empty'
                         });
                     }
                 }
@@ -177,7 +180,8 @@ class BusesController {
         }
     }
     
-    
+
+
     // //------------------[ DELETE ]------------------
     static async delete(req, res) {
         try {
@@ -187,13 +191,13 @@ class BusesController {
             if (!bus) {
                 return res.status(404).json({ message: "Id không tồn tại" });
             }
-    
+
             await SeatsModel.destroy({
                 where: { busID: id }
             });
-    
+
             await bus.destroy();
-    
+
             res.status(200).json({
                 success: true,
                 message: "Xóa loại xe và ghế liên quan thành công"
@@ -216,7 +220,7 @@ class BusesController {
                     status: "inactive"
                 }
             });
-    
+
             res.status(200).json({
                 status: 200,
                 success: true,
@@ -230,18 +234,18 @@ class BusesController {
 
     static async getAllByStatusEdit(req, res) {
         try {
-            const { tripId } = req.params; 
+            const { tripId } = req.params;
             const trip = await TripsModel.findOne({ where: { id: tripId } });
 
             const bus = await BusesModel.findAll({
                 where: {
                     [Op.or]: [
                         { status: 'inactive' },
-                        { id: trip.busID } 
+                        { id: trip.busID }
                     ]
                 }
             });
-    
+
             res.status(200).json({
                 status: 200,
                 message: "Lấy danh sách tài xế cho chỉnh sửa thành công!",

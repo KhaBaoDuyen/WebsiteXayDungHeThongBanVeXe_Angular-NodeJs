@@ -11,6 +11,14 @@ const BusTypesModel = connection.define('BusTypes',{
         type: DataTypes.STRING,
         allowNull: true,
     },
+    totalSeat:{
+        type: DataTypes.NUMBER,
+        allowNull: true
+    },
+    status: {
+        type: DataTypes.ENUM('active', 'inactive'),
+        allowNull: true
+      }
 }, {
     tableName: 'busTypes',
     timestamps: false,

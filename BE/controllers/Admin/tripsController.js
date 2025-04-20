@@ -9,7 +9,10 @@ class TripsController {
                     { model: RoutesModel, as: 'routes' },
                     { model: BusesModel, as: 'buses' },
                     { model: DriverModel, as: 'drivers' }
-                ]
+                ],
+                order:[[
+                    'id','DESC'
+                ]]
             });
             res.status(200).json({ status: 200, message: "Lấy danh sách thành công!", data: trips });
         } catch (error) {
@@ -195,7 +198,7 @@ class TripsController {
                 await DriverModel.update({ status: 'inactive' }, { where: { id: driverId } });
             }
 
-            res.status(200).json({ status: 200, message: "Xóa thành công!", data: trip });
+            res.status(200).json({success:true, status: 200, message: "Xóa thành công!", data: trip });
         } catch (error) {
             res.status(500).json({ error: error.message });
         }

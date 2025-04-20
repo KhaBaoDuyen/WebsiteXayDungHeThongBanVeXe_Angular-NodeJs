@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -8,6 +8,9 @@ import { RouterModule } from '@angular/router';
 import { BusTypeInterface } from 'src/app/interface/bus-type.interface';
 import { FormDeleteComponent } from 'src/app/components/form-delete/form-delete.component';
 import { FormSearchComponent } from '../../../../../components/form-search/form-search.component';
+import { BusTypeService } from 'src/app/services/apis/Admin/bustype.service';
+import { NotificationService } from 'src/app/services/notification.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-bustype-get-all',
@@ -20,51 +23,64 @@ import { FormSearchComponent } from '../../../../../components/form-search/form-
     CommonModule,
     MatPaginatorModule,
     RouterModule,
-    FormDeleteComponent, 
+    FormDeleteComponent,
     FormSearchComponent,
   ],
 })
-export class BustypeGetAllComponent {
-  displayedColumns: string[] = ['id', 'name', 'status', 'actions'];
-  dataSource = new MatTableDataSource<BusTypeInterface>([
-    { id: 1, name: 'Xe Buýt Thành Phố', status: 'active' },
-    { id: 2, name: 'Xe Buýt Cao Cấp', status: 'inactive' },
-  ]);
+export class BustypeGetAllComponent implements OnInit {
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
+  displayedColumns: string[] = ['id', 'typeName', 'totalSeat', 'status', 'actions'];
+  dataSource = new MatTableDataSource<BusTypeInterface>();
   searchTerm: string = '';
 
-  showFormDelete = false; 
-  busTypeId: number | null = null;
+  constructor(
+    private busTypeService: BusTypeService,
+    private notificationService: NotificationService,
+    private dialog: MatDialog
+  ) { }
 
-  openDeleteConfirmation(busTypeId: number) {
-    this.busTypeId = busTypeId;
-    this.showFormDelete = true;
+  ngOnInit(): void {
+    this.getList();
   }
 
-  handleDeleteConfirmed() {
-    if (this.busTypeId !== null) {
-      this.dataSource.data = this.dataSource.data.filter(
-        (driver) => driver.id !== this.busTypeId
-      );
-    }
-    this.showFormDelete = false;
+  ngAfterViewInit() {
+    this.dataSource.paginator = this.paginator;
   }
 
-  handleCancel() {
-    this.showFormDelete = false;
+  getList() {
+    this.busTypeService.List().subscribe({
+      next: (res: any) => {
+        // console.log(res)
+        if (res && res.data && Array.isArray(res.data)) {
+          this.dataSource.data = res.data;
+        } else {
+          this.dataSource.data = [];
+        }
+      },
+      error: (err: any) => {
+        console.error('Error data:', err);
+      }
+    });
   }
 
   handleSearch(searchTerm: string) {
-    this.searchTerm = searchTerm; 
+    this.searchTerm = searchTerm;
+    this.dataSource.filter = searchTerm.trim().toLowerCase();
+  }
 
-    if (!searchTerm.trim()) {
-      this.dataSource.data = [
-        { id: 1, name: 'Xe Buýt Thành Phố', status: 'active' },
-        { id: 2, name: 'Xe Buýt Cao Cấp', status: 'inactive' },
-      ];
-    } else {
-      this.dataSource.data = this.dataSource.data.filter(route =>
-        route.name.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-    }
+  openDeleteDialog(id: Number): void {
+    const dialogRef = this.dialog.open(FormDeleteComponent, {
+      data: {
+        id: id,
+        service: (id: number) => this.busTypeService.Delete(Number(id)),
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('Deleted category:', result);
+      }
+      this.getList();
+    });
   }
 }
