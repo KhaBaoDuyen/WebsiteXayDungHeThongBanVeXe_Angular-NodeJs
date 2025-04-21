@@ -112,14 +112,14 @@ class PaymentController {
                     booking.finalPrice
                 );
 
-                return res.redirect('http://localhost:4200/timetable?success=true');
+                return res.redirect('http://localhost:4200/timetable?payment=success');
 
             } else {
                 //  khi thất bại
                 await booking.update({ 
                     paymentStatus: "failed" 
                 });
-                return res.redirect('http://localhost:4200/timetable?success=false');
+                return res.redirect('http://localhost:4200/timetable?payment=failed');
             }
 
         } catch (error) {

@@ -1,9 +1,10 @@
 import { HomeService } from 'src/app/services/apis/Client/home.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SearchDataService } from 'src/app/services/apis/Client/search-data.service';
 import { Subscription } from 'rxjs';
+import { NotificationService } from 'src/app/services/notification.service';
 
 @Component({
   selector: 'app-timetable',
@@ -11,6 +12,7 @@ import { Subscription } from 'rxjs';
     RouterModule,
   ],
   templateUrl: './timetable.component.html',
+  styleUrl:'./timeTable.scss'
 })
 export class TimetableComponent implements OnInit, OnDestroy {
   tripsData: any[] = [];
@@ -18,10 +20,15 @@ export class TimetableComponent implements OnInit, OnDestroy {
   private sub: Subscription = new Subscription();
   allTripsData: any;
   tripId: number;
+  showSuccessPopup = false;
+
 
   constructor(private router: Router,
     private homeService: HomeService,
-    private searchDataService: SearchDataService
+    private searchDataService: SearchDataService,
+    private route: ActivatedRoute,
+    private notificationService: NotificationService,
+
   ) { }
 
   ngOnInit() {
@@ -33,6 +40,16 @@ export class TimetableComponent implements OnInit, OnDestroy {
         this.getData();
       }
     });
+    const queryParams = this.route.snapshot.queryParams;
+
+    if (queryParams['payment'] === 'success') {
+      this.showSuccessPopup = true;
+      setTimeout(() => this.showSuccessPopup = false, 3000);
+    } else if (queryParams['payment'] === 'failed') {
+      this.notificationService.showError('Thanh toán thất bại. Vui lòng thử lại.');
+    }
+
+
   }
 
 

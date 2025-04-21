@@ -35,17 +35,16 @@ export class HomeComponent implements OnInit {
   }
   
   handleSearch(): void {
-    // const day = new Date();
-    // const travleTime = day.toISOString();  
     const body = {
       startPoint: this.selectedStartPoint?.trim(),
       endPoint: this.selectedEndPoint?.trim(),
+      travelTime: new Date(),
     };
   
     this.homeService.Search(body).subscribe({
       next: (res: any) => {
         if (res?.success) {
-          this.searchDataService.setTripsData(res.data);
+          this.searchDataService.setTripsData(res.data); // <- phát sóng dữ liệu mới
           if (this.router.url !== '/timetable') {
             this.router.navigate(['/timetable']);
           }

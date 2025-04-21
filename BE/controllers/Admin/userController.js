@@ -4,7 +4,11 @@ const bcrypt = require('bcryptjs');
 class UserController {
     static async get(req, res) {
         try {
-            const users = await UserModel.findAll();
+            const users = await UserModel.findAll({
+                order:[[
+                    'id','DESC'
+                ]]
+            });
             res.status(200).json({
                 status: 200,
                 success: true,

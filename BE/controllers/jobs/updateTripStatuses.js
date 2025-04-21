@@ -2,7 +2,7 @@ require('dotenv').config({ path: require('path').resolve(__dirname, '../../.env'
 const { Sequelize } = require('sequelize');
 const axios = require('axios');
 const cron = require('node-cron');
-const { TripsModel, BusesModel, DriverModel } = require('../../models/connectModel');
+const { TripsModel, BusesModel, DriverModel,SeatsModel, BookingModel } = require('../../models/connectModel');
 const { Op } = require('sequelize');
 
 const formatVNTime = (date) => {
@@ -14,7 +14,7 @@ const formatVNTime = (date) => {
 async function updateTripStatuses() {
     const now = new Date();
     const vnNow = new Date(now.getTime() + 7 * 60 * 60 * 1000);
-    
+
     console.log("⏰ UTC now:", now.toISOString());
     console.log("⏰ Việt Nam now:", formatVNTime(now));
 
@@ -41,6 +41,15 @@ async function updateTripStatuses() {
 
         await BusesModel.update({ status: 'active' }, { where: { id: trip.busID } });
         await DriverModel.update({ status: 'active' }, { where: { id: trip.driverId } });
+        // await BookingModel.update(
+        //     { status: 'confirmed' },
+        //     {
+        //         where: {
+        //             startDate: trip.departureTime
+        //         }
+        //     }
+        // );
+        
     }
 
     // Chuyển từ running => completed
@@ -64,6 +73,10 @@ async function updateTripStatuses() {
 
         await BusesModel.update({ status: 'inactive' }, { where: { id: trip.busID } });
         await DriverModel.update({ status: 'inactive' }, { where: { id: trip.driverId } });
+        // await SeatsModel.update(
+        //     { status: 'empty' },
+        //     { where: { busID: trip.busID } }
+        // );
     }
 }
 
