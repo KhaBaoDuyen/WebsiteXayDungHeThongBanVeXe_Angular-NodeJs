@@ -6,7 +6,9 @@ const TripsModel = require('../../models/tripsModel');
 class DriverController {
     static async get(req, res) {
         try {
-            const driver = await DriverModel.findAll();
+            const driver = await DriverModel.findAll({
+                order:[['id', 'DESC']]
+            });
             res.status(200).json({
                 "status": 200,
                 success: true,

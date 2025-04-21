@@ -13,7 +13,7 @@ import { BusesService } from '../../../../../services/apis/Admin/buses.service';
   templateUrl: './buses-create.component.html',
 })
 export class BusesCreateComponent {
- constructor(
+  constructor(
     private bustypeService: BusTypeService,
     private notificationService: NotificationService,
     private busesService: BusesService,
@@ -27,7 +27,7 @@ export class BusesCreateComponent {
   status = new FormControl('', Validators.required);
   totalSeats = new FormControl('', Validators.required);
 
-  
+
   ngOnInit(): void {
     this.loadOptions();
   }
@@ -35,7 +35,7 @@ export class BusesCreateComponent {
   loadOptions() {
     this.bustypeService.List().subscribe({
       next: (bustype: any) => {
-        console.log('Dữ liệu loai xe:', bustype); 
+        console.log('Dữ liệu loai xe:', bustype);
         this.bustypeOption = bustype.data || [];
       },
       error: (err) => {
@@ -72,7 +72,7 @@ export class BusesCreateComponent {
           this.router.navigate(['/admin/busesGetAll']);
         },
         error: (err) => {
-          this.notificationService.showError('Thêm thất bại!');
+          this.notificationService.showError(err.error?.message || 'Có lỗi xảy ra');
           console.error(err);
         }
       });

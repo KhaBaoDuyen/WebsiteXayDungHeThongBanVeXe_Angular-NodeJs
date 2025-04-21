@@ -54,12 +54,15 @@
     <div class="w-[70%] p-10">
         <div class="flex justify-between align-items-center ">
             <h1 class="font-awesome text-2xl font-bold pt-4">Điểm đi - Điểm đến </h1>
-            <button 
-            class="px-4 py-1 border border-orange-500 text-orange-500 rounded hover:bg-orange-500 hover:text-white  transition"
-            (click)="resetToAll()">
-            Tất cả
-          </button>
-                  </div>
+            <button
+                class="px-4 py-1 border border-orange-500 text-orange-500 rounded hover:bg-orange-500 hover:text-white  transition"
+                (click)="resetToAll()">
+                Tất cả
+            </button>
+        </div>
+        <ng-container *ngIf="tripsData.length === 0">
+            <p class="text-blue-950 mt-5">Không tìm thấy tuyến xe phù hợp</p>
+        </ng-container>
         <div *ngFor="let route of tripsData" class="bg-white rounded p-15 w-full my-3">
             <div *ngIf="route.trips && route.trips.length > 0; else noTrips">
                 <table *ngFor="let trip of route.trips" class="w-full p-2">
@@ -93,7 +96,8 @@
                         </td>
 
                         <td class="py-2 w-[18%]">
-                            <a [routerLink]="['/booktickets', route.routeId]" class="px-4 py-2 bg-orange-500 hover:bg-orange-600 rounded-full text-white">
+                            <a [routerLink]="['/booktickets', route.routeId]"
+                                class="px-4 py-2 bg-orange-500 hover:bg-orange-600 rounded-full text-white">
                                 Chọn chuyến
                             </a>
                         </td>
@@ -106,5 +110,22 @@
             <p class="text-blue-950">Không tìm thấy tuyến xe phù hợp</p>
         </ng-template>
 
+    </div>
+
+    
+    <div
+    *ngIf="showSuccessPopup"
+    class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+  >
+    <div class="bg-white rounded-2xl shadow-lg p-10 text-center animate-popup border-t-8 border-[#0F3079]">
+      <div class="flex justify-center mb-4">
+        <div class="checkmark-circle">
+          <div class="background bg-[#0F3079]"></div>
+          <div class="checkmark draw"></div>
+        </div>
+      </div>
+      <h2 class="text-2xl font-semibold text-[#0F3079]">Thanh toán thành công!</h2>
+      <p class="mt-2 text-gray-700">Cảm ơn bạn đã đặt vé.</p>
+    </div>
     </div>
 </main>

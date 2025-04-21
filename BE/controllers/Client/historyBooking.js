@@ -61,54 +61,54 @@ class HistoryBookingController {
             }
 
 
-            // await BookingModel.update(
-            //     {
-            //         status: 'canceled',
-            //         note: note
-            //     },
-            //     {
-            //         where: {
-            //             id: id
-            //         },
-            //         returning: true // trả về các bảng ghi được cập nhật
-            //     }
-            // );
+            await BookingModel.update(
+                {
+                    status: 'canceled',
+                    note: note
+                },
+                {
+                    where: {
+                        id: id
+                    },
+                    returning: true // trả về các bảng ghi được cập nhật
+                }
+            );
 
-            //     const booking = await BookingModel.findOne({
-            //         where: { id: id },
-            //         include: [
-            //             {
-            //                 model: BookingDetailModel,
-            //                 as: 'bookingDetails',
-            //                 include: [
-            //                     {
-            //                         model: SeatsModel,
-            //                         as: 'bookingSeats'
-            //                     }
-            //                 ]
-            //             }
-            //         ]
-            //     });
+                const booking = await BookingModel.findOne({
+                    where: { id: id },
+                    include: [
+                        {
+                            model: BookingDetailModel,
+                            as: 'bookingDetails',
+                            include: [
+                                {
+                                    model: SeatsModel,
+                                    as: 'bookingSeats'
+                                }
+                            ]
+                        }
+                    ]
+                });
 
-            //     if (booking) {
-            //         for (const detail of booking.bookingDetails) {
-            //             if (detail.seatId) {
-            //                 await SeatsModel.update(
-            //                     { status: "empty" }, 
-            //                     {
-            //                         where: {
-            //                             id: detail.seatId
-            //                         }
-            //                     }
-            //                 );
-            //             }
-            //         }
-            //     }
+                if (booking) {
+                    for (const detail of booking.bookingDetails) {
+                        if (detail.seatId) {
+                            await SeatsModel.update(
+                                { status: "empty" }, 
+                                {
+                                    where: {
+                                        id: detail.seatId
+                                    }
+                                }
+                            );
+                        }
+                    }
+                }
 
-            // return res.status(200).json({
-            //     success: true,
-            //     message: 'Vé đã được hủy thành công .'
-            // });
+            return res.status(200).json({
+                success: true,
+                message: 'Vé đã được hủy thành công .'
+            });
 
 
 

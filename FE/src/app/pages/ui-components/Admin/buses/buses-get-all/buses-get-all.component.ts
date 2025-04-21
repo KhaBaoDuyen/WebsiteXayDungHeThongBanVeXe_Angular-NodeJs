@@ -29,7 +29,7 @@ import { BusesService } from '../../../../../services/apis/Admin/buses.service';
   templateUrl: './buses-get-all.component.html',
 })
 export class BusesGetAllComponent implements OnInit {
-displayedColumns: string[] = ['id', 'plateNumber', 'busTypeID','totalSeats','status','actions'];
+displayedColumns: string[] = ['id', 'plateNumber', 'busTypeID','status','actions'];
   dataSource = new MatTableDataSource<busesInterface>([]);
 
   showDeleteConfirmation = false; 

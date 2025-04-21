@@ -26,7 +26,6 @@ export class BookticketsComponent {
   totelSeat: number = 0;
   totalPrice: number = 0;
   userId: number | string;
-  showSuccessPopup = false;
 
   private jwtHelperService = new JwtHelperService();
 
@@ -123,32 +122,27 @@ export class BookticketsComponent {
       selectedSeats: this.selectedSeat,
       payment_method: Number(selectedPaymentMethod)
     };
-    
+
 
     this.bookingService.Create(bookingData).subscribe({
       next: (res: any) => {
         if (res.success) {
           if (bookingData.payment_method === 2 && res.paymentUrl) {
-            //  thanh toán vnpay
             window.location.href = res.paymentUrl;
-            // this.router.navigateByUrl(res.paymentUrl);
-            return;
-          }
-    
-          //  thanh toán tiền mặt
-          this.notificationService.showSuccess(res.message);
-          this.showSuccessPopup = true;
-          setTimeout(() => {
-            this.showSuccessPopup = false;
+          }else {
+            // Thanh toán tiền mặt
+            this.notificationService.showSuccess(res.message || "Đặt vé thành công.");
             this.router.navigate(['/timetable']);
-          }, 3000);
+          }
+        } else {
+          this.notificationService.showError(res.message || 'Đặt vé thất bại');
         }
       },
       error: (err: any) => {
-        this.notificationService.showError(err.error?.message);
-      },
+        this.notificationService.showError(err.error?.message || 'Có lỗi xảy ra khi đặt vé');
+      }
     });
-    
+
 
   }
 }
