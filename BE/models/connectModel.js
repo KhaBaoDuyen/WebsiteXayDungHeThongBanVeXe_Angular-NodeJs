@@ -41,12 +41,22 @@ ResetToken.belongsTo(UserModel, { foreignKey: 'userId', as: 'user' });
 UserModel.hasMany(ResetToken, { foreignKey: 'userId', as: 'resetTokens' });
 
 // Booking - BookingDetail
-BookingModel.hasMany(BookingDetailModel, { foreignKey: 'bookingId', as: 'bookingDetails' });
-BookingDetailModel.belongsTo(BookingModel, { foreignKey: 'bookingId', as: 'booking' });
+/* BookingModel.hasMany(BookingDetailModel, { foreignKey: 'bookingId', as: 'bookingDetails' });
+BookingDetailModel.belongsTo(BookingModel, { foreignKey: 'bookingId', as: 'booking' }); */
+BookingModel.hasMany(BookingDetailModel, {
+    foreignKey: 'bookingId',
+    as: 'bookingDetails',
+    onDelete: 'CASCADE',
+});
+BookingDetailModel.belongsTo(BookingModel, {
+    foreignKey: 'bookingId',
+    as: 'booking',
+});
+
 
 // BookingDetail - Seat
 SeatsModel.hasMany(BookingDetailModel, { foreignKey: 'seatId', as: 'seatBookings' });
-BookingDetailModel.belongsTo(SeatsModel, { foreignKey: 'seatId',as:'bookingSeats' });
+BookingDetailModel.belongsTo(SeatsModel, { foreignKey: 'seatId', as: 'bookingSeats' });
 
 
 module.exports = {
