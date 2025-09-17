@@ -4,7 +4,9 @@ class BookingController {
     // Lấy tất cả booking
     static async get(req, res) {
         try {
-            const bookings = await BookingModel.findAll();
+            const bookings = await BookingModel.findAll({
+                order:[['id','DESC']]
+            });
             res.status(200).json({
                 success: true,
                 message: "Lấy danh sách đặt vé thành công",
@@ -25,7 +27,9 @@ static async getcanceled (req, res) {
         const bookings = await BookingModel.findAll({
             where: {
                 status: 'canceled'
-            }
+            },
+            order:[['id','DESC']]
+
         });
         res.status(200).json({
             success: true,
@@ -47,7 +51,9 @@ static async getconfirmed (req, res) {
         const bookings = await BookingModel.findAll({
             where: {
                 status: 'confirmed'
-            }
+            },
+            order:[['id','DESC']]
+
         });
         res.status(200).json({
             success: true,

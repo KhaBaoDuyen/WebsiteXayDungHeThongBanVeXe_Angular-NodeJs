@@ -48,7 +48,7 @@ export class BustypeCreateComponent {
     this.bustypeService.Create(data).subscribe({
       next: (res) => {
         this.notificationService.showSuccess('Thêm loại xe thành công!');
-        this.router.navigate(['/admin/busesGetAll']);
+        this.router.navigate(['/admin/busTypeGetAll']);
       },
       error: (err) => {
         this.notificationService.showError('Thêm thất bại!');

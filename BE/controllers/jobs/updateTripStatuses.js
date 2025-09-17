@@ -41,14 +41,14 @@ async function updateTripStatuses() {
 
         await BusesModel.update({ status: 'active' }, { where: { id: trip.busID } });
         await DriverModel.update({ status: 'active' }, { where: { id: trip.driverId } });
-        // await BookingModel.update(
-        //     { status: 'confirmed' },
-        //     {
-        //         where: {
-        //             startDate: trip.departureTime
-        //         }
-        //     }
-        // );
+        await BookingModel.update(
+            { status: 'confirmed' },
+            {
+                where: {
+                    startDate
+                }
+            }
+        );
         
     }
 

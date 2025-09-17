@@ -16,7 +16,7 @@ const transporter = nodemailer.createTransport({
 
 cron.schedule('* * * * *', async () => {
   try {
-    const response = await axios.get('http://localhost:3001/admin/booking/list');
+    const response = await axios.get('http://localhost:3001/admin/bookings/list');
     const bookings = response.data.data;
     console.log('📋 Số booking lấy về:', bookings.length);
 

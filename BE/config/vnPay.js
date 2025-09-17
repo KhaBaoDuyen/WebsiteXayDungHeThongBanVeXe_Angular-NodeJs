@@ -1,8 +1,8 @@
 module.exports = {
     VNPAY_CONFIG: {
        vnpUrl: 'https://sandbox.vnpayment.vn/paymentv2/vpcpay.html',
-       vnpTmnCode: 'LQF1OTAU',
-       vnpHashSecret: 'RC362O58GB784GOPKFTPD9UXXL9QWWGB'
+       vnpTmnCode: '2KU41SC6',
+       vnpHashSecret: 'YTM76HALR23F90YJSQXGWV5KBEVICQK9'
     }
  };
  
